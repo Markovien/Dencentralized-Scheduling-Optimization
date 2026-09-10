@@ -82,11 +82,11 @@ we exhibit a two-vehicle instance whose core is provably empty. Stability is the
 certified per instance through the least-core radius, which we compute exactly for all
 \jnum{bench.instances} benchmark instances; the core is empty on
 \jnum{e3.core.empty.rate}\,\% of them, and even the most stable allocation leaves some
-coalition short by a mean of \jnum{e3.eps.ratio.abs.mean} of the total savings. Decentralised merge--split coalition formation
-recovers \jnum{e4.value.ratio.mean}\,\% of the grand-coalition savings using coalitions of
-at most \jnum{e4.maxblock.max} agents (mean \jnum{e4.maxblock.mean}) and
-\jnum{e4.messages.mean} bilateral messages, and
-Nash bargaining between the production and logistics blocs selects a trade-off weight of
+coalition short by a mean of \jnum{e3.eps.ratio.abs.mean} of the total savings.
+Decentralised merge--split coalition formation recovers
+\jnum{e4.value.ratio.mean}\,\% of the grand-coalition savings using coalitions of at most
+\jnum{e4.maxblock.max} agents and \jnum{e4.messages.mean} bilateral messages, and Nash
+bargaining between the production and logistics blocs selects a trade-off weight of
 \jnum{e5.omega.nbs.mean} rather than leaving it to be assumed. Code, benchmark and every
 reported number are released.
 \end{abstract}
@@ -303,7 +303,9 @@ $(T_{i,1}, O_{i,1}, T_{i,2}, \dots, O_{i,m_i}, T_{i,m_i+1})$ and the makespan $C
 measured to the \emph{last return to $LU$}. Transport task $T_{i,k}$ moves the part from
 $\mathrm{prev}(i,k)$ to $\mathrm{dest}(i,k)$ in $\tau_{i,k}=t_{\mathrm{prev}(i,k),\mathrm{dest}(i,k)}$.
 
-Decisions are event-driven and taken by the resources themselves. An idle machine chooses
+Figure~\ref{fig:gantt} shows an equilibrium schedule of one instance laid over its tariff
+profile, which is the clearest picture of what the problem asks. Decisions are event-driven
+and taken by the resources themselves. An idle machine chooses
 which buffered job to start and, from a finite ToU-aligned grid $\mathcal{D}$, how long to
 defer it. A free vehicle chooses a precedence-ready transport task or a charging visit,
 again with a deferral from $\mathcal{D}$. Decisions occur only at events --- a vehicle
@@ -995,7 +997,7 @@ price of anarchy remains open (Section~\ref{sec:limitations}).
 
 \subsection{Method comparison}
 \label{sec:res-e1}
-Table~\ref{tab:e1} reports the main comparison at $\omega=0.5$. The Friedman test across the
+Table~\ref{tab:e1} and Figure~\ref{fig:e1} report the main comparison at $\omega=0.5$. The Friedman test across the
 seven methods over \jnum{bench.instances} instances is significant
 ($\chi^2=\jnum{e1.friedman.stat}$, $p=\jnum{e1.friedman.p}$), with a Nemenyi critical
 difference of \jnum{e1.friedman.cd} mean ranks. The diagram separates the two game methods
@@ -1039,13 +1041,16 @@ right quantity locally. It achieves what it sets out to: its mean energy bill,
 deadline-feasibility rate of \jnum{e1.drtou.deadline.rate}\,\% against
 \jnum{e1.m1a.deadline.rate}\,\% for $M1a$. Energy awareness without a feasibility safeguard
 is worse than no energy awareness at all, which is precisely the risk that motivates the
-remaining-work bound of Section~\ref{sec:deadline}.
+remaining-work bound of Section~\ref{sec:deadline}. The critical-difference diagram
+(Figure~\ref{fig:cd}) puts it last by a margin larger than the critical difference, and
+Figure~\ref{fig:runtime} shows that its speed advantage buys nothing.
 
 Third, \textbf{best response converges immediately}. $M1a$ needs
 \jnum{e1.m1a.iterations.mean} round-robin iterations per event on average over
 \jnum{e1.m1a.stages.mean} events, and the largest $\varepsilon$-Nash certificate observed
 anywhere in the benchmark is \jnum{e1.m1a.epsne.max} --- the committed profiles are exact
-stage equilibria, as Theorem~\ref{thm:t1} requires. The iteration cap never binds.
+stage equilibria, as Theorem~\ref{thm:t1} requires. Figure~\ref{fig:potential} traces the
+potential over an episode. The iteration cap never binds.
 
 The deadlock rates make the second point sharper. The safeguard of
 Section~\ref{sec:deadline} never fires for $\pi_0$, for the game methods or for
@@ -1133,8 +1138,9 @@ $\varepsilon^\star<0$ on \jnum{e3.core.empty.count} of \jnum{bench.instances} in
 \jnum{e3.shapley.incore.rate}\,\%. The mean least-core radius is
 $\varepsilon^\star/v(N)=\jnum{e3.eps.ratio.mean}$ (median \jnum{e3.eps.ratio.median}, worst
 \jnum{e3.eps.ratio.worst}): the most stable allocation still leaves some coalition short by
-\jnum{e3.eps.ratio.abs.mean} of what it could secure by seceding. The submodularity sampling test agrees:
-the diminishing-returns inequality is violated on \jnum{e3.submod.violation.mean}\,\% of
+\jnum{e3.eps.ratio.abs.mean} of what it could secure by seceding. Figure~\ref{fig:savings} shows what this looks like on one instance: the marginal value of
+an extra coalition member flattens instead of accumulating to $v(N)$. The submodularity
+sampling test agrees: the diminishing-returns inequality is violated on \jnum{e3.submod.violation.mean}\,\% of
 sampled triples on average (range \jnum{e3.submod.violation.min}--%
 \jnum{e3.submod.violation.max}\,\%).
 
@@ -1211,7 +1217,8 @@ Over the equilibrium front, Nash bargaining selects
 $\omega^{\mathrm{NBS}}=\jnum{e5.omega.nbs.mean}\pm\jnum{e5.omega.nbs.std}$ (median
 \jnum{e5.omega.nbs.median}); Kalai--Smorodinsky selects \jnum{e5.omega.ks.mean}, and the two
 agree on the operating point on \jnum{e5.nbs.ks.agree.rate}\,\% of instances. Fronts contain
-\jnum{e5.front.size.mean} distinct non-dominated points on average.
+\jnum{e5.front.size.mean} distinct non-dominated points on average;
+Figure~\ref{fig:front} shows one, with the disagreement point and both solutions marked.
 
 \begin{figure}[t]
 \centering

@@ -1,0 +1,72 @@
+\documentclass[11pt]{letter}
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage[T1]{fontenc}
+\signature{Kader Sanogo, on behalf of all authors}
+\address{Research Institute of Science and Engineering (RISE)\\University of Sharjah\\Sharjah, United Arab Emirates\\ksanogo@sharjah.ac.ae}
+
+\begin{document}
+\begin{letter}{The Editor-in-Chief\\\textit{Engineering Applications of Artificial Intelligence}\\Elsevier}
+
+\opening{Dear Editor,}
+
+We submit for your consideration the manuscript \textit{``Cooperative and non-cooperative
+game-theoretic scheduling of production machines and battery-constrained autonomous vehicles
+under time-of-use tariffs''} as an original research article.
+
+\textbf{What the paper does.} It develops a decentralised mechanism for scheduling a job shop
+in which every operation is preceded by a transport leg carried out by a finite-battery
+autonomous vehicle, electricity is priced by a time-of-use tariff, the charging station has
+finite capacity, and the planning horizon is a hard deadline. Machines and vehicles decide
+for themselves, at events rather than on a time grid. We prove that each stage game is an
+exact potential game whose price of stability is one, and then --- this is the paper's centre
+of gravity --- we analyse the \emph{cooperative} question that potential games leave open:
+whether the agents would stay in the arrangement if they could renegotiate, and how the
+savings should be divided.
+
+\textbf{What is new, and why it is not the expected answer.} The natural hypothesis is that
+coordination has diminishing returns, so the coalition cost is submodular, the savings game
+convex, and the core non-empty with the Shapley value inside it. We show this is false for
+this problem. A scarce shared resource that saturates makes the coalition cost
+\emph{supermodular}; we exhibit a two-vehicle instance whose core is provably empty, and we
+find the same obstruction on essentially every instance of the classical benchmark. Stability
+must therefore be \emph{certified} rather than asserted, and we certify it per instance
+through the least-core radius, computed exactly. Reporting a certified radius is a weaker
+claim than a core-existence theorem, and a true one. Around that result we contribute
+decentralised coalition-structure generation that recovers almost all of the
+grand-coalition value through pairwise agreements, and a bargaining derivation of the
+makespan--energy weight that scalarised bi-objective scheduling normally leaves to the
+author.
+
+\textbf{Fit with EAAI.} The contribution is a mechanism with proofs applied to an engineering
+system: equilibrium analysis, coalitional stability and mechanism design, evaluated on a
+standard manufacturing benchmark. That is EAAI's centre rather than its periphery, and the
+formal content is the contribution rather than an ornament on an empirical study.
+
+\textbf{Relation to our own prior work.} We have previously applied potential games with
+marginal-contribution utilities to job-shop scheduling with transport (Sanogo et al.,
+\textit{Computers \& Industrial Engineering}, 2025; \textit{Journal of Manufacturing
+Systems}, 2025). We do not claim the non-cooperative mechanism as new and we say so
+explicitly in the introduction. What is new here is: time-of-use tariffs and battery and
+charging decisions as first-class decision variables; the entire cooperative layer, which has
+no counterpart in that work; a corrected equilibrium theory, in which the potential property
+is proved at the scope at which it actually holds; and an exact constraint-programming
+reference for the combined problem. No text is reused.
+
+\textbf{Reproducibility.} Every numerical value in the manuscript resolves to a key in a
+machine-readable registry produced by a recorded run; no numeral in a results sentence is
+typed by hand. The released artefact contains the simulator, all solution concepts, the
+benchmark with regenerated tariff profiles, and a test for each formal result that fails if
+the result is false --- including a regression test pinning the counterexample whose core
+must come out empty. We also report, in the paper itself, what we did \emph{not} establish:
+the exact model does not close the full problem on most instances, so no empirical price of
+anarchy is reported, and one proposition is stated conditionally because a proof step remains
+open.
+
+The manuscript is original, is not under consideration elsewhere, and all authors have
+approved this submission. We declare no competing interests.
+
+\closing{Yours sincerely,}
+
+\end{letter}
+\end{document}
