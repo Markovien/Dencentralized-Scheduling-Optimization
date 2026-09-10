@@ -3,10 +3,10 @@
 Decentralised game-theoretic scheduling of production machines and battery-constrained
 autonomous intelligent vehicles (AIVs) under time-of-use electricity tariffs.
 
-Reference implementation and reproducible artefact for **Paper A** — *Cooperative and
-non-cooperative game-theoretic scheduling of production machines and battery-constrained
-autonomous vehicles under time-of-use tariffs* (target venue: *Engineering Applications of
-Artificial Intelligence*).
+Reference implementation and reproducible artefact for *Cooperative and non-cooperative
+game-theoretic scheduling of production machines and battery-constrained autonomous vehicles
+under time-of-use tariffs* (target venue: *Engineering Applications of Artificial
+Intelligence*).
 
 ---
 

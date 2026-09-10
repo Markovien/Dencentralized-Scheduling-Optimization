@@ -977,23 +977,31 @@ control --- as Section~\ref{sec:res-e1} shows by moving it.
 
 \subsection{Where the exact model stops closing}
 \label{sec:res-exact}
-Under a per-instance budget of \jnum{e2.budget.seconds}~s, \textsc{ex-cp} closes the
-classical makespan variant on \jnum{e2.makespan.closed.rate}\,\% of the tested instances, in
-at most \jnum{e2.makespan.seconds.max}~s, and reproduces the original solver's optimum
-exactly. Adding the ToU cost and the deadline drops the closure rate to
-\jnum{e2.tou.closed.rate}\,\%; adding charging, charger capacity and the state-of-charge
-recursion drops it to \jnum{e2.full.closed.rate}\,\%, with the model growing from
-\jnum{e2.makespan.vars.mean} to \jnum{e2.full.vars.mean} variables.
+Under a per-instance budget of \jnum{e2.budget.seconds}~s on \jnum{e2.instances} instances,
+\textsc{ex-cp} closes the classical makespan variant
+\jnum{e2.makespan.closed}/\jnum{e2.instances} times, in at most
+\jnum{e2.makespan.seconds.max}~s, and reproduces the original solver's optimum exactly.
+Adding the ToU cost and the deadline drops that to
+\jnum{e2.tou.closed}/\jnum{e2.instances}; adding charging, charger capacity and the
+state-of-charge recursion leaves \jnum{e2.full.closed}/\jnum{e2.instances}, with the model
+growing from \jnum{e2.makespan.vars.mean} to \jnum{e2.full.vars.mean} variables.
 
 The mechanism is worth naming, because it is not simply ``a bigger model''. Minimising
 makespan alone leaves a large plateau of equally optimal schedules and CP-SAT exploits it;
 pricing energy against the tariff makes every member of that plateau distinguishable, and the
 state-of-charge recursion couples the vehicle routes that the classical model could treat
-almost independently. The bounds \textsc{ex-cp} returns on the full model within this budget
-are too weak to support a price-of-anarchy estimate, and we do not report one. This is the
-concrete scalability wall that motivates decentralisation, and it is reported as evidence;
-the honest consequence is that Theorem~\ref{thm:t3} stands as proved while the empirical
-price of anarchy remains open (Section~\ref{sec:limitations}).
+almost independently. This is the concrete scalability wall that motivates decentralisation,
+and we report it as evidence rather than as a limitation --- a four-machine instance is not a
+large problem, and the exact model already stops closing it.
+
+On the instances it does close, the proven optimum is a genuine optimality reference, and
+$M1a$ sits \jnum{e2.m1a.gap.mean}\,\% above it on average (range
+\jnum{e2.m1a.gap.min}--\jnum{e2.m1a.gap.max}\,\%, instances \jnum{e2.instances.list}).
+That is the only optimality gap reported in this paper, and it rests on
+\jnum{e2.full.closed.count} instances --- too few to be a distribution, and far too few to
+normalise a price of anarchy against, which needs the \emph{worst} equilibrium over a
+population. Theorem~\ref{thm:t3} therefore stands as proved while the empirical price of
+anarchy remains open (Section~\ref{sec:limitations}).
 
 \subsection{Method comparison}
 \label{sec:res-e1}
@@ -1278,10 +1286,12 @@ it changes nothing, because the charger does not saturate.
 \label{sec:limitations}
 Four limitations are load-bearing and we state them here rather than in the conclusion.
 
-\emph{(i) No empirical price of anarchy.} \textsc{ex-cp} does not close the full model within
-the budget and its bounds are too weak to normalise against
-(Section~\ref{sec:res-exact}). Theorem~\ref{thm:t3} is proved and tested;
-the price of anarchy is measured nowhere in this paper and no surrogate for it is offered.
+\emph{(i) No empirical price of anarchy.} \textsc{ex-cp} closes the full model on only
+\jnum{e2.full.closed}/\jnum{e2.instances} of the instances tried, and its bounds on the rest
+are far too weak to normalise against (Section~\ref{sec:res-exact}). The price of anarchy
+needs the worst equilibrium against the optimum over a population of instances; a handful of
+closed instances cannot supply that. Theorem~\ref{thm:t3} is proved and tested; the price of
+anarchy is measured nowhere in this paper and no surrogate for it is offered.
 
 \emph{(ii) $c(S)$ is a surrogate.} The characteristic function is evaluated by a single
 best-response sweep, not by exact optimisation of the coalition's problem. It is
@@ -1378,16 +1388,21 @@ grand-coalition value through pairwise agreements, and Nash bargaining between t
 and logistics blocs supplies the trade-off weight that scalarised bi-objective scheduling
 normally leaves to the author.
 
-Three directions follow directly. The exact reference must be strengthened before an
-empirical price of anarchy can be reported; a stronger relaxation or a decomposition of the
-state-of-charge recursion is the natural target. The min-envelope step of
-Proposition~\ref{prop:p5} remains open and would turn a conditional proposition into a
-theorem. And the mechanism's per-decision cost --- a few hundred milliseconds at this scale
---- suggests replacing the counterfactual rollout with a learned value estimate, which is the
-subject of a companion study: because the marginal-contribution utility that makes this game
-a potential game is definitionally the difference reward used for multi-agent credit
-assignment, a learner trained on that signal performs policy gradient on the same potential
-the mechanism descends.
+Four directions follow directly. The exact reference must be strengthened before an
+empirical price of anarchy can be reported; a stronger relaxation, or a decomposition that
+separates the state-of-charge recursion from the routing, is the natural target. The
+min-envelope step of Proposition~\ref{prop:p5} remains open and would turn a conditional
+proposition into a theorem. The characteristic function is evaluated by a declared
+single-sweep surrogate, and closing the gap between it and the exact coalition optimum
+depends on the same solver progress as the first direction. Finally, the mechanism's
+per-decision cost --- a few hundred milliseconds at this scale, dominated by one
+counterfactual rollout per candidate action --- invites replacing that rollout with a learned
+value estimate. The alignment needed for this is definitional rather than fortunate: the
+marginal-contribution utility that makes the stage game a potential game \emph{is} the
+difference reward used for multi-agent credit assignment, so a learner trained on that signal
+performs policy gradient on the same potential the mechanism descends. Whether that pays off
+on this semi-Markov problem --- event-driven, two heterogeneous agent types, variable action
+sets, battery- and tariff-coupled --- is an empirical question we leave open.
 
 \section*{Reproducibility}
 The simulator, all solution concepts, the benchmark files with regenerated tariff profiles,

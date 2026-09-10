@@ -1,7 +1,7 @@
 PY ?= python3
 export PYTHONPATH := src
 
-.PHONY: env test test-all typecheck bench experiments exact n5 numbers figures check paper all clean
+.PHONY: env test test-all typecheck bench experiments exact n5 numbers figures claims check paper all clean
 
 env:            ## install runtime + dev dependencies
 	$(PY) -m pip install -e ".[dev]"
@@ -33,13 +33,16 @@ numbers:        ## merge every registry shard -> paper_A/numbers.tex
 figures:        ## rebuild figures from results/
 	$(PY) experiments/make_figures.py
 
-check:          ## claim tracing, citations and structure
+claims:         ## regenerate the evidence map paper_A/CLAIMS.md
+	$(PY) experiments/make_claims.py
+
+check: claims   ## claim tracing, citations and structure
 	$(PY) experiments/check_paper.py
 
 paper:
 	cd paper_A && latexmk -pdf main.tex
 
-all: test bench experiments exact n5 numbers figures check
+all: test bench experiments exact n5 numbers figures claims check
 
 clean:
 	rm -rf results/*.parquet results/numbers*.json paper_A/figures/*.pdf \

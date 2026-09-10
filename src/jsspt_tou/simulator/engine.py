@@ -4,8 +4,8 @@ Implements the decision architecture of Paper A §5 -- decisions are taken at *e
 (``RobotFree``, ``MachineFree``, ``ChargerFree``, part arrival), never on a time grid, so
 the decision count scales with system activity rather than with horizon length.  The same
 engine serves the dispatching baselines, the non-cooperative game ``M1``, the coalition
-cost ``c(S)`` of ``M2`` and (in Paper B) the RL environment; that is what makes the
-cross-method tables comparable.
+cost ``c(S)`` of ``M2``, and it is what makes the cross-method tables comparable: an
+``EX-CP`` row and a game row score the same schedule object with the same objective.
 
 What this module adds relative to the draft
 -------------------------------------------

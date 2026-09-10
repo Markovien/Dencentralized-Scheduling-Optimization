@@ -1,8 +1,8 @@
 """jsspt-tou: decentralised scheduling of machines and battery-constrained AIVs under ToU tariffs.
 
-Reference implementation for Paper A (EAAI): *Cooperative and non-cooperative
-game-theoretic scheduling of production machines and battery-constrained autonomous
-vehicles under time-of-use tariffs*.
+Reference implementation for *Cooperative and non-cooperative game-theoretic scheduling of
+production machines and battery-constrained autonomous vehicles under time-of-use tariffs*
+(target venue: Engineering Applications of Artificial Intelligence).
 
 Layer map (ROADMAP.md §4.1):
     domain/       instance, tariff, battery, normalisation anchors, objective
