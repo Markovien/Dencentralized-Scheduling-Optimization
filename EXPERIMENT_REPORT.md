@@ -5,7 +5,10 @@ claims of novelty or superiority beyond the stated statistical tests appear here
 manuscript makes those, and only through registry keys.
 
 **Environment.** Python 3.11.15, 4 CPU cores, no GPU. OR-Tools CP-SAT, SciPy, NumPy, pandas.
-Every stochastic component takes an explicit generator; no global seed is read.
+Every stochastic component takes an explicit generator; no global seed is read. The test
+suite is 60 fast tests plus 6 CP-SAT solves; `mypy --strict` is clean on all 29 source
+modules. Block wall-clock for the full campaign: E1 4 min, E3/E4 4 min, E5 3 min, E11
+ablations and E13 the balance, on one core at 100 % utilisation.
 
 ---
 
@@ -115,3 +118,7 @@ invariant is now a test
   Holm-Bonferroni, Vargha-Delaney A12 with every comparison. Deterministic methods on
   deterministic instances are run once per (instance, omega); this is stated rather than
   presented as a 30-seed protocol.
+* The campaign was re-run from scratch after the two consistency fixes. The 40-instance
+  headline values are unchanged, which is the expected outcome rather than a suspicious one:
+  the idle-drain correction bites only where a vehicle sits idle, and on this benchmark the
+  two vehicles are near-saturated for most of every episode.
