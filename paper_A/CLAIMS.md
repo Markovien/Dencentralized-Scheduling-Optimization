@@ -7,8 +7,8 @@ Every claim in the manuscript is one of three things: **traceable** to a key in
 explicit assumption list, or **attributed** to a cited source. This file is the
 audit of the first two.
 
-- numeric claims: **153** distinct registry keys cited in the manuscript
-- registry size: **168** keys recorded
+- numeric claims: **157** distinct registry keys cited in the manuscript
+- registry size: **209** keys recorded
 - formal results: **7** stated
 
 ## Formal results and their falsifying tests
@@ -101,15 +101,19 @@ the manuscript text the value appears in, with other keys shown as `<key>`.
 
 | Key | Value | Unit | Used in |
 |---|---|---|---|
-| `e2.budget.seconds` | **MISSING** |  | Section~ reports that an exact constraint-programming model closes the pure-makespan variant of every four-machine benchmark instance tried, but cl... |
-| `e2.full.closed` | **MISSING** |  | Section~ reports that an exact constraint-programming model closes the pure-makespan variant of every four-machine benchmark instance tried, but cl... |
-| `e2.full.closed.rate` | **MISSING** |  | Adding the ToU cost and the deadline drops the closure rate to <e2.tou.closed.rate>,%; adding charging, charger capacity and the state-of-charge re... |
-| `e2.full.vars.mean` | **MISSING** |  | Adding the ToU cost and the deadline drops the closure rate to <e2.tou.closed.rate>,%; adding charging, charger capacity and the state-of-charge re... |
-| `e2.instances` | **MISSING** |  | Section~ reports that an exact constraint-programming model closes the pure-makespan variant of every four-machine benchmark instance tried, but cl... |
-| `e2.makespan.closed.rate` | **MISSING** |  | subsectionWhere the exact model stops closing Under a per-instance budget of <e2.budget.seconds>~s, ex-cp closes the classical makespan variant on ... |
-| `e2.makespan.seconds.max` | **MISSING** |  | subsectionWhere the exact model stops closing Under a per-instance budget of <e2.budget.seconds>~s, ex-cp closes the classical makespan variant on ... |
-| `e2.makespan.vars.mean` | **MISSING** |  | Adding the ToU cost and the deadline drops the closure rate to <e2.tou.closed.rate>,%; adding charging, charger capacity and the state-of-charge re... |
-| `e2.tou.closed.rate` | **MISSING** |  | Adding the ToU cost and the deadline drops the closure rate to <e2.tou.closed.rate>,%; adding charging, charger capacity and the state-of-charge re... |
+| `e2.budget.seconds` | 60 | s | Section~ reports that an exact constraint-programming model closes the pure-makespan variant of every four-machine benchmark instance tried, but cl... |
+| `e2.full.closed` | 2 |  | Section~ reports that an exact constraint-programming model closes the pure-makespan variant of every four-machine benchmark instance tried, but cl... |
+| `e2.full.closed.count` | 2 |  | On the instances it does close, the proven optimum is a genuine optimality reference, and $M1a$ sits <e2.m1a.gap.mean>,% above it on average (range... |
+| `e2.full.vars.mean` | 2636 |  | subsectionWhere the exact model stops closing Under a per-instance budget of <e2.budget.seconds>~s on <e2.instances> instances, ex-cp closes the cl... |
+| `e2.instances` | 6 |  | Section~ reports that an exact constraint-programming model closes the pure-makespan variant of every four-machine benchmark instance tried, but cl... |
+| `e2.instances.list` | EX12, EX53 |  | On the instances it does close, the proven optimum is a genuine optimality reference, and $M1a$ sits <e2.m1a.gap.mean>,% above it on average (range... |
+| `e2.m1a.gap.max` | 21.4 | % | On the instances it does close, the proven optimum is a genuine optimality reference, and $M1a$ sits <e2.m1a.gap.mean>,% above it on average (range... |
+| `e2.m1a.gap.mean` | 12.0 | % | On the instances it does close, the proven optimum is a genuine optimality reference, and $M1a$ sits <e2.m1a.gap.mean>,% above it on average (range... |
+| `e2.m1a.gap.min` | 2.5 | % | On the instances it does close, the proven optimum is a genuine optimality reference, and $M1a$ sits <e2.m1a.gap.mean>,% above it on average (range... |
+| `e2.makespan.closed` | 6 |  | subsectionWhere the exact model stops closing Under a per-instance budget of <e2.budget.seconds>~s on <e2.instances> instances, ex-cp closes the cl... |
+| `e2.makespan.seconds.max` | 37.71 | s | subsectionWhere the exact model stops closing Under a per-instance budget of <e2.budget.seconds>~s on <e2.instances> instances, ex-cp closes the cl... |
+| `e2.makespan.vars.mean` | 1418 |  | subsectionWhere the exact model stops closing Under a per-instance budget of <e2.budget.seconds>~s on <e2.instances> instances, ex-cp closes the cl... |
+| `e2.tou.closed` | 2 |  | subsectionWhere the exact model stops closing Under a per-instance budget of <e2.budget.seconds>~s on <e2.instances> instances, ex-cp closes the cl... |
 
 ### E3 — cooperative stability
 
@@ -208,23 +212,23 @@ the manuscript text the value appears in, with other keys shown as `<key>`.
 
 | Key | Value | Unit | Used in |
 |---|---|---|---|
-| `n5.c.empty` | **MISSING** |  | Then: [ c(emptyset)=<n5.c.empty>,quad c(V_1)=c(V_2)=<n5.c.single>,quad c(V_1,V_2)=<n5.c.pair>, ] so that [ Delta_V_1c(emptyset) = c(V_1)-c(emptyset... |
-| `n5.c.pair` | **MISSING** |  | Then: [ c(emptyset)=<n5.c.empty>,quad c(V_1)=c(V_2)=<n5.c.single>,quad c(V_1,V_2)=<n5.c.pair>, ] so that [ Delta_V_1c(emptyset) = c(V_1)-c(emptyset... |
-| `n5.c.single` | **MISSING** |  | Then: [ c(emptyset)=<n5.c.empty>,quad c(V_1)=c(V_2)=<n5.c.single>,quad c(V_1,V_2)=<n5.c.pair>, ] so that [ Delta_V_1c(emptyset) = c(V_1)-c(emptyset... |
-| `n5.delta.big` | **MISSING** |  | Then: [ c(emptyset)=<n5.c.empty>,quad c(V_1)=c(V_2)=<n5.c.single>,quad c(V_1,V_2)=<n5.c.pair>, ] so that [ Delta_V_1c(emptyset) = c(V_1)-c(emptyset... |
-| `n5.delta.small` | **MISSING** |  | Then: [ c(emptyset)=<n5.c.empty>,quad c(V_1)=c(V_2)=<n5.c.single>,quad c(V_1,V_2)=<n5.c.pair>, ] so that [ Delta_V_1c(emptyset) = c(V_1)-c(emptyset... |
-| `n5.epsilon` | **MISSING** |  | The core is empty and the least-core radius is $<n5.epsilon>$. |
-| `n5.epsilon.improvement` | **MISSING** |  | paragraphWhich resource saturates. The constructed instance of Proposition~ makes the charger the culprit, and there the causal control is clean: w... |
-| `n5.gain.congested` | **MISSING** |  | paragraphWhich resource saturates. The constructed instance of Proposition~ makes the charger the culprit, and there the causal control is clean: w... |
-| `n5.gain.relaxed` | **MISSING** |  | The control experiment confirms the causal direction: duplicating the charging station in the same instance restores the second vehicle's marginal ... |
-| `n5.v` | **MISSING** |  | Efficiency then reduces to $x_V_1+x_V_2=v(N)=<n5.v>$, while $v(V_1)=v(V_2)=v(V_1,V_2)=<n5.v>$ requires $x_V_1ge<n5.v>$ and $x_V_2ge<n5.v>$ separate... |
-| `n5.v.half` | **MISSING** |  | The Shapley value $(<n5.v.half>,<n5.v.half>)$ over the two vehicles is not in it. endproof The construction isolates the mechanism; the mechanism i... |
+| `n5.c.empty` | 0.7317 |  | Then: [ c(emptyset)=<n5.c.empty>,quad c(V_1)=c(V_2)=<n5.c.single>,quad c(V_1,V_2)=<n5.c.pair>, ] so that [ Delta_V_1c(emptyset) = c(V_1)-c(emptyset... |
+| `n5.c.pair` | 0.2683 |  | Then: [ c(emptyset)=<n5.c.empty>,quad c(V_1)=c(V_2)=<n5.c.single>,quad c(V_1,V_2)=<n5.c.pair>, ] so that [ Delta_V_1c(emptyset) = c(V_1)-c(emptyset... |
+| `n5.c.single` | 0.2683 |  | Then: [ c(emptyset)=<n5.c.empty>,quad c(V_1)=c(V_2)=<n5.c.single>,quad c(V_1,V_2)=<n5.c.pair>, ] so that [ Delta_V_1c(emptyset) = c(V_1)-c(emptyset... |
+| `n5.delta.big` | 0.0000 |  | Then: [ c(emptyset)=<n5.c.empty>,quad c(V_1)=c(V_2)=<n5.c.single>,quad c(V_1,V_2)=<n5.c.pair>, ] so that [ Delta_V_1c(emptyset) = c(V_1)-c(emptyset... |
+| `n5.delta.small` | -0.4634 |  | Then: [ c(emptyset)=<n5.c.empty>,quad c(V_1)=c(V_2)=<n5.c.single>,quad c(V_1,V_2)=<n5.c.pair>, ] so that [ Delta_V_1c(emptyset) = c(V_1)-c(emptyset... |
+| `n5.epsilon` | -0.2317 |  | The core is empty and the least-core radius is $<n5.epsilon>$. |
+| `n5.epsilon.improvement` | 40.4 | % | paragraphWhich resource saturates. The constructed instance of Proposition~ makes the charger the culprit, and there the causal control is clean: w... |
+| `n5.gain.congested` | 0.0000 |  | paragraphWhich resource saturates. The constructed instance of Proposition~ makes the charger the culprit, and there the causal control is clean: w... |
+| `n5.gain.relaxed` | 0.1951 |  | The control experiment confirms the causal direction: duplicating the charging station in the same instance restores the second vehicle's marginal ... |
+| `n5.v` | 0.4634 |  | Efficiency then reduces to $x_V_1+x_V_2=v(N)=<n5.v>$, while $v(V_1)=v(V_2)=v(V_1,V_2)=<n5.v>$ requires $x_V_1ge<n5.v>$ and $x_V_2ge<n5.v>$ separate... |
+| `n5.v.half` | 0.2317 |  | The Shapley value $(<n5.v.half>,<n5.v.half>)$ over the two vehicles is not in it. endproof The construction isolates the mechanism; the mechanism i... |
 
 ### Units contract (WP1)
 
 | Key | Value | Unit | Used in |
 |---|---|---|---|
-| `units.floor.binding.rate` | **MISSING** |  | At $7$~mAh/s the usable $60$~Ah window drains in about $143$ minutes, and the floor binds on <units.floor.binding.rate>,% of benchmark instances un... |
+| `units.floor.binding.rate` | 85.0 | % | At $7$~mAh/s the usable $60$~Ah window drains in about $143$ minutes, and the floor binds on <units.floor.binding.rate>,% of benchmark instances un... |
 
 ### Benchmark
 
@@ -240,29 +244,7 @@ the manuscript text the value appears in, with other keys shown as `<key>`.
 
 ## Gaps
 
-Keys cited in the manuscript with no registry entry. Each is a blocking defect:
-
-- `e2.budget.seconds`
-- `e2.full.closed`
-- `e2.full.closed.rate`
-- `e2.full.vars.mean`
-- `e2.instances`
-- `e2.makespan.closed.rate`
-- `e2.makespan.seconds.max`
-- `e2.makespan.vars.mean`
-- `e2.tou.closed.rate`
-- `n5.c.empty`
-- `n5.c.pair`
-- `n5.c.single`
-- `n5.delta.big`
-- `n5.delta.small`
-- `n5.epsilon`
-- `n5.epsilon.improvement`
-- `n5.gain.congested`
-- `n5.gain.relaxed`
-- `n5.v`
-- `n5.v.half`
-- `units.floor.binding.rate`
+None: every key cited in the manuscript resolves to a recorded value.
 
 ## What is deliberately not claimed
 

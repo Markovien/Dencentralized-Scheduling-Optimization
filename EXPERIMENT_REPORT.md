@@ -6,9 +6,13 @@ manuscript makes those, and only through registry keys.
 
 **Environment.** Python 3.11.15, 4 CPU cores, no GPU. OR-Tools CP-SAT, SciPy, NumPy, pandas.
 Every stochastic component takes an explicit generator; no global seed is read. The test
-suite is 60 fast tests plus 6 CP-SAT solves; `mypy --strict` is clean on all 29 source
-modules. Block wall-clock for the full campaign: E1 4 min, E3/E4 4 min, E5 3 min, E11
-ablations and E13 the balance, on one core at 100 % utilisation.
+suite is 60 fast tests plus 6 CP-SAT solves, all passing; `mypy --strict` is clean on all 29
+source modules. The strict contract covers `src/` only: the runner scripts under
+`experiments/` are checked non-strictly and carry nine residual annotation gaps (bare `list`
+parameters, and a matplotlib stub that does not re-export `Rectangle`). None is a defect in
+a computed value, but the boundary is stated rather than implied. Block wall-clock for the
+full campaign: E1 4 min, E3/E4 4 min, E5 3 min, E11 ablations and E13 the balance, on one
+core at 100 % utilisation.
 
 ---
 

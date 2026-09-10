@@ -1,0 +1,163 @@
+{
+  "e2.budget.seconds": {
+    "value": 60,
+    "unit": "s",
+    "precision": 0,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.full.closed": {
+    "value": 2,
+    "unit": "",
+    "precision": 0,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.full.closed.count": {
+    "value": 2,
+    "unit": "",
+    "precision": 0,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.full.closed.rate": {
+    "value": 33.33333333333333,
+    "unit": "%",
+    "precision": 1,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.full.cons.mean": {
+    "value": 5544.333333333333,
+    "unit": "",
+    "precision": 0,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.full.seconds.mean": {
+    "value": 44.90263949783334,
+    "unit": "s",
+    "precision": 1,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.full.vars.mean": {
+    "value": 2636.0,
+    "unit": "",
+    "precision": 0,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.instances": {
+    "value": 6,
+    "unit": "",
+    "precision": 0,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.instances.list": {
+    "value": "EX12, EX53",
+    "unit": "",
+    "precision": 2,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.m1a.gap.max": {
+    "value": 21.378758388785744,
+    "unit": "%",
+    "precision": 1,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.m1a.gap.mean": {
+    "value": 11.9626191995202,
+    "unit": "%",
+    "precision": 1,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.m1a.gap.min": {
+    "value": 2.546480010254654,
+    "unit": "%",
+    "precision": 1,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.makespan.closed": {
+    "value": 6,
+    "unit": "",
+    "precision": 0,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.makespan.closed.rate": {
+    "value": 100.0,
+    "unit": "%",
+    "precision": 1,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.makespan.cons.mean": {
+    "value": 3080.3333333333335,
+    "unit": "",
+    "precision": 0,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.makespan.seconds.max": {
+    "value": 37.711246116000005,
+    "unit": "s",
+    "precision": 2,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.makespan.seconds.mean": {
+    "value": 9.0211549955,
+    "unit": "s",
+    "precision": 1,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.makespan.vars.mean": {
+    "value": 1418.0,
+    "unit": "",
+    "precision": 0,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.tou.closed": {
+    "value": 2,
+    "unit": "",
+    "precision": 0,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.tou.closed.rate": {
+    "value": 33.33333333333333,
+    "unit": "%",
+    "precision": 1,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.tou.cons.mean": {
+    "value": 3024.0,
+    "unit": "",
+    "precision": 0,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.tou.seconds.mean": {
+    "value": 43.14194358333334,
+    "unit": "s",
+    "precision": 1,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  },
+  "e2.tou.vars.mean": {
+    "value": 1360.6666666666667,
+    "unit": "",
+    "precision": 0,
+    "source": "E2",
+    "git_sha": "f7292f5"
+  }
+}

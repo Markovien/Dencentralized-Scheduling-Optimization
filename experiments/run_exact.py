@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
@@ -28,18 +29,38 @@ import pandas as pd
 
 from jsspt_tou.analysis.registry import Registry
 from jsspt_tou.benchmark.bilge_ulusoy import build_instance
+from jsspt_tou.domain.instance import Instance
+from jsspt_tou.domain.objective import Outcome
 from jsspt_tou.exact.cpsat_model import hint_from_schedule, solve_exact
 from jsspt_tou.game.best_response import BestResponsePolicy
 from jsspt_tou.simulator.engine import Engine
 
-CONFIGS = {
-    "makespan": dict(enforce_deadline=False, enforce_battery=False, flat_tariff=True, omega=1.0),
-    "tou": dict(enforce_deadline=True, enforce_battery=False, flat_tariff=False, omega=0.5),
-    "full": dict(enforce_deadline=True, enforce_battery=True, flat_tariff=False, omega=0.5),
+
+@dataclass(frozen=True, slots=True)
+class Config:
+    """One rung of the nested-model ladder.
+
+    Held as a frozen record rather than a dict of keyword arguments: the runner used to
+    ``pop`` the weight out of a module-level dict and put it back afterwards, which made the
+    table mutable state shared across instances.
+    """
+
+    enforce_deadline: bool
+    enforce_battery: bool
+    flat_tariff: bool
+    omega: float
+
+
+CONFIGS: dict[str, Config] = {
+    "makespan": Config(enforce_deadline=False, enforce_battery=False, flat_tariff=True, omega=1.0),
+    "tou": Config(enforce_deadline=True, enforce_battery=False, flat_tariff=False, omega=0.5),
+    "full": Config(enforce_deadline=True, enforce_battery=True, flat_tariff=False, omega=0.5),
 }
 
 
-def m1_schedule(inst, omega: float):
+def m1_schedule(
+    inst: Instance, omega: float
+) -> tuple[Engine, Outcome, list[tuple[str, int, int, float, float]]]:
     """Play M1a once and return (outcome, event log) for the warm start."""
     engine = Engine(inst, omega=omega)
     policy = BestResponsePolicy(i_max=6)
@@ -78,16 +99,17 @@ def main(argv: list[str] | None = None) -> int:
         engine, m1, log = m1_schedule(inst, 0.5)
         hint = hint_from_schedule(inst, log)
         for name, cfg in CONFIGS.items():
-            omega = float(cfg.pop("omega")) if "omega" in cfg else 0.5
+            omega = cfg.omega
             result = solve_exact(
                 inst,
                 omega=omega,
                 time_limit_s=args.budget,
                 anchors=engine.anchors,
                 hint=hint if name != "makespan" else None,
-                **cfg,
+                enforce_deadline=cfg.enforce_deadline,
+                enforce_battery=cfg.enforce_battery,
+                flat_tariff=cfg.flat_tariff,
             )
-            cfg["omega"] = omega  # restore for the next instance
             rows.append(
                 {
                     "instance": inst.instance_id,
