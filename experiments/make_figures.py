@@ -73,8 +73,10 @@ def fig_gantt(out: Path, job_set: int = 1, layout: int = 1, omega: float = 0.5) 
     fig, (ax_price, ax) = plt.subplots(
         2, 1, figsize=(7.2, 4.4), height_ratios=[1, 3], sharex=True
     )
+    # Tariff bands stay pale so the activity bars, which carry the information, are the
+    # darkest things on the page; band shade increases with price.
     prices = sorted({p.price for p in inst.tariff.periods})
-    shade = {p: 0.95 - 0.35 * i / max(len(prices) - 1, 1) for i, p in enumerate(prices)}
+    shade = {p: 0.99 - 0.10 * i / max(len(prices) - 1, 1) for i, p in enumerate(prices)}
     for period in inst.tariff.periods:
         for axis in (ax_price, ax):
             axis.axvspan(period.start, period.end, color=str(shade[period.price]), lw=0)
@@ -95,22 +97,23 @@ def fig_gantt(out: Path, job_set: int = 1, layout: int = 1, omega: float = 0.5) 
     for kind, owner, job, s, e in state.log:
         key = f"M{owner}" if kind == "process" else f"V{owner}"
         colour = {"process": GREY[0], "transport": GREY[2], "charge": GREY[3]}[kind]
-        hatch = {"process": "", "transport": "//", "charge": "xx"}[kind]
-        ax.barh(rows[key], e - s, left=s, height=0.62, color=colour,
-                edgecolor="white", linewidth=0.4, hatch=hatch)
+        hatch = {"process": "", "transport": "", "charge": "xxx"}[kind]
+        ax.barh(rows[key], e - s, left=s, height=0.5, color=colour,
+                edgecolor="white", linewidth=0.9, hatch=hatch)
         if kind == "process" and e - s > 6:
             ax.text((s + e) / 2, rows[key], f"J{job + 1}", ha="center", va="center",
                     color="white", fontsize=7)
     ax.axvline(inst.deadline, color="black", ls="--", lw=1.1)
-    ax.text(inst.deadline, len(rows) - 0.3, " deadline $H$", fontsize=8, va="top")
+    ax.text(inst.deadline - 2, len(rows) - 0.35, "deadline $H$ ", fontsize=8,
+            va="top", ha="right")
     ax.set_yticks(list(rows.values()))
     ax.set_yticklabels(list(rows))
     ax.set_xlabel("time (min)")
     ax.set_xlim(0, inst.deadline * 1.02)
     handles = [
         plt.Rectangle((0, 0), 1, 1, color=GREY[0]),
-        plt.Rectangle((0, 0), 1, 1, color=GREY[2], hatch="//"),
-        plt.Rectangle((0, 0), 1, 1, color=GREY[3], hatch="xx"),
+        plt.Rectangle((0, 0), 1, 1, color=GREY[2]),
+        plt.Rectangle((0, 0), 1, 1, color=GREY[3], hatch="xxx"),
     ]
     ax.legend(handles, ["processing", "transport", "charging"], ncol=3,
               loc="upper center", bbox_to_anchor=(0.5, -0.28), frameon=False)
@@ -249,7 +252,7 @@ def fig_runtime(out: Path, results: Path) -> None:
     methods = [m for m in methods if m in set(mid["method"])]
     data = [mid[mid["method"] == m]["seconds"].values * 1000.0 for m in methods]
     fig, ax = plt.subplots(figsize=(5.6, 3.0))
-    ax.boxplot(data, labels=methods, widths=0.6,
+    ax.boxplot(data, tick_labels=methods, widths=0.6,
                medianprops=dict(color=GREY[0]), boxprops=dict(color=GREY[1]),
                whiskerprops=dict(color=GREY[2]), capprops=dict(color=GREY[2]),
                flierprops=dict(markersize=3, markerfacecolor=GREY[3], markeredgecolor="none"))

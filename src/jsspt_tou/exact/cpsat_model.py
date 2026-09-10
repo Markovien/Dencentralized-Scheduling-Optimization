@@ -80,6 +80,7 @@ def solve_exact(
     anchors: Anchors | None = None,
     flat_tariff: bool = False,
     hint: dict[str, dict[Any, float]] | None = None,
+
 ) -> ExactResult:
     """Solve one instance exactly (or to a bound) under the shared objective.
 
@@ -569,9 +570,21 @@ def _tou_cost_terms(
         model.add(diff == hi - lo)
         ov = model.new_int_var(0, duration, f"ov_{tag}_{h}")
         model.add_max_equality(ov, [diff, 0])
-        if active is not None:
-            model.add(ov == 0).only_enforce_if(active.negated())
         coeff = int(round(price * power_kw / 60.0 * MICRO))
         if coeff:
             terms.append(coeff * ov)
-    return terms
+    if active is None or not terms:
+        return terms
+    # An *optional* activity (a charging slot that may go unused) keeps its start and end
+    # variables whether or not it happens, so its per-period overlaps are still real: an
+    # interval of positive length always overlaps some period of a profile that tiles the
+    # horizon.  Zeroing those overlaps when the slot is unused is therefore unsatisfiable,
+    # and forces every slot to be used -- which showed up as the exact model returning a
+    # proven "optimum" worse than a feasible heuristic schedule.  Gate the *cost* instead.
+    upper = sum(
+        int(round(price * power_kw / 60.0 * MICRO)) * duration for _, _, price in periods
+    )
+    gated = model.new_int_var(0, max(upper, 1), f"cost_{tag}")
+    model.add(gated == sum(terms)).only_enforce_if(active)
+    model.add(gated == 0).only_enforce_if(active.negated())
+    return [gated]

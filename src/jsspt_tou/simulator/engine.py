@@ -723,6 +723,11 @@ class Engine:
             return _infeasible(now)
         task = legs[k]
         depart = max(now, state.robot_free[robot])
+        # Idle drain accrues from the moment the robot became free, not only while it waits
+        # at a pickup.  Charging it only for the pickup wait silently understates depletion
+        # and makes the simulator's feasible set *larger* than the exact model's, which
+        # showed up as EX-CP returning a proven optimum worse than a heuristic schedule.
+        idle_before = depart - state.robot_free[robot]
         to_pickup = inst.travel(state.robot_loc[robot], task.origin)
         arrive = depart + to_pickup
         pickup = max(arrive, state.job_ready[action.job])
@@ -732,7 +737,7 @@ class Engine:
         need = b_needed(
             bat,
             travel_to_pickup=to_pickup,
-            wait_at_pickup=wait,
+            wait_at_pickup=idle_before + wait,
             loaded_travel=task.duration,
             travel_to_charger=inst.travel(task.dest, inst.charger_location),
         )
@@ -741,6 +746,7 @@ class Engine:
             return _infeasible(now)
         soc_after = (
             soc
+            - bat.idle_mah_min * idle_before
             - bat.empty_mah_min * to_pickup
             - bat.idle_mah_min * wait
             - bat.loaded_mah_min * task.duration
@@ -771,6 +777,7 @@ class Engine:
         inst = self.inst
         bat = inst.battery
         depart = max(now, state.robot_free[robot])
+        idle_before = depart - state.robot_free[robot]  # see _preview_transport
         travel = inst.travel(state.robot_loc[robot], inst.charger_location)
         arrive = depart + travel
         # Unary (or K_CH-ary) charger: pick the station free earliest.  This is the
@@ -780,6 +787,7 @@ class Engine:
         start = earliest + action.delay
         soc_at_start = (
             state.robot_soc[robot]
+            - bat.idle_mah_min * idle_before
             - bat.empty_mah_min * travel
             - bat.idle_mah_min * (start - arrive)
         )

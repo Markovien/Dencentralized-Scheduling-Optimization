@@ -84,7 +84,8 @@ certified per instance through the least-core radius, which we compute exactly f
 \jnum{e3.core.empty.rate}\,\% of them, with a mean radius of
 \jnum{e3.eps.ratio.mean} of total savings. Decentralised merge--split coalition formation
 recovers \jnum{e4.value.ratio.mean}\,\% of the grand-coalition savings using coalitions of
-at most \jnum{e4.maxblock.max} agents and \jnum{e4.messages.mean} bilateral messages, and
+at most \jnum{e4.maxblock.max} agents (mean \jnum{e4.maxblock.mean}) and
+\jnum{e4.messages.mean} bilateral messages, and
 Nash bargaining between the production and logistics blocs selects a trade-off weight of
 \jnum{e5.omega.nbs.mean} rather than leaving it to be assumed. Code, benchmark and every
 reported number are released.
@@ -983,16 +984,29 @@ price of anarchy remains open (Section~\ref{sec:limitations}).
 Table~\ref{tab:e1} reports the main comparison at $\omega=0.5$. The Friedman test across the
 seven methods over \jnum{bench.instances} instances is significant
 ($\chi^2=\jnum{e1.friedman.stat}$, $p=\jnum{e1.friedman.p}$), with a Nemenyi critical
-difference of \jnum{e1.friedman.cd} mean ranks.
+difference of \jnum{e1.friedman.cd} mean ranks. The diagram separates the two game methods
+and the rule oracle, as a group, from everything else; it does not separate them from each
+other.
 
 $M2$ in its grand-coalition form has the best mean rank (\jnum{e1.rank.m2grand}), reducing
 $\Phi$ by \jnum{e1.m2grand.gain.mean}\,\% $\pm$ \jnum{e1.m2grand.gain.std}\,\% against
 $\pi_0$ and beating the hindsight-selected \textsc{dr-oracle} on
 \jnum{e1.m2grand.winrate.vs.oracle}\,\% of instances. $M1a$ follows at rank
-\jnum{e1.rank.m1a} with a \jnum{e1.m1a.gain.mean}\,\% reduction. Against $M2$, the corrected
-Wilcoxon test gives $p=\jnum{e1.wilcoxon.m2vsm1a.p}$ with
-$A_{12}=\jnum{e1.wilcoxon.m2vsm1a.a12}$, and $p=\jnum{e1.wilcoxon.m2vspi0.p}$
-($A_{12}=\jnum{e1.wilcoxon.m2vspi0.a12}$) against $\pi_0$.
+\jnum{e1.rank.m1a} with a \jnum{e1.m1a.gain.mean}\,\% $\pm$ \jnum{e1.m1a.gain.std}\,\%
+reduction.
+
+The tests must be read carefully, and they do not all say the same thing. Against $\pi_0$,
+$M2$ wins decisively: Wilcoxon with Holm correction gives
+$p=\jnum{e1.wilcoxon.m2vspi0.p}$ with $A_{12}=\jnum{e1.wilcoxon.m2vspi0.a12}$, and the rank
+gap exceeds the critical difference. Against \textsc{dr-oracle} the same test gives
+$p=\jnum{e1.wilcoxon.m2vsdroracle.p}$ ($A_{12}=\jnum{e1.wilcoxon.m2vsdroracle.a12}$), but
+the rank gap is smaller than the Nemenyi critical difference, so the conservative
+all-pairs post-hoc does \emph{not} separate them. \textbf{And $M2$ is not significantly
+better than $M1a$}: $p=\jnum{e1.wilcoxon.m2vsm1a.p}$,
+$A_{12}=\jnum{e1.wilcoxon.m2vsm1a.a12}$, a rank gap far inside the critical difference. On
+this benchmark the cooperative layer's contribution is \emph{stability analysis and
+allocation}, not a significant improvement in objective value over the non-cooperative
+mechanism; that is what the data support and it is what we claim.
 
 Three observations deserve emphasis because they are not the expected ones.
 
@@ -1104,7 +1118,8 @@ matters more than the special case: adding charging capacity will not buy stabil
 whose machines are the constraint.
 
 \paragraph{Allocation.} Vehicles capture \jnum{e3.robot.share.mean}\,\% $\pm$
-\jnum{e3.robot.share.std}\,\% of the total savings (mean Shapley payoff
+\jnum{e3.robot.share.std}\,\% of the total savings --- a large dispersion, driven by the few
+instances on which the surrogate makes coordination lose --- (mean Shapley payoff
 \jnum{e3.robot.payoff.mean} against \jnum{e3.machine.payoff.mean} for machines), with a Gini
 coefficient of \jnum{e3.gini.shapley.mean}. The asymmetry is structural rather than a
 modelling artefact: vehicles hold both levers --- they choose when to charge, and their
@@ -1123,9 +1138,9 @@ tariff, not around the deadline.
 \subsection{Coalition structures}
 \label{sec:res-cs}
 Merge--split converges to a $\mathbb{D}_{hp}$-stable partition on
-\jnum{e4.dhp.stable.rate}\,\% of instances, with \jnum{e4.blocks.mean} blocks on average, a
-largest block of \jnum{e4.maxblock.max} agents, and \jnum{e4.messages.mean} bilateral
-negotiations. That partition realises \jnum{e4.value.ratio.mean}\,\% of the grand-coalition
+\jnum{e4.dhp.stable.rate}\,\% of instances, with \jnum{e4.blocks.mean} blocks on average, a mean largest block of
+\jnum{e4.maxblock.mean} agents (\jnum{e4.maxblock.max} at most), and
+\jnum{e4.messages.mean} bilateral negotiations. That partition realises \jnum{e4.value.ratio.mean}\,\% of the grand-coalition
 savings on average and \jnum{e4.value.ratio.median}\,\% at the median (worst case
 \jnum{e4.value.ratio.min}\,\%).
 
@@ -1170,10 +1185,14 @@ with the published profiles and note that the deadline's role here is to bound t
 lever rather than to be the active constraint.
 
 \textbf{The deadline penalty $M$.} Varying $M$ over $\{2,5,10,50\}$ moves the Gini
-coefficient of the Shapley allocation by at most
-\jnum{e11.penalty.gini.spread.max} and the least-core radius by at most
-\jnum{e11.penalty.eps.spread.max} on any instance. The allocations are therefore not
-artefacts of the penalty, which is what the ablation exists to establish.
+coefficient of the Shapley allocation by \jnum{e11.penalty.gini.spread.max} and the
+least-core radius by \jnum{e11.penalty.eps.spread.max} --- that is, not at all, on any
+instance. The reason is worth stating rather than presenting as a robustness result: the
+infeasible-coalition rate is \jnum{e3.infeasible.coalition.rate}\,\%, so on this benchmark
+the penalty term is never active and $M$ has nothing to scale. The ablation establishes
+that the allocations are not artefacts of the penalty, which is what it exists to do; it
+does not establish that $M$ would be harmless on a benchmark where the deadline binds
+harder, and we do not claim that.
 
 \textbf{Charger capacity $K_{CH}$.} Reported in Section~\ref{sec:res-coop}: on this benchmark
 it changes nothing, because the charger does not saturate.
@@ -1225,7 +1244,8 @@ vehicles have already fixed.
 
 \paragraph{Pairwise agreements are enough.}
 The stable coalition structures found here contain at most
-\jnum{e4.maxblock.max} agents and require \jnum{e4.messages.mean} bilateral negotiations, yet
+\jnum{e4.maxblock.max} agents, \jnum{e4.maxblock.mean} on average, and require
+\jnum{e4.messages.mean} bilateral negotiations, yet
 capture \jnum{e4.value.ratio.mean}\,\% of the value of coordinating everything. A shop does
 not need a central scheduler or a shop-wide consensus protocol; it needs a way for a machine
 and the vehicle that feeds it to agree.
