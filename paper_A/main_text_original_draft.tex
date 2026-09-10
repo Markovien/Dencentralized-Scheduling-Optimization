@@ -1,0 +1,1480 @@
+%% 
+%% Copyright 2007-2025 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.3 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+
+%\documentclass[preprint,12pt]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+ \documentclass[preprint, 3p, review, 12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn]{elsarticle}
+% \documentclass[final,3p,times]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,5p,times]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+
+\usepackage{amssymb}
+%% The amsmath package provides various useful equation environments.
+\usepackage{amsmath}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+\usepackage{adjustbox}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{caption, comment}
+\usepackage{subcaption, multirow, blkarray, tabularx}
+\usepackage{graphicx}
+\usepackage{lscape, booktabs}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm, compat=1.18}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+\journal{Journal of Manufacturing Systems}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \affiliation for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \affiliation{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+%% \fntext[label3]{}
+
+\title{A Decentralized Optimization Framework for Integrated Production Machines and Autonomous Transport Robots Scheduling under Time-of-Use Tariffs} %% Article title
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{}
+%% \affiliation[label1]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+%%
+%% \affiliation[label2]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+
+\author[1]{Kader SANOGO\corref{cor1}}\ead{ksanogo@sharjah.ac.ae} %% Author name
+\cortext[cor1]{Corresponding author}
+
+\author[1]{Malek MASMOUDI}\ead{mmasmoudi@sharjah.ac.ae} %% Author name
+
+%% Author affiliation
+\affiliation[1]{organization={Research Institute of Science and Engineering (RISE)},%Department and Organization
+            addressline={University of Sharjah}, 
+            city={Sharjah},
+            postcode={}, 
+            country={United Arab Emirates}}
+
+\author[2]{Abdelkader MEKHALEF BENHAFSSA}\ead{amekhalef@cesi.fr} %% Author name
+
+%% Author affiliation
+\affiliation[2]{organization={CESI LINEACT, EA 7527},%Department and Organization
+            addressline={Angouleme Campus}, 
+            city={La Couronne},
+            postcode={16400}, 
+            country={France}}
+
+\author[3]{M'hammed SAHNOUN}\ead{msahnoun@cesi.fr} %% Author name
+
+%% Author affiliation
+\affiliation[3]{organization={CESI LINEACT, EA 7527},%Department and Organization
+            addressline={Rouen Campus, S. E du Rouvray}, 
+            city={Rouen},
+            postcode={76800}, 
+            country={France}}
+
+%% Abstract
+\begin{abstract}
+%% Text of abstract
+Abstract text.
+\end{abstract}
+
+%%Graphical abstract
+\begin{graphicalabstract}
+%\includegraphics{grabs}
+\end{graphicalabstract}
+
+%%Research highlights
+\begin{highlights}
+\item Address Job Shop Scheduling Problems with Transport (JSSPT) under Time-of-Use (ToU) electricity pricing.
+\item Propose a novel game-theoretic model for minimizing both makespan and energy costs in job shops.
+\item Develop a decentralized scheduling mechanism involving autonomous transport robots and processing machines.
+\item Prove that the system forms a potential game with a valid utility structure and submodular global cost function.
+\end{highlights}
+
+%% Keywords
+\begin{keyword}
+JSSPT \sep Game theory \sep Time-of-use \sep Decentralized scheduling \sep Agent-Based Modeling \sep Industry 5.0
+%% keywords here, in the form: keyword \sep keyword
+
+%% PACS codes here, in the form: \PACS code \sep code
+
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}
+\label{sec:intro}
+The growing complexity of modern job shop environments demands scheduling strategies that simultaneously address economic and operational constraints in real time. Within this evolving landscape, orchestrating operations across machines, transport resources, and auxiliary systems has become increasingly challenging as production systems transition toward Industry 5.0, which emphasizes human-centricity, sustainability, and resilience. In this context, manufacturing systems must achieve high flexibility and energy efficiency, aligning with the commitment to green production without compromising economic viability. These requirements call for a fundamental rethinking of classical scheduling models and the development of comprehensive, adaptive frameworks tailored to emerging industrial realities.
+
+The classical Job Shop Scheduling Problem (JSSP) serves as a cornerstone in production planning, focusing on sequencing operations for multiple jobs across machines to optimize performance criteria such as makespan or flow time. This model is extended by the Job Shop Scheduling Problem with Transportation (JSSPT), which explicitly incorporates material handling operations, often performed by autonomous mobile robots, between machines. While JSSPT has long been a research focus, its significance has intensified in the context of Industry 5.0, where factories must balance productivity, energy efficiency, and real-time adaptability. This challenge becomes even more complex under Time-of-Use (ToU) electricity pricing and robotic battery constraints, which introduce dynamic, interdependent decisions across the shop floor.
+
+Traditional centralized scheduling approaches struggle to cope with these complexities. They require real-time optimization across heterogeneous resources while managing multiple conflicting objectives, notably minimizing both makespan and energy costs. Recent studies have explored heuristics and metaheuristics for multi-objective optimization; however, most rely on static assumptions and fail to adapt to dynamic pricing fluctuations, machine availability, transportation tasks, and robot battery limitations. Moreover, as systems grow in scale and heterogeneity, centralized methods become computationally prohibitive and vulnerable to disturbances, limiting their practical applicability in modern smart factories.
+
+To overcome these challenges, this paper introduces a decentralized, game-theoretic scheduling model in which machines and transport robots act as autonomous, rational decision-makers. By leveraging the principles of potential games and submodular optimization, the proposed approach enables distributed decision-making among agents to jointly minimize makespan and energy costs under ToU pricing, while ensuring operational feasibility with respect to battery constraints. Unlike traditional models, the framework inherently supports real-time adaptability, scalability, and robustness to dynamic events, making it particularly well-suited for next-generation cyber-physical production systems.
+
+The main contributions of this study are as follows:
+\begin{itemize}
+    \item Address the JSSPT under ToU electricity pricing, incorporating practical operational constraints such as AIV battery limitations.
+    \item Introduce a novel decentralized game-theoretic model for minimizing both makespan and energy costs.
+    \item Develop a fully distributed scheduling mechanism involving machines and robots as rational decision-makers.
+    \item Leverage potential game and submodular set function properties to ensure convergence toward efficient schedules with provable performance guarantees.
+\end{itemize}
+
+The remainder of this paper is organized as follows. Section~\ref{sec:rwork} reviews related work on energy-aware job shop scheduling, transportation constraints, and robots' battery limitations in manufacturing. Section~\ref{sec:methods} describes the problem formulation, the Time-of-Use pricing model, and the proposed game-theoretic model. Section~\ref{sec:exp} details the experimental setup, including benchmark instances, experimental protocol, and evaluation scenarios. Section~\ref{sec:results} presents and discusses the obtained results, while Section~\ref{sec:insights} provides practical and managerial insights. Finally, Section~\ref{sec:conc} concludes the study and outlines future research directions.
+
+\section{Related work}
+\label{sec:rwork}
+
+
+\section{Methods}
+\label{sec:methods}
+
+\subsection{Problem description and Assumptions}
+The problem addressed in this study extends the classical Job Shop Scheduling Problem with Transportation (JSSPT) by incorporating both time-of-use (TOU) electricity pricing and robots’ battery constraints. In its classical form, the JSSPT involves sequencing a set of jobs \(\mathcal{J} = \{J_1, ..., J_I\}\) on a set of machines \(\mathcal{M} = \{M_1, ..., M_M\}\) to minimize a given performance criterion, such as makespan, total energy cost, or total energy consumption. Each job $J_i$ consists of an ordered sequence of operations ($O_{i,1}, ..., O_{i,n}$), where operation $O_{i,j}$, denoting the $j^{th}$ operation of job $J_i$, can only be processed on a specific machine $M_k \in \mathcal{M}$ in $\tau_{i,j,k}$ time units. Machines handle operations one at a time, and once started, an operation is processed without interruption. Additionally, each machine $M_k$ is equipped with an input buffer $B^I_k$ and an output buffer $B^O_k$ for storing jobs before and after processing.
+
+Each job processing on a machine is preceded by a transportation task performed by a single-load Autonomous Intelligent Vehicle (AIV) from the fleet $\mathcal{V}=\{ V_1, ..., V_v \}$. Throughout this work, the terms “AIV” and “robot” are used interchangeably. The complete manufacturing sequence for the job $J_i$ can be expressed as: ($T_{i,1}$, $O_{i,1}$, $T_{i,2}$, $O_{i,2}$, ..., $T_{i,n}$, $O_{i,n}$, $T_{i,(n+1)}$), where $T_{i,j}$ denotes the transportation of the job $J_i$ to the machine assigned for operation $O_{i,j}$. The first transportation $T_{i,1}$ moves the job from the load/unload (L/U) station to the first machine, and the final transportation $T_{i,(n+1)}$ returns the completed job to the L/U station. In this context, the makespan ($C_{max}$) is defined as the total time from the start of processing the first job until the last job is returned to the L/U station. An AIV's availability depends on its current workload, task assignment, and battery level. Therefore, it can only start a new transportation task once it is free and has sufficient battery to complete the task. 
+
+The additional and practical complexities considered in this work are the energy-related cost fluctuation and battery constraint of AIVs. On the one hand, the workshop operates under a time-of-use (ToU) electricity pricing scheme. The planning horizon is divided into discrete time intervals 
+$\mathcal{H} = \{h_1, h_2, ..., h_H\}$, classified into peak, off-peak, and mid-peak periods. Each interval $h = [1, 2, ..., l]$ has an associated electricity price $c_h > 0$ (per kWh). Peak hours, which coincide with high demand, incur higher prices, while off-peak periods offer lower rates to incentivize shifting energy consumption. This variability directly impacts operational scheduling, especially for energy-intensive machine processing.
+
+On the other hand, robots are powered by a finite-capacity battery, which depletes during travel and handling operations. The battery state-of-charge (SoC) decreases at a specific rate related to the robot's operation. We distinguish three depletion rates when the robot is idle, moving empty, and moving loaded. For simplification, we assume that robots move at a constant speed, and all jobs have an identical weight, lower than the robot's maximum authorized charge. Robots cannot operate below a minimum SoC threshold to ensure safe return to a charging station. Consequently, scheduling must not only account for job-machine assignment and TOU-based energy cost optimization but also ensure that each AIV’s assigned sequences of transportation are feasible with respect to its available battery capacity. Battery recharging or swapping may be required, but it introduces idle times for robots, potentially impacting the overall makespan and energy efficiency. For tractability, the following modeling assumptions are adopted:
+\begin{itemize}
+    \item energy consumption for machine idle or standby states, auxiliary equipment, and support facilities is excluded;
+    \item machine setup, loading, and unloading times are included in processing times;
+    \item machine processing speeds are constant and not explicitly modeled;
+    \item all machines consume electricity at a constant rate of 2 kW during processing, inspired by~\cite{VISWANATHAN20221409};
+    \item robot loading/unloading times are included in transportation times;
+    \item the battery SoC for each robot is constrained to operate between 20\% and 80\% of its full capacity, in line with recommendations from~\cite{en13133435, Qazi2019};
+    \item each robot has a maximum battery capacity of 100 Ah (ampere-hours), representing 100\% SoC, as reported in~\cite{en13184948};
+    \item following~\cite{mchaney1995modelling, en13184948}, three different battery depletion rates were considered: 1mA (milliampere) per second while idle, 3mA per second while moving empty, and 7mA per second when transporting a job;
+    \item to prevent the battery SoC from falling below the 20\% threshold, robots must undergo a 5-minute battery recharging before resuming operation, as mentioned in~\cite{mwpvl}. During this period, battery capacity increases by 20 Ah;
+    \item finally, the workshop's charging station is equipped with fast chargers delivering a power of 1.5 kW, based on specifications from~\cite{Phihong}. 
+\end{itemize}
+Under these operational assumptions, the scheduling problem involves jointly optimizing machine processing sequences, transportation tasks, and AIV battery management, while leveraging TOU price variability to minimize total energy cost and maintain operational feasibility.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Centralized optimization model (Option B): block-discrete ToU charging
+% Integrated JSSPT with transport + return-to-LU + robot battery feasibility
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Centralized optimization model (JSSPT with transport and ToU charging)}
+
+\subsubsection{Sets and indices}
+\begin{itemize}
+  \item $J=\{1,\dots,n\}$: set of jobs, index $i$.
+  \item For each job $i\in J$, $O_i=\{1,\dots,m_i\}$: ordered operations, index $k$.
+  \item $\mathcal{O}=\{(i,k): i\in J,\; k\in O_i\}$: set of all operations, index $u=(i,k)$.
+  \item $M=\{1,\dots,|M|\}$: set of machines, index $m$.
+  \item $V=\{1,\dots,|V|\}$: set of robots (AIVs), index $r$.
+  \item $L$: set of locations (machines, load/unload station, charging station), index $\ell$.
+  \item $\mathcal{H}=\{1,\dots,H\}$: set of Time-of-Use tariff intervals, index $h$.
+\end{itemize}
+
+\subsubsection{Locations, transport tasks, and travel times}
+Let $LU\in L$ denote the load/unload station and $CH\in L$ the (single) charging station.
+For each operation $u=(i,k)\in\mathcal{O}$, let $\ell(u)\in L$ denote the physical location of the required machine.
+
+Let $t_{a,b}\ge 0$ be the travel time from location $a\in L$ to $b\in L$.
+
+For each job $i\in J$, define
+\[
+\mathrm{prev}(i,1)=LU,\qquad \mathrm{prev}(i,k)=\ell(i,k-1)\ \ (k\ge 2),
+\]
+and define the destination
+\[
+\mathrm{dest}(i,k)=\ell(i,k)\ \ (k=1,\dots,m_i),\qquad \mathrm{dest}(i,m_i+1)=LU.
+\]
+We model transport tasks as
+\[
+\mathcal{T}=\{(i,k): i\in J,\; k=1,\dots,m_i+1\}.
+\]
+Task $(i,k)\in\mathcal{T}$ transports the part from $\mathrm{prev}(i,k)$ to $\mathrm{dest}(i,k)$ with travel time
+\[
+\tau_{i,k}=t_{\mathrm{prev}(i,k),\,\mathrm{dest}(i,k)}.
+\]
+
+\subsubsection{Parameters}
+\begin{itemize}
+  \item $p_{i,k}>0$: processing time of operation $(i,k)\in\mathcal{O}$.
+  \item $m(i,k)\in M$: machine required by operation $(i,k)\in\mathcal{O}$.
+  \item Battery:
+  \begin{itemize}
+    \item $B^{\max}$: battery capacity (Ah).
+    \item $B^{\min}$: minimum allowable battery level (Ah).
+    \item $B^{\mathrm{start}}$: initial battery level (Ah).
+    \item $q^{\mathrm{tr}}$: discharge rate per unit travel time (Ah / time).
+    \item $q^{\mathrm{ch}}$: charge rate per unit charging time (Ah / time).
+  \end{itemize}
+  \item ToU charging:
+  \begin{itemize}
+    \item Tariff interval $h\in\mathcal{H}$ corresponds to time window $[T_{h-1},T_h)$ with length $\Delta_h=T_h-T_{h-1}$.
+    \item $c_h$: electricity price in interval $h$ (currency/kWh).
+    \item $P^{\mathrm{ch}}$: charging power (kW).
+  \end{itemize}
+  \item Objective weight: $\omega\in[0,1]$.
+  \item $M^{\mathrm{big}}$: sufficiently large constant used in disjunctive constraints.
+\end{itemize}
+
+\subsubsection{Decision variables}
+\paragraph{Operation timing.}
+\begin{itemize}
+  \item $S_{i,k}\ge 0$: start time of processing operation $(i,k)\in\mathcal{O}$.
+  \item $C_{i,k}\ge 0$: completion time of processing operation $(i,k)\in\mathcal{O}$.
+\end{itemize}
+
+\paragraph{Transport timing.}
+For each transport task $(i,k)\in\mathcal{T}$:
+\begin{itemize}
+  \item $s_{i,k}\ge 0$: start time of transport task $(i,k)$.
+  \item $c_{i,k}\ge 0$: completion time of transport task $(i,k)$.
+\end{itemize}
+
+\paragraph{Assignment and sequencing.}
+\begin{itemize}
+  \item $x_{i,k,r}\in\{0,1\}$: $=1$ if robot $r$ executes transport task $(i,k)\in\mathcal{T}$.
+  \item For two distinct transport tasks $a,b\in\mathcal{T}$ and robot $r\in V$,
+  $y_{a,b,r}\in\{0,1\}$: $=1$ if (when both assigned to robot $r$) task $a$ precedes task $b$.
+  \item For two distinct operations $u,v\in\mathcal{O}$ requiring the same machine,
+  $z_{u,v}\in\{0,1\}$: $=1$ if operation $u$ precedes $v$ on that machine.
+\end{itemize}
+
+\paragraph{Makespan.}
+\[
+C_{\max}\ge 0.
+\]
+
+\paragraph{Block-discrete charging (Option B).}
+\begin{itemize}
+  \item $g_{r,h}\in[0,\Delta_h]$: amount of time robot $r$ charges during tariff interval $h$.
+\end{itemize}
+
+\paragraph{Battery tracking (lower-bound feasibility form).}
+We use a conservative but linear battery-feasibility condition that ensures the battery never drops below $B^{\min}$
+before completing any assigned transport and reaching the charging station.
+\begin{itemize}
+  \item $b_{i,k,r}\ge 0$: battery level of robot $r$ immediately before executing transport task $(i,k)$
+  (only meaningful if $x_{i,k,r}=1$; linearized with big-$M$).
+\end{itemize}
+
+\subsubsection{Objective}
+We minimize a weighted sum of makespan and ToU charging cost:
+\begin{align}
+\min \ \Phi \;=\; \omega\, C_{\max} \;+\; (1-\omega)\,E_{\mathrm{cost}},
+\label{eq:obj}
+\end{align}
+where the ToU charging cost is
+\begin{align}
+E_{\mathrm{cost}}
+\;=\;
+\sum_{r\in V}\sum_{h\in\mathcal{H}}
+\left(P^{\mathrm{ch}}\cdot \frac{g_{r,h}}{60}\right)c_h,
+\label{eq:cost}
+\end{align}
+assuming $g_{r,h}$ is measured in minutes (adapt the $60$ factor to your time unit).
+
+\subsubsection{Constraints}
+
+\paragraph{(1) Processing completion.}
+\begin{align}
+C_{i,k} = S_{i,k} + p_{i,k}
+\qquad \forall (i,k)\in\mathcal{O}.
+\label{eq:proc_completion}
+\end{align}
+
+\paragraph{(2) Transport completion.}
+\begin{align}
+c_{i,k} = s_{i,k} + \tau_{i,k}
+\qquad \forall (i,k)\in\mathcal{T}.
+\label{eq:trans_completion}
+\end{align}
+
+\paragraph{(3) Job precedence with transport (integrated flow).}
+Transport must deliver the part before processing can start:
+\begin{align}
+S_{i,1} &\ge c_{i,1} && \forall i\in J,
+\label{eq:first_op}
+\\
+s_{i,k} &\ge C_{i,k-1} && \forall i\in J,\ \forall k=2,\dots,m_i,
+\label{eq:pickup_after_proc}
+\\
+S_{i,k} &\ge c_{i,k} && \forall i\in J,\ \forall k=2,\dots,m_i.
+\label{eq:proc_after_drop}
+\end{align}
+
+Final return-to-$LU$ after the last operation:
+\begin{align}
+s_{i,m_i+1} &\ge C_{i,m_i} && \forall i\in J,
+\label{eq:return_pickup}
+\\
+C_{\max} &\ge c_{i,m_i+1} && \forall i\in J.
+\label{eq:makespan_def}
+\end{align}
+
+\paragraph{(4) Machine capacity (no overlap).}
+For any two distinct operations $u=(i,k)$ and $v=(i',k')$ requiring the same machine,
+i.e., $m(u)=m(v)$, enforce disjunctive non-overlap:
+\begin{align}
+S_v &\ge C_u - M^{\mathrm{big}}(1-z_{u,v}),
+\label{eq:mach_disj_1}
+\\
+S_u &\ge C_v - M^{\mathrm{big}}(z_{u,v}),
+\label{eq:mach_disj_2}
+\\
+z_{u,v}+z_{v,u} &= 1.
+\label{eq:mach_disj_3}
+\end{align}
+
+\paragraph{(5) Transport assignment.}
+Each transport task is executed by exactly one robot:
+\begin{align}
+\sum_{r\in V} x_{i,k,r} = 1
+\qquad \forall (i,k)\in\mathcal{T}.
+\label{eq:assign}
+\end{align}
+
+\paragraph{(6) Robot capacity (no overlap of assigned transport tasks).}
+Let $a=(i,k)$ and $b=(i',k')$ be two distinct transport tasks in $\mathcal{T}$.
+For each robot $r\in V$:
+\begin{align}
+s_b \;&\ge\; c_a
+\;-\; M^{\mathrm{big}}\big(1-y_{a,b,r}\big)
+\;-\; M^{\mathrm{big}}\big(2-x_{a,r}-x_{b,r}\big),
+\label{eq:rob_disj_1}
+\\
+s_a \;&\ge\; c_b
+\;-\; M^{\mathrm{big}}\big(y_{a,b,r}\big)
+\;-\; M^{\mathrm{big}}\big(2-x_{a,r}-x_{b,r}\big),
+\label{eq:rob_disj_2}
+\\
+y_{a,b,r}+y_{b,a,r} \;&\ge\; x_{a,r}+x_{b,r}-1.
+\label{eq:rob_disj_3}
+\end{align}
+Here $x_{a,r}$ is shorthand for $x_{i,k,r}$ when $a=(i,k)$.
+
+\paragraph{(7) Block-discrete charging (ToU decision variables).}
+Charging time per robot and tariff interval is bounded by the interval length:
+\begin{align}
+0 \le g_{r,h} \le \Delta_h
+\qquad \forall r\in V,\ \forall h\in\mathcal{H}.
+\label{eq:g_bounds}
+\end{align}
+
+\paragraph{(8) Conservative battery feasibility constraints (Option B).}
+We ensure that before executing any assigned transport task $(i,k)$, robot $r$ has enough battery to:
+(i) execute the loaded travel of $(i,k)$ and (ii) subsequently reach the charging station from the destination.
+Define
+\[
+\beta_{i,k}=B^{\min} + q^{\mathrm{tr}}\tau_{i,k} + q^{\mathrm{tr}}t_{\mathrm{dest}(i,k),\,CH}.
+\]
+Then impose (activated only if $x_{i,k,r}=1$):
+\begin{align}
+b_{i,k,r} &\ge \beta_{i,k} - M^{\mathrm{big}}(1-x_{i,k,r})
+\qquad \forall (i,k)\in\mathcal{T},\ \forall r\in V.
+\label{eq:batt_feas}
+\end{align}
+
+To relate $b_{i,k,r}$ to charging decisions in a simplified, ToU-aligned manner,
+we use an aggregate lower bound: total charge gained by robot $r$ must be sufficient to cover the total travel energy of tasks assigned to $r$ while staying above $B^{\min}$.
+Let $\tau_{i,k}$ be the travel time for task $(i,k)$.
+\begin{align}
+B^{\mathrm{start}} + q^{\mathrm{ch}}\sum_{h\in\mathcal{H}} g_{r,h}
+\;\ge\;
+B^{\min} + q^{\mathrm{tr}}\sum_{(i,k)\in\mathcal{T}} \tau_{i,k}\,x_{i,k,r}
+\qquad \forall r\in V.
+\label{eq:batt_balance_agg}
+\end{align}
+Constraint~\eqref{eq:batt_balance_agg} is a global feasibility condition consistent with block-discrete charging;
+it can be strengthened by adding per-prefix constraints if a position-indexed sequence is introduced.
+
+\paragraph{(9) Domain constraints.}
+\begin{align}
+S_{i,k},C_{i,k},s_{i,k},c_{i,k},C_{\max} &\ge 0, \\
+x_{i,k,r},y_{a,b,r},z_{u,v} &\in \{0,1\}.
+\label{eq:domains}
+\end{align}
+
+\medskip
+\noindent
+\textbf{Remark (tightness vs.\ scalability).}
+The model above uses a block-discrete ToU charging variable $g_{r,h}$ (Option B).
+Battery feasibility is enforced through a conservative local condition~\eqref{eq:batt_feas} and a global balance constraint~\eqref{eq:batt_balance_agg}. If exact interleaving of travel and charging is required, one can introduce an explicit per-robot task order (position-indexing) and prefix battery constraints, at the cost of a larger model.
+
+\subsection{Problem modeling}
+
+\subsubsection{ToU pricing profile}
+The TOU pricing profile characterizes how electricity prices fluctuate within a given planning horizon, typically over 24 hours. As noted by Ding Jian-Ya~\textit{et al.}~\cite{7349258}, pricing structures differ considerably across countries and regions, but they generally fall into two categories: (i) profiles with a limited number of fixed price changes, and (ii) profiles with frequent, short-interval fluctuations. In this study, we focus on the first category while allowing the time horizon to be dynamically determined. Indeed, the choice of horizon length is critical: if the pricing intervals are too long, an entire schedule may fall within a single tariff period, effectively reducing the bi-objective optimization problem (makespan and energy cost) to a single-objective one. To better capture the trade-off between production efficiency and energy expenditure, the TOU profile must therefore be aligned with the scheduling horizon, which itself is dynamically calculated based on the characteristics of the problem instance.
+
+In~\cite{7349258}, the time horizon was defined as $H = \displaystyle \lambda \sum_{M_k \in \mathcal{M}}\sum_{J_i \in \mathcal{J}} \sum_{j=1}^n \frac{\tau_{i,j,k}}{|\mathcal{M}|^2}$, where $|\mathcal{M}|$ is the total number of machines, $\tau_{i,j,k}$ is the processing time of job $O_{i,j}$ on machine $M_k$, and $\lambda$ is scaling factor reflecting the degree of scheduling flexibility. However, this formulation was designed for a parallel machine scheduling problem without transportation considerations. In that context, dividing the total workload by $|\mathcal{M}|^2$ significantly reduces the time horizon, especially when addressing large instances as in their work (up to 200 jobs and 20 machines). While this adjustment may help in balanced workload systems, in the JSSPT context, with sequential operations, machine heterogeneity, and transportation tasks, it risks underestimating the actual horizon, especially when some machines are more heavily loaded than others. For this reason, we redefine the time horizon as: 
+\begin{equation}
+    H = \lambda \left( \frac{1}{|\mathcal{M}|} \sum_{M_k \in \mathcal{M}} \sum_{J_i \in \mathcal{J}}\sum_{j=1}^{j=n} \tau_{i,j,k} + \frac{1}{|\mathcal{V}|} \sum_{J_i \in \mathcal{J}} \sum_{j=1}^{j=n+1} \sigma_{i,j} \right).
+\end{equation}
+
+Here, $\sigma_{i,j}$ denotes the minimum duration of transportation task $T_{i,j}$. Through empirical testing, the scaling factor was set to $\lambda = 2$, as this value yields a well-balanced time horizon: sufficiently long to avoid compressing the entire schedule into just one or two TOU intervals, yet not so shortened that the impact of the pricing profile is diminished. This choice ensures that the scheduling framework remains both flexible and responsive to energy cost variations, thereby supporting the development of diverse, cost-aware strategies.
+
+\subsubsection{Game theory framework}
+Our scheduling problem is modeled through a game-theoretic framework, where decentralized decision-making is carried out by the workshop agents, namely the mobile robots and machines. In this setting, each agent is treated as a rational decision-maker with its own set of feasible actions and constraints, but whose choices collectively determine the overall system performance. For mobile robots, the key decision is whether to carry out a transportation task (selecting a job to transfer to its destination) or to proactively move to the charging station in order to prevent the battery SoC from dropping below the critical threshold of 20\%. This trade-off directly influences both job flow continuity and robot availability for future tasks. Similarly, each machine independently decides which job to process from its input buffer and at what time to begin processing (job, start time). By strategically coordinating these decentralized decisions, the agents collectively aim to minimize the workshop’s production costs, captured by the weighted sum of makespan and energy costs under the TOU pricing profile.
+
+The model is formulated as a non-cooperative game, where rational and independent agents make decisions to maximize their own utility. Formally, the game is represented as $\Gamma = \:$\textless $\mathcal{P}, \{\mathcal{A}_{p}\}_{p \in \mathcal{P}}, \{u_p\}_{p \in \mathcal{P}}$\textgreater\:, where
+\begin{itemize}
+    \item $\mathcal{P} = \mathcal{V} \cup \mathcal{M}$ denotes the set of players (robots and machines);
+    \item \(\mathcal{A}_p = \{a_1, ..., a_{z}\}\) is the action set available to player $p \in \mathcal{P}$; 
+    \item and $u_p$ is the utility function that quantifies the outcome of each player’s decision.
+\end{itemize}
+For robots, an action $a_{p} = a_{v}$ can either be to transport the job $J_i$ to its next destination $d$ (which can be a machine or the L/U station), or go to the charge station:
+\begin{equation*}
+    a_{v} = 
+    \begin{cases}
+        (J_i, d) \\
+        charge.
+    \end{cases}
+\end{equation*}
+For machines, an action $a_{p} = a_{m}$ consists of selecting a job from the input buffer and determining its processing start time: $a_m = (J_i, t_{start})$.
+
+To quantitatively evaluate the workshop’s performance, a bi-objective global cost function is introduced:
+\begin{equation}
+    \Phi = \omega \cdot C_{max} + (1 - \omega)\cdot E_{cost}.
+\end{equation}
+$C_{max}$ denotes the makespan, i.e., the maximum completion time required to process and return all jobs to the L/U station. $E_{cost}$ represents the total energy expenditure of the system. This accounts for both machine processing operations and robot battery charging, and is calculated by combining their respective power consumption rates with the ToU electricity tariff applicable at the moment of consumption. Finally, the weighting parameter $\omega \in [0, 1]$ governs the trade-off between the two objectives: when $\omega \longrightarrow 1$, priority is given to minimizing makespan, whereas lower values of $\omega$ emphasize reducing energy costs.
+
+Besides, each player’s utility function $u_p$ is defined according to the concept of Marginal Contribution Utility (MCU)~\cite{9241495, chapman2009}, which measures the incremental effect of a player’s action on the overall system performance. In other words, a player’s utility quantifies how much its chosen action reduces the global cost function $\Phi$. Formally, for any player $p \in \mathcal{P}$ taking an action $a_p \in \mathcal{A}_p$, the utility function is expressed as:
+\begin{equation}
+    u_p(a_p, \alpha_{-p}) = \Phi(a_p, \alpha_{-p}) - \Phi(a_p^0, \alpha_{-p}).
+\end{equation}
+$\alpha = (a_p, \, \alpha_{-p})$ denotes a joint action profile, where $a_p$ is the action chosen by player $p$ and $\alpha_{-p}$ represents the actions of all other players. $a_p^0$ represents the null action, i.e., the decision of player $p$ to remain idle. This formulation ensures that the player’s decision is tied to its marginal contribution. Hence, rational players will privilege actions yielding the greatest reduction in the global cost. Additionally, as well established in the literature and demonstrated in~\cite{SANOGO2025111366}, defining each player’s utility through the MCU framework transforms the problem into a potential game, with the global cost function serving as the potential function. By definition, a game is a potential game if there is any function $f: \{\mathcal{A}_{p}\} \rightarrow \mathbb{R}$, called the potential function, such that for given $p$, $\alpha_{-p}$, $a_p$ and $a_p'$, the following condition is satisfied: $f(a_p,\alpha_{-p}) - f(a_p',\alpha_{-p}) = u_p(a_p,\alpha_{-p}) - u_p(a_p',\alpha_{-p})$. This means that the change in a player’s utility from deviating to another action is exactly equal to the change in the potential function. In such games, the alignment between individual utilities and the potential function ensures that when players act to minimize their marginal contribution, they simultaneously drive the system toward minimizing the global objective. Consequently, under this formulation, robots and machines seek to minimize their own marginal contribution, thereby directly contributing to the minimization of the system's global cost.
+
+In addition, potential games possess the important property of guaranteeing the existence of at least one pure Nash Equilibrium (NE)~\cite{c9722354, WU2020208}. By definition, an NE is a stable action profile in which no player can improve its utility by unilaterally deviating, given that the actions of all other players remain fixed. Formally, for each player $p \in \mathcal{P}$, an action profile $\alpha_{p}^*$ is an NE if it satisfies: $u_p(a_p^*,\alpha_{-p}^*) \ge u_p(a_p,\alpha_{-p}^*)$. An NE is said to be pure when the equilibrium strategy corresponds to a deterministic action such that, $u_p(a_p^*,\alpha_{-p}^*) = \max_{a_p \in \mathcal{A}_p}{u_p(a_p,\alpha_{-p}^*)}$. In our context, since the objective is the workshop's costs minimization, the pure NE can be equivalently expressed as: $u_p(a_p^*,\alpha_{-p}^*) = \min_{a_p \in \mathcal{A}_p}{u_p(a_p,\alpha_{-p}^*)}$. Thus, for each player, selecting the action that yields the minimum marginal contribution naturally drives the system toward a pure NE, which simultaneously minimizes the global cost function. Moreover, as shown in~\cite{SANOGO2025111366}, the optimal solution to our problem is always an NE. Hence, minimizing $\Phi$ is equivalent to identifying a pure NE for each player.
+
+Furthermore, following~\cite{SANOGO2025111366}, the proposed model supports a dynamic scheduling approach, where scheduling decisions are made progressively as tasks unfold rather than being predetermined at the outset. At each decision point, the agents (robots and machines) “play” the game, seeking a pure NE that reflects the appropriate decision under the current system state. This process is repeated until all jobs are completed, thereby structuring the model as a multi-stage game~\cite{abreu1988structure}. To formalize this repetition, the game is decomposed into a finite sequence of stages indexed by $q = 1, 2, ..., Q<\infty$, where each stage corresponds to a distinct decision-making instance. At every stage, players update their actions based on the current system configuration (remaining jobs, machine buffer contents, robot SoC levels, machine availability, TOU pricing, etc.), and the global cost function $\Phi$ is recalculated accordingly. This stage-by-stage evolution continues until the terminal stage $Q$, which coincides with the completion of all processing operations. At this point, the final values $C_{max}^Q$ and $E_{cost}^Q$ denote, respectively, the overall makespan and total energy cost incurred by the workshop.
+
+\subsubsection{Makespan modeling}
+The makespan represents the total elapsed time from the start of the manufacturing process until the last job is returned to the Load/Unload (L/U) station. Formally, it is defined as $C_{max} = \displaystyle \max_{J_i \in \mathcal{J}}\{C_i\}$, where $C_i$ denotes the completion time of the job $J_i$. Since the scheduling problem is modeled as a multi-stage game, the makespan is reformulated into a stage-indexed form to enable incremental evaluation rather than waiting until the end of the production process. In this setting, the game evolves through decision stages, and the makespan is updated progressively as new tasks are scheduled and completed. Importantly, a stage does not correspond to a fixed unit of physical time but instead to a decision point at which one or more idle players select their next actions. Thus, the makespan at stage $q$ is expressed as:
+\begin{equation}
+    \label{ep:Cq}
+    C_{max}^{q} = \max{\{ C_{max}^{(q-1)}, \max_{p \in \mathcal{P}}{\{R^q_p(\alpha_p)\}}} \}, \text{where } q = 1, 2, ..., Q<\infty,
+\end{equation}
+which represents the maximum completion time of all jobs scheduled up to stage $q$. Specifically, $C_{max}^{(q-1)}$ denotes the maximum completion time of all jobs scheduled up to the previous stage $q-1$, while $\displaystyle \max_{p \in \mathcal{P}}\{R^q_p(a_p)\}$ captures the projected completion time resulting from the actions chosen by the players at stage $q$. 
+
+At the initial stage $q=0$, no tasks have yet been scheduled, and therefore the makespan is defined as zero, i.e., $C_{max}^{0}=0$. From this point onward, at each decision stage $q$, every idle player evaluates its set of feasible actions. For each candidate action $a_p$, the player estimates its completion time $R^q_p(a_p)$, called "return" value. This return computation depends on the type of player. Let $t_{p, avail}$ denote the earliest time at which player $p$ becomes available to start a new task:
+\begin{itemize}
+    \item \textbf{for machines}, the return associated with an action $a_p = (J_i, t_{start})$ is defined as: $R_p^q(a_p) = t_{start} + \tau_{i,j,k}$, where $t_{start}$ denotes the intended processing start time. Naturally, $a_p$ must satisfy feasibility constraints: (i) $t_{start}$ must not precede the arrival time of job $J_i$ and $t_{p, avail}$, i.e., $t_{start}>\max{\{t_{p, avail}, t_{i, arrival}\}}$; (ii) and the return must lie within the defined ToU time horizon, i.e., $R_p^q(a_p) \leq H$.
+    \item \textbf{for robots}, the action $a_p$ can either be (1) transporting a job to its next destination, $a_p = (J_i, d)$, or (2) moving to the charging station, $a_p = charge$. let $B_{current}$ denotes the robot's current SoC. The feasibility and return of each action are determined as follows:
+    \begin{enumerate}
+        \item $a_p = (J_i, d)$: This action is feasible only if the AIV has sufficient SoC to complete the entire transportation task and potentially reach the charge station afterward, without dropping below the SoC threshold. Let $B_{needed}(a_p)$ denote the minimum SoC required for the action $a_p$, accounting for the robot, job, and destination location: $B_{needed}(a_p) = 20 + ec \cdot t_{p,i} + ic \cdot \max\{0, t^r_{i,(j-1)} - t_{p,i}\} + lc \cdot t_{i,d} + ec \cdot t_{d,d_0}$, where $ec, ic,$ and $lc$ denote the empty-travel, idle, and loaded-travel consumption rates, respectively; $t_{p,i}$ is the travel time from player $p$ to the job location; $t^r_{i,(j-1)}$ is the remaining processing time of the preceding operation $O_{i,(j-1)}$ (if any); $t_{i,d}$ is the travel time from job $J_i$ to its next destination $d$; and $t_{d,d_0}$ is the travel time from $d$ to the charging station $d_0$.
+        \begin{itemize}
+            \item if $B_{current} < B_{needed}(a_p)$, the action is infeasible, and its return is set to infinity $R_p^q(a_p) \longrightarrow \infty$, ensuring it is never selected.
+            \item if $B_{current} \ge B_{needed}(a_p)$, the action is feasible. The return corresponds to the predicted completion time of the transportation task: $R_p^q(a_p) = t_{p, avail} + \max\{t_{p,i}, t^r_{i,(j-1)}\} + t_{i,d}$.
+        \end{itemize}
+        \item $a_p = charge$: The return is the projected end time of the charging process, corresponding to when to robot will be available for new tasks: $R_p^q(a_p) = t_{p, avail} + t_{p,d_0} + t_{charge}$, where $t_{p,d_0}$ is the travel time from player $p$ to the charging station and $t_{charge}$ the charging duration.
+    \end{enumerate}
+\end{itemize}
+
+\subsubsection{Energy cost modeling}
+Similarly to the makespan modeling, the total energy cost is also modeled in a stage-indexed manner and denoted as $E_{cost}^{q}$, representing the cumulative energy cost of all actions executed up to and including stage $q$ of the game. This accounts for both machine processing and AIV recharging.  
+
+At the initial stage $q=0$, no energy has yet been consumed, and therefore: $E_{cost}^{0} = 0$. Subsequently, the incremental energy cost incurred at stage $q$ is then computed as:  $\Delta E_{cost}^{q} = \displaystyle \sum_{p \in \mathcal{P}} cost_e\big(a_p^{q}\big),$
+where $cost_e(a_p^{q})$ denotes the energy cost of executing a single action $a_p^{q}$. The precise definition of this function depends on both the player type and the specific action:  
+\begin{itemize}
+    \item \textbf{for machines}, the energy cost arises from processing job $J_i$ on machine $M_k$ depends on the machine’s nominal power consumption $P_k$, the processing duration $\tau_{i,j,k}$, and the ToU tariff $c_h(t)$ applied at the actual execution time. Formally:  $cost_e(a_p) = \displaystyle \sum_{t = t_{start}}^{t_{start} + \tau_{i,j,k} - 1} P_k \cdot c_h(t).$
+    \item \textbf{for robots}, the energy cost is action-related:
+    \begin{itemize}
+        \item $a_p = charge$: the energy cost is incurred when an AIV recharges at the charging station. It depends on the charging power $P_{\text{v}}$, the charging duration $t_{charge}$, and the ToU tariff during the charging period. Let $t_s^c = t_{p, avail} + t_{p,d_0}$ denote the time when the AIV arrives at the charging station, and $t_e^c = t_s^c + t_{charge}$ its release time. Then:  $cost_e(a_p) = \displaystyle \sum_{t = t_s^c}^{t_e^c} P_v \cdot c_h(t).$
+        \item $a_p = (J_i, d)$: For modeling simplicity, the variable energy consumed by AIVs during standard transportation tasks is aggregated into a baseline operational cost. Thus, its direct contribution to the stage-dependent energy cost is assumed to be negligible, i.e., $cost_e(a_p) = 0$. 
+    \end{itemize}
+\end{itemize}
+Finally, the energy cost is updated stage by stage according to:  $E_{cost}^{q} = E_{cost}^{(q-1)} + \Delta E_{cost}^{q}$.
+
+\subsubsection{Theoretical properties}
+The game-theoretic framework introduced in the previous section possesses several fundamental properties that guarantee predictable and stable outcomes. Beyond the potential game structure, which ensures the existence of at least one pure Nash equilibrium, we further establish two important characteristics: (i) the submodularity of the global cost function, and (ii) the validity of the utility system. Together, these properties strengthen the theoretical foundations of our model, ensure fairness among players, and provide computational leverage for solving the scheduling problem efficiently.
+
+On the one hand, submodularity is defined as the diminishing-returns property of set functions. This means adding an element to a smaller set yields at least as much marginal benefit as adding it to a larger one. In our context, the global cost function $\Phi$ is shown to be submodular. In other words, the marginal impact of introducing a new player (e.g., a machine or AIV) is higher when fewer players are responsible for the system scheduling. As the system becomes denser with a larger number of players, the marginal gain from an additional player decreases. This property reflects the natural diminishing returns in resource allocation and task scheduling. Importantly, submodularity is highly advantageous from an optimization standpoint, as it allows the use of greedy algorithms with polynomial-time complexity, thereby enabling efficient near-optimal solutions even for large-scale systems.
+
+On the other hand, a utility system $(\Phi, \{u_p\}_{p \in \mathcal{P}})$ is said to be valid if the following two conditions hold: (a) the utility gained by any individual player is at least as large as the decrease in global utility that would occur if that player were removed, and (b) the sum of all players’ utilities never exceeds the total system utility. In our game, these conditions ensure that no player can act in a way that disproportionately harms the overall system, while also preventing overestimation of collective contributions. This guarantees fairness, stability, and scalability, making the model robust to the inclusion of new players and suitable for real-world industrial environments.
+
+The interplay of these two properties offers powerful prospects for solving the scheduling problem. Since submodular functions are the discrete analogues of convex functions~\cite{9241495, schrijver2003}, many results from convex optimization can be extended to our setting. In particular, the work of Lovász~\cite{lovasz1983} and Edmonds~\cite{Edmonds2003} demonstrates that submodular function optimization can be performed in polynomial time. This enables the adoption of greedy strategies to efficiently approximate optimal schedules~\cite{1181966}. For example, the best-response algorithm, where players iteratively update their strategies by selecting the task that minimizes their marginal contribution, can be applied to converge toward a pure Nash equilibrium. Although such an equilibrium may not always be globally optimal, it is guaranteed to be within 50\% of suboptimality, since any Nash equilibrium $\alpha^*$ satisfies the inequality~\cite{1181966}:  
+\begin{equation}
+    \tfrac{1}{2}\Phi(\alpha^{opt}) \leq \Phi(\alpha^{*}) \leq \Phi(\alpha^{opt}).
+\end{equation}
+
+The formal proofs of these properties, including the submodularity of $\Phi$ and the validity of the utility system $(\Phi,\{u_p\}_{p \in \mathcal{P}})$, are provided in Section~\ref{proofs}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Game-theoretic formulation (decentralized mechanism)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Game-theoretic formulation (decentralized scheduling game)}
+\label{sec:game}
+
+\subsection{Stage game definition}
+We define a repeated, event-driven game among manufacturing resources.
+Let the player set be
+\[
+\mathcal{P} = M \cup V,
+\]
+i.e., all machines and robots are players. At each decision stage $q$ (event time $t_q$),
+a subset of \emph{active} players $\mathcal{P}_q\subseteq \mathcal{P}$ is eligible to act, typically those that are idle:
+\[
+\mathcal{P}_q=\{m\in M:\text{$m$ idle at $t_q$}\}\ \cup\ \{r\in V:\text{$r$ free at $t_q$}\}.
+\]
+
+\subsection{State and feasible actions}
+Let $s_q$ denote the (Markov) system state at stage $q$.
+Each active player $p\in\mathcal{P}_q$ selects an action $a_p \in \mathcal{A}_p(s_q)$.
+
+\paragraph{Machine actions.}
+For an idle machine $m\in M$, let $\mathcal{B}_m(s_q)$ denote the buffer contents.
+A machine action selects a job from the buffer and an optional ToU-aligned delay:
+\[
+a_m=(i,d),\qquad i\in\mathcal{B}_m(s_q),\quad d\in\mathcal{D}.
+\]
+
+\paragraph{Robot actions.}
+For a free robot $r\in V$, let $\mathcal{A}^{\mathrm{tr}}_r(s_q)$ denote precedence-ready transport tasks.
+A robot action is
+\[
+a_r \in \mathcal{A}_r(s_q) := \mathcal{A}^{\mathrm{tr}}_r(s_q)\ \cup\ \{\textsc{ChargeNow}\},
+\]
+subject to battery feasibility. Under Option~B, charging decisions are realized in real time through \textsc{ChargeNow} actions
+and the ToU price is exogenous and piecewise-constant.
+
+\subsection{Joint action and state transition}
+Let $a_q=(a_p)_{p\in\mathcal{P}_q}$ denote the joint action at stage $q$.
+A deterministic (or stochastic) execution rule $\Gamma$ resolves any conflicts and executes actions in the simulator:
+\[
+(s_{q+1},\Delta t_q)\sim \Gamma(s_q,a_q),
+\]
+producing the next state and the holding time to the next stage.
+
+\subsection{System objective}
+Let $\Phi(\sigma)$ denote the global cost of a complete schedule/trajectory $\sigma$:
+\[
+\Phi(\sigma)=\omega C_{\max}(\sigma) + (1-\omega)E_{\mathrm{cost}}(\sigma).
+\]
+
+\subsection{Marginal contribution utilities (cost reduction)}
+To align decentralized incentives with the system objective, we define each player's utility as the marginal
+\emph{cost reduction} relative to a null (idle) action $a_p^0$:
+\begin{align}
+u_p(s_q,a_p,a_{-p})
+=
+\Phi\!\left(\Gamma(s_q,(a_p^0,a_{-p}))\right)
+-
+\Phi\!\left(\Gamma(s_q,(a_p,a_{-p}))\right).
+\label{eq:marginal_utility}
+\end{align}
+Thus, $u_p>0$ indicates that player $p$ reduces the global cost by taking action $a_p$ instead of idling.
+
+\subsection{Best-response dynamics}
+A best response of player $p$ at state $s_q$ is any action maximizing its utility:
+\[
+a_p^{\mathrm{BR}} \in \arg\max_{a_p\in\mathcal{A}_p(s_q)} u_p(s_q,a_p,a_{-p}).
+\]
+A decentralized scheduling algorithm can be constructed by iterating best responses among active players
+(sequentially or in randomized order) at each stage $q$ until no player can improve, then advancing the simulator.
+
+\subsection{Potential-game property (statement)}
+Under a consistent execution rule $\Gamma$ and the marginal contribution utilities~\eqref{eq:marginal_utility}, the induced game can be interpreted as an exact potential game with potential function equal to the global objective decrease.
+This supports existence of pure Nash equilibria and motivates convergence of best-response dynamics.
+%\subsection{Best response algorithm implementation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theoretical RL Framework: Semi-Markov Decision Process
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Reinforcement Learning Framework}
+
+\subsection{Semi-Markov Decision Process Formulation}
+
+The integrated job shop scheduling problem with transportation and ToU-aware charging
+is modeled as a semi-Markov decision process (SMDP) defined by the tuple
+
+\[
+\mathcal{M} = (\mathcal{S}, \mathcal{E}, \mathcal{A}, \mathcal{P}, r, \gamma).
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{State Space}
+
+The state space $\mathcal{S}$ is the set of all feasible system configurations.
+A state $s \in \mathcal{S}$ at time $t$ includes:
+
+\begin{itemize}
+    \item Current simulation time $t$
+    \item Current ToU interval index $h(t)$
+    \item For each job $i$: current operation index and completion status
+    \item For each machine $m$: busy/idle status and remaining processing time
+    \item For each robot $r$:
+        \begin{itemize}
+            \item current location $\ell_r(t)$
+            \item remaining travel/charging time
+            \item battery level $B_r(t)$
+        \end{itemize}
+    \item Charger availability status
+\end{itemize}
+
+The state is fully observable and Markovian.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Event Set}
+
+Decisions occur only at event times.
+Let
+
+\[
+\mathcal{E} =
+\{\textsc{RobotFree}(r),\ \textsc{MachineFree}(m),\ \textsc{ToUChange},\ \textsc{ChargerFree}\}.
+\]
+
+At decision step $q$, the environment is in state $s_q$
+and emits event $e_q \in \mathcal{E}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Action Space}
+
+The feasible action set depends on the event type:
+
+\paragraph{Robot event.}
+If $e_q = \textsc{RobotFree}(r)$,
+\[
+\mathcal{A}(s_q,e_q)
+=
+\mathcal{A}^{\mathrm{tr}}_r(s_q)
+\cup \{\textsc{ChargeNow}\},
+\]
+where $\mathcal{A}^{\mathrm{tr}}_r(s_q)$ is the set of precedence- and battery-feasible
+transport tasks.
+
+\paragraph{Machine event.}
+If $e_q = \textsc{MachineFree}(m)$,
+\[
+\mathcal{A}(s_q,e_q)
+=
+\{(i,d): i \in \mathcal{B}_m(s_q),\ d \in \mathcal{D}\}.
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Transition Kernel}
+
+Given $(s_q,e_q,a_q)$,
+the simulator evolves deterministically until the next event time $t_{q+1}$,
+producing:
+
+\[
+(s_{q+1}, e_{q+1}, \Delta t_q)
+\sim
+\mathcal{P}(\cdot \mid s_q, e_q, a_q),
+\]
+
+where
+
+\[
+\Delta t_q = t_{q+1} - t_q.
+\]
+
+The transition captures:
+\begin{itemize}
+    \item Machine processing completion
+    \item Robot travel completion
+    \item Charging progression
+    \item Battery discharge
+    \item Job precedence evolution
+    \item ToU interval transitions
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Reward Function}
+
+The reward is designed to align with the centralized objective
+
+\[
+\Phi = \omega C_{\max} + (1-\omega)E_{\text{cost}}.
+\]
+
+For each transition $q$:
+
+\begin{align}
+r_q
+=
+-\omega \Delta t_q
+-(1-\omega)\Delta E_q
++ r_q^{\mathrm{viol}},
+\end{align}
+
+where:
+
+\[
+\Delta E_q
+=
+P^{\mathrm{ch}}
+\cdot
+\frac{\Delta t_q^{\mathrm{ch}}}{60}
+\cdot
+c_{h(t_q)}
+\]
+
+is the incremental ToU charging cost.
+
+Constraint violations (e.g., battery infeasibility) trigger
+large negative penalties and episode termination.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Discounting in Continuous Time}
+
+Because decisions occur at irregular intervals,
+we use time-aware discounting:
+
+\[
+\gamma_q = \gamma^{\Delta t_q},
+\]
+
+where $\gamma \in (0,1)$ is a base discount factor per unit time.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Objective}
+
+The goal is to find a policy $\pi$ maximizing expected discounted return:
+
+\[
+J(\pi)
+=
+\mathbb{E}_\pi
+\left[
+\sum_{q=0}^{\infty}
+\left(
+\prod_{k=0}^{q-1} \gamma_k
+\right)
+r_q
+\right].
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Optimal Policy}
+
+An optimal policy $\pi^*$ satisfies:
+
+\[
+\pi^* = \arg\max_{\pi} J(\pi).
+\]
+
+Under full observability and deterministic transitions between events,
+the optimal policy corresponds to minimizing the weighted objective
+in expectation over instance distributions.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Observation + mask construction for event-driven RL (JSSPT-Transport-ToU)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Observations and feasibility masks}
+\label{sec:obs}
+
+\subsubsection{State-to-observation mapping}
+Although the simulator state $s_q$ is fully Markovian, each decision-maker acts using a structured observation
+built from $s_q$ and the current event $e_q$.
+We define an observation constructor
+\[
+o_q = \mathrm{Obs}(s_q,e_q),
+\]
+which produces (i) global context features, (ii) local agent features, and (iii) candidate-action features.
+
+\paragraph{Global context features.}
+Let $t_q$ be the current time and $h(t_q)\in\mathcal{H}$ the active ToU interval.
+We include:
+\begin{align}
+\mathbf{g}(s_q) =
+\Big[
+&t_q,\;
+h(t_q),\;
+\Delta t^{\mathrm{ToU}}(t_q),\;
+c_{h(t_q)},\;
+c_{h(t_q)+1}\ (\text{if defined}),\;
+\mathrm{WIP}(s_q),\;
+\mathrm{idleM}(s_q),\;
+\mathrm{idleR}(s_q),\;
+\mathrm{chargerFree}(s_q)
+\Big],
+\label{eq:global_feat}
+\end{align}
+where $\Delta t^{\mathrm{ToU}}(t_q)$ is time-to-next tariff boundary, $\mathrm{WIP}$ is work-in-process count,
+$\mathrm{idleM}$ and $\mathrm{idleR}$ are numbers of idle machines and robots, and $\mathrm{chargerFree}\in\{0,1\}$.
+
+\subsubsection{Robot observation}
+When $e_q=\textsc{RobotFree}(r)$, robot $r$ receives
+\[
+o_q^{R} = \Big(\mathbf{g}(s_q),\ \mathbf{r}_r(s_q),\ \{\mathbf{a}^{R}_{r,j}(s_q)\}_{j=1}^{K_r}\Big),
+\]
+where $\mathbf{r}_r(s_q)$ encodes local robot features and $\{\mathbf{a}^{R}_{r,j}\}$ encodes a variable-size
+candidate set of feasible transport/charging actions.
+
+\paragraph{Local robot features.}
+\begin{align}
+\mathbf{r}_r(s_q)=
+\Big[
+&\ell_r(t_q),\;
+B_r(t_q),\;
+\mathrm{busy}_r(t_q),\;
+\Delta t^{\mathrm{rem}}_r(t_q),\;
+t_{\ell_r(t_q),CH},\;
+\mathrm{chargerFree}(s_q)
+\Big],
+\label{eq:robot_feat}
+\end{align}
+where $\ell_r(t_q)\in L$ is the robot location, $B_r(t_q)$ its battery level, $\mathrm{busy}_r$ indicates busy/idle,
+and $\Delta t_r^{\mathrm{rem}}$ is remaining time if currently executing an action (zero at \textsc{RobotFree}).
+
+\paragraph{Candidate transport actions.}
+Let $\mathcal{A}_r^{\mathrm{tr}}(s_q)$ be the set of transport tasks that are precedence-ready at time $t_q$.
+To control complexity, we construct a candidate subset $\tilde{\mathcal{A}}_r^{\mathrm{tr}}(s_q)$ of size at most $K_r$
+(e.g., by selecting tasks with smallest travel time and/or highest downstream criticality).
+For each candidate transport task $\alpha\in \tilde{\mathcal{A}}_r^{\mathrm{tr}}(s_q)$, define an action feature vector
+\begin{align}
+\mathbf{a}^{R}(\alpha;s_q)=
+\Big[
+&\mathrm{pick}(\alpha),\;
+\mathrm{dest}(\alpha),\;
+t_{\ell_r(t_q),\,\mathrm{pick}(\alpha)},\;
+\tau(\alpha),\;
+t_{\mathrm{dest}(\alpha),CH},\;
+\mathrm{ready}(\alpha;s_q),\;
+\mathrm{crit}(\alpha;s_q)
+\Big],
+\label{eq:robot_action_feat}
+\end{align}
+where $\mathrm{crit}(\alpha;s_q)$ is a scalar criticality score (e.g., whether delivering $\alpha$ will unblock an idle machine,
+or a slack/critical-path proxy).
+Additionally, we include the special action $\textsc{ChargeNow}$ with features
+\[
+\mathbf{a}^{R}(\textsc{ChargeNow};s_q)=\big[CH,\ CH,\ t_{\ell_r(t_q),CH},\ 0,\ 0,\ 1,\ 0\big].
+\]
+
+\subsubsection{Machine observation}
+When $e_q=\textsc{MachineFree}(m)$, machine $m$ receives
+\[
+o_q^{M} = \Big(\mathbf{g}(s_q),\ \mathbf{m}_m(s_q),\ \{\mathbf{a}^{M}_{m,j}(s_q)\}_{j=1}^{K_m}\Big),
+\]
+where $\mathbf{m}_m(s_q)$ encodes local machine features and $\{\mathbf{a}^{M}_{m,j}\}$ encodes candidate job-selection actions.
+
+\paragraph{Local machine features.}
+\begin{align}
+\mathbf{m}_m(s_q)=
+\Big[
+&m,\;
+\mathrm{busy}_m(t_q),\;
+\Delta t^{\mathrm{rem}}_m(t_q),\;
+|\mathcal{B}_m(s_q)|,\;
+\mathrm{avgProc}_m(s_q),\;
+\mathrm{avgWait}_m(s_q)
+\Big],
+\label{eq:machine_feat}
+\end{align}
+where $\mathcal{B}_m(s_q)$ is the buffer of waiting jobs at machine $m$, and $\mathrm{avgProc}_m$, $\mathrm{avgWait}_m$
+are optional buffer summary statistics.
+
+\paragraph{Candidate job actions with delay options.}
+Let $\mathcal{B}_m(s_q)$ be the buffer at machine $m$. For each job $i\in\mathcal{B}_m(s_q)$ with next operation $(i,k)$ on machine $m$,
+and for each delay option $d\in\mathcal{D}=\{0,d^{(1)},\dots,d^{(L)}\}$, define an action $a=(i,d)$ with features:
+\begin{align}
+\mathbf{a}^{M}(i,d;s_q)=
+\Big[
+&i,\;
+p_{i,k},\;
+\mathrm{nextMach}(i,k),\;
+\mathrm{slack}(i,k;s_q),\;
+d,\;
+c_{h(t_q)},\;
+c_{h(t_q)+1}\ (\text{if defined})
+\Big].
+\label{eq:machine_action_feat}
+\end{align}
+If the buffer is large, a candidate subset $\tilde{\mathcal{B}}_m(s_q)$ of size at most $K_m$ can be selected
+(e.g., smallest processing time, earliest release/ready time, or highest criticality).
+
+\subsubsection{Feasibility masks}
+At each decision step, feasibility is enforced by an action mask function
+\[
+m_q(a)\in\{0,1\},
+\]
+which is applied to the policy output distribution.
+
+\paragraph{Robot mask.}
+For a robot decision $e_q=\textsc{RobotFree}(r)$, a transport task $\alpha$ is feasible iff:
+\begin{align}
+\mathrm{ready}(\alpha;s_q) &= 1,
+\label{eq:mask_ready}
+\\
+B_r(t_q) &\ge B_{\mathrm{req}}(\alpha)
+:= B^{\min} + q^{\mathrm{tr}}\tau(\alpha) + q^{\mathrm{tr}}\,t_{\mathrm{dest}(\alpha),CH},
+\label{eq:mask_battery}
+\end{align}
+and any additional operational constraints (e.g., pickup buffer availability).
+Thus,
+\[
+m_q(\alpha)=\mathbb{I}\{\eqref{eq:mask_ready}\ \wedge\ \eqref{eq:mask_battery}\}.
+\]
+The action $\textsc{ChargeNow}$ is always feasible when the charger is available; if a single charger is modeled,
+\[
+m_q(\textsc{ChargeNow})=\mathbb{I}\{\mathrm{chargerFree}(s_q)=1\}.
+\]
+If all transport actions are infeasible, $\textsc{ChargeNow}$ can be forced by masking all transport actions.
+
+\paragraph{Machine mask.}
+For a machine decision $e_q=\textsc{MachineFree}(m)$, the action $(i,d)$ is feasible iff:
+(i) job $i$ is in the buffer and ready, and (ii) delaying by $d$ does not violate any hard constraint (e.g., imposed horizon limits):
+\[
+m_q(i,d)=\mathbb{I}\{i\in\mathcal{B}_m(s_q)\}\cdot \mathbb{I}\{\mathrm{DelayFeasible}(d;s_q)=1\}.
+\]
+
+\subsubsection{Neural encoding of variable candidate sets}
+To handle the variable-size candidate sets $\{\mathbf{a}^{R}_{r,j}\}_{j=1}^{K_r}$ and $\{\mathbf{a}^{M}_{m,j}\}_{j=1}^{K_m}$, the actor network computes a context-dependent query vector from global and local features and scores each candidate action embedding via attention/dot-product scoring. The action mask $m_q(\cdot)$ is applied by setting logits of infeasible actions to $-\infty$ prior to the softmax normalization.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Add-on: Bellman equations + equivalence theorem + game-theoretic formulation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Bellman equations for the event-driven SMDP}
+Let $s\in\mathcal{S}$ denote a Markov state and $e\in\mathcal{E}$ the event label emitted at decision time.
+Because the admissible action set depends on the event, we define action-value functions on $(s,e)$.
+
+\paragraph{Policy and value functions.}
+For a (possibly stochastic) policy $\pi(\cdot\mid s,e)$ supported on $\mathcal{A}(s,e)$, define
+\begin{align}
+V^{\pi}(s,e)
+&:= \mathbb{E}_{\pi}\Bigg[\sum_{q=0}^{\infty}
+\left(\prod_{k=0}^{q-1}\gamma^{\Delta t_k}\right) r_k \ \Bigg| \ s_0=s,\ e_0=e\Bigg],
+\label{eq:V_def}
+\\
+Q^{\pi}(s,e,a)
+&:= \mathbb{E}_{\pi}\Bigg[\sum_{q=0}^{\infty}
+\left(\prod_{k=0}^{q-1}\gamma^{\Delta t_k}\right) r_k \ \Bigg| \ s_0=s,\ e_0=e,\ a_0=a\Bigg],
+\label{eq:Q_def}
+\end{align}
+where $\Delta t_k$ is the holding time between decision instants and $\gamma\in(0,1)$ is a base discount per unit time.
+
+\paragraph{SMDP Bellman expectation equations.}
+Let $(s',e',\Delta t)\sim \mathcal{P}(\cdot\mid s,e,a)$ and $r=r(s,e,a,s',e',\Delta t)$.
+Then
+\begin{align}
+Q^{\pi}(s,e,a)
+&=\mathbb{E}\Big[\, r + \gamma^{\Delta t}\, V^{\pi}(s',e') \ \Big|\ s,e,a\Big],
+\label{eq:bellman_Q}
+\\
+V^{\pi}(s,e)
+&=\mathbb{E}_{a\sim \pi(\cdot\mid s,e)}\big[Q^{\pi}(s,e,a)\big].
+\label{eq:bellman_V}
+\end{align}
+
+\paragraph{SMDP Bellman optimality equations.}
+Define the optimal value functions
+\[
+V^*(s,e)=\sup_{\pi}V^{\pi}(s,e),
+\qquad
+Q^*(s,e,a)=\sup_{\pi}Q^{\pi}(s,e,a).
+\]
+Then
+\begin{align}
+Q^*(s,e,a)
+&=\mathbb{E}\Big[\, r + \gamma^{\Delta t}\, \max_{a'\in\mathcal{A}(s',e')}\, Q^*(s',e',a') \ \Big|\ s,e,a\Big],
+\label{eq:bellman_opt_Q}
+\\
+V^*(s,e)
+&=\max_{a\in\mathcal{A}(s,e)} Q^*(s,e,a).
+\label{eq:bellman_opt_V}
+\end{align}
+An optimal policy can be selected as any greedy policy w.r.t.\ $Q^*$:
+\[
+\pi^*(s,e)\in \arg\max_{a\in\mathcal{A}(s,e)} Q^*(s,e,a).
+\]
+
+\subsection{Equivalence between episodic return and the centralized objective}
+We consider episodic rollouts that terminate when all jobs have completed and the final return-to-$LU$ transport
+has been executed. Let the terminal time be $T=C_{\max}$.
+Under Option~B, the ToU price is piecewise-constant on tariff intervals, and charging cost is accumulated only during charging.
+
+\paragraph{Per-transition reward.}
+For each decision step $q$, the simulator advances time from $t_q$ to $t_{q+1}=t_q+\Delta t_q$.
+We use the per-transition reward
+\begin{align}
+r_q
+=
+-\omega\,\Delta t_q
+-(1-\omega)\,\Delta E_q
++ r_q^{\mathrm{viol}},
+\label{eq:reward_repeat}
+\end{align}
+where $\Delta E_q$ is the incremental charging energy cost incurred in $(t_q,t_{q+1}]$:
+\begin{align}
+\Delta E_q
+=
+P^{\mathrm{ch}}\cdot \frac{\Delta t_q^{\mathrm{ch}}}{60}\cdot c_{h(t_q)},
+\label{eq:deltaE_repeat}
+\end{align}
+and $r_q^{\mathrm{viol}}$ is a penalty term (typically $0$ on feasible trajectories).
+
+\begin{theorem}[Return--objective equivalence on feasible episodes]
+\label{thm:return_equivalence}
+Assume the episode is feasible (no constraint violations), so that $r_q^{\mathrm{viol}}=0$ for all $q$.
+Let $C_{\max}$ be the terminal time (makespan including final return-to-$LU$), and let
+\[
+E_{\mathrm{cost}}=\sum_{h\in\mathcal{H}}\left(P^{\mathrm{ch}}\cdot \frac{g_h}{60}\right)c_h
+\]
+be the total ToU charging cost accumulated over the episode.
+Then the undiscounted episodic return satisfies
+\begin{align}
+\sum_{q=0}^{Q-1} r_q
+=
+-\omega\, C_{\max}
+-(1-\omega)\, E_{\mathrm{cost}}
+=
+-\Phi,
+\label{eq:sum_reward_equals_minus_phi}
+\end{align}
+where $\Phi=\omega C_{\max}+(1-\omega)E_{\mathrm{cost}}$ is the centralized objective.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Since $t_0=0$ and the episode ends at $t_Q=C_{\max}$, telescoping gives
+\[
+\sum_{q=0}^{Q-1}\Delta t_q = t_Q-t_0 = C_{\max}.
+\]
+Likewise, the charging cost increments partition the total charging energy cost over time, hence
+\[
+\sum_{q=0}^{Q-1}\Delta E_q = E_{\mathrm{cost}}.
+\]
+Substituting into~\eqref{eq:reward_repeat} with $r_q^{\mathrm{viol}}=0$ yields~\eqref{eq:sum_reward_equals_minus_phi}.
+\end{proof}
+
+\paragraph{Discounted objective (SMDP).}
+When using time-aware discounting $\gamma^{\Delta t_q}$, the objective becomes
+\[
+J(\pi)=\mathbb{E}_{\pi}\!\left[\sum_{q\ge 0}\left(\prod_{k<q}\gamma^{\Delta t_k}\right) r_q\right],
+\]
+which emphasizes earlier improvements (common in RL training). In evaluation, we report the undiscounted episode cost $\Phi$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Pseudocode: Event-driven Maskable PPO with CTDE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Training algorithm: event-driven Maskable PPO (CTDE)}
+
+\begin{algorithm}[t]
+\caption{Event-driven Maskable PPO for JSSPT-Transport-ToU (Option B)}
+\label{alg:maskableppo_smdp}
+\begin{algorithmic}[1]
+\Require
+Vectorized simulators $\{\mathcal{E}_j\}_{j=1}^{N}$ (each is a discrete-event environment),
+policies $\pi_{\theta}^{R}$ (robots) and $\pi_{\theta}^{M}$ (machines),
+centralized value $V_{\phi}$, discount base $\gamma\in(0,1)$,
+PPO clip $\epsilon$, rollout horizon $T$ (number of decision events), minibatch size $B$, epochs $K$.
+\Ensure Trained parameters $\theta,\phi$.
+
+\For{iteration $=1,2,\dots$}
+    \State Initialize empty rollout buffer $\mathcal{D}\leftarrow \emptyset$.
+    \For{$j=1$ \textbf{to} $N$ \textbf{in parallel}}
+        \State Reset simulator: $(s_0,e_0)\leftarrow \mathcal{E}_j.\mathrm{reset}()$.
+        \For{$q=0$ \textbf{to} $T-1$}
+            \State Construct observations and feasibility mask:
+            \[
+            o_q \leftarrow \mathrm{Obs}(s_q,e_q),\qquad
+            m_q(\cdot)\leftarrow \mathrm{Mask}(s_q,e_q).
+            \]
+            \State \textbf{Select policy by event type}:
+            \If{$e_q=\textsc{RobotFree}(r)$}
+                \State Sample action $a_q \sim \pi_{\theta}^{R}(\cdot \mid o_q, m_q)$ and log-prob $\ell_q=\log \pi_{\theta}^{R}(a_q\mid o_q,m_q)$.
+            \ElsIf{$e_q=\textsc{MachineFree}(m)$}
+                \State Sample action $a_q \sim \pi_{\theta}^{M}(\cdot \mid o_q, m_q)$ and log-prob $\ell_q=\log \pi_{\theta}^{M}(a_q\mid o_q,m_q)$.
+            \Else
+                \State (Optional) take no-op or planning action for ToUChange; set $\ell_q\leftarrow 0$.
+            \EndIf
+            \State Execute one event decision in the simulator:
+            \[
+            (s_{q+1},e_{q+1},\Delta t_q,r_q,\mathrm{done}_q)\leftarrow \mathcal{E}_j.\mathrm{step}(a_q).
+            \]
+            \State Time-aware discount factor: $\gamma_q \leftarrow \gamma^{\Delta t_q}$.
+            \State Central value estimates: $v_q\leftarrow V_{\phi}(s_q)$.
+            \State Store transition in buffer:
+            \[
+            \mathcal{D}\leftarrow \mathcal{D}\cup \{(s_q,e_q,o_q,m_q,a_q,\ell_q,r_q,\Delta t_q,\gamma_q,v_q,\mathrm{done}_q)\}.
+            \]
+            \If{$\mathrm{done}_q=\textbf{true}$}
+                \State break
+            \EndIf
+        \EndFor
+    \EndFor
+
+    \State \textbf{Compute advantages (GAE with time-aware discounting).}
+    \State Let $v_{q+1}\leftarrow V_{\phi}(s_{q+1})$ for bootstrapping when not done.
+    \For{each trajectory in $\mathcal{D}$}
+        \State Initialize $A\leftarrow 0$.
+        \For{$q$ from last step to first step}
+            \State $\delta_q \leftarrow r_q + \gamma_q\, v_{q+1}\,(1-\mathrm{done}_q) - v_q$.
+            \State $A_q \leftarrow \delta_q + \gamma_q\,\lambda\, A$ \Comment{$\lambda\in[0,1]$ is GAE parameter}
+            \State $A \leftarrow A_q$.
+            \State $R_q \leftarrow A_q + v_q$ \Comment{target return}
+        \EndFor
+    \EndFor
+
+    \State \textbf{PPO updates (masked policy gradients).}
+    \For{epoch $=1$ \textbf{to} $K$}
+        \For{each minibatch $\mathcal{B}\subset \mathcal{D}$ of size $B$}
+            \State Recompute action log-probs under current parameters:
+            \[
+            \ell'_q \leftarrow
+            \begin{cases}
+            \log \pi_{\theta}^{R}(a_q\mid o_q,m_q) & \text{if } e_q=\textsc{RobotFree},\\
+            \log \pi_{\theta}^{M}(a_q\mid o_q,m_q) & \text{if } e_q=\textsc{MachineFree},\\
+            0 & \text{otherwise.}
+            \end{cases}
+            \]
+            \State Ratio: $\rho_q \leftarrow \exp(\ell'_q-\ell_q)$.
+            \State Clipped policy loss:
+            \[
+            \mathcal{L}_{\pi} \leftarrow
+            -\mathbb{E}_{q\in\mathcal{B}}\left[\min\left(\rho_q A_q,\ \mathrm{clip}(\rho_q,1-\epsilon,1+\epsilon)A_q\right)\right].
+            \]
+            \State Value loss:
+            \[
+            \mathcal{L}_{V}\leftarrow \mathbb{E}_{q\in\mathcal{B}}\left[(V_{\phi}(s_q)-R_q)^2\right].
+            \]
+            \State (Optional) entropy bonus $\mathcal{L}_{H}$ for exploration.
+            \State Update $\theta$ by descending $\mathcal{L}_{\pi}-\beta \mathcal{L}_{H}$; update $\phi$ by descending $\mathcal{L}_{V}$.
+        \EndFor
+    \EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\section{Experiments}
+\label{sec:exp}
+
+\section{Results and discussion}
+\label{sec:results}
+
+\section{Practical and managerial insights}
+\label{sec:insights}
+
+\section{Conclusion}
+\label{sec:conc}
+
+\bibliographystyle{elsarticle-num-names} 
+\bibliography{cas-refs}
+
+\appendix
+\section{Formal proofs}
+\label{proofs}
+
+\subsection{The Utility System Validity}
+A utility system is considered valid if it satisfies the two following conditions~\cite{1181966}: 
+\begin{enumerate}
+    \item The total sum of individual player utilities cannot exceed the global utility.
+    $$ \sum_{p \in \mathcal{P}} u_p \le \Phi $$
+    \item Each player's utility must be at least equal to the expected loss in the global utility if that player were to be absent.
+    $$ u_p \ge \Phi(\mathbf{a}) - \Phi(\mathbf{a}_{-p}) $$
+\end{enumerate}
+
+In our game, given that each player's utility is defined as their marginal contribution to the global cost, these two conditions are inherently satisfied.
+
+\begin{itemize}
+    \item The first condition holds because the total sum of each player's marginal contributions to the global cost cannot exceed the total global cost itself.
+    \item The second condition is satisfied by definition, as marginal contribution precisely measures the impact of a player's action on the global utility. In our case, it represents the change in the global cost when the player quits the game (i.e., it does not play), which is equivalent to the expected loss in global utility if the player were to be removed.
+\end{itemize}
+
+Therefore, the utility system $(\Phi,\{u_p\}_{p \in \mathcal{P}})$ is valid.
+
+\subsection{Submodularity of the Global Cost Function}
+
+We will now demonstrate that the global cost function $\Phi$, which is a weighted sum of the makespan ($C_{max}$) and the total energy cost ($E_{cost}$), is a submodular set function. By definition, a set function $f: 2^\Omega \to \mathbb{R}$ is submodular if, for any two sets $A \subseteq B \subseteq \Omega$ and any element $x \in \Omega \setminus B$, the following condition holds:
+\begin{equation*}
+f(A \cup \{x\}) - f(A) \ge f(B \cup \{x\}) - f(B)
+\end{equation*}
+In the context of a cost function to be minimized, this means that the marginal cost incurred by adding a new player $x$ to a small set of players $A$ is greater than or equal to the marginal cost of adding the same player $x$ to a larger set $B$.
+
+Moreover, a key property of submodular functions is that their non-negative linear combination is also submodular~\cite{Nemhauser, MAL-039}. Since our global cost function is a non-negative weighted sum of $C_{max}$ and $E_{total}$, we can prove its submodularity by demonstrating that both component functions are submodular independently.
+
+\subsubsection{Makespan Function Submodularity}
+The makespan, $C_{max}(\mathcal{P})$, is defined as the maximum completion time among all players in the set $\mathcal{P}$. To prove that $C_{max}$ is submodular, we must show that it satisfies the following inequality for any two sets $A \subseteq B$ and a new player $x \notin B$:
+\[
+C_{max}(A \cup \{x\}) - C_{max}(A) \;\;\ge\;\; C_{max}(B \cup \{x\}) - C_{max}(B).
+\]
+
+For simplicity, let $f(\mathcal{P}) = C_{max}(\mathcal{P}) = \max\!\big\{ C_{max}, \max_{p \in \mathcal{P}} R_p(\alpha_p) \big\}$ and omit the stage index $q$ without loss of generality. By definition, $f(A \cup \{x\}) = \max\{ f(A), R_x \}$, where $R_x$ denotes the return (completion time) resulting from player $x$'s action. Two cases must be considered:
+\begin{enumerate}
+    \item \textbf{Case 1.} $R_x \le f(A)$.  
+    In this case, adding player $x$ does not affect the makespan: $f(A \cup \{x\}) = f(A)$. Hence, the marginal contribution is $f(A \cup \{x\}) - f(A) = 0$. Since $A \subseteq B$, we know $f(A) \le f(B)$. Moreover, $R_x \le f(A)$ implies $R_x \le f(B)$, so $f(B \cup \{x\}) = f(B)$. Therefore, $f(B \cup \{x\}) - f(B) = 0$. The inequality is satisfied trivially ($0 \ge 0$).
+
+    \item \textbf{Case 2.} $R_x > f(A)$.  
+    Here, adding player $x$ increases the makespan, so $f(A \cup \{x\}) = R_x$. The marginal contribution is $f(A \cup \{x\}) - f(A) = R_x - f(A)$. For set $B$, two subcases arise:
+    \begin{itemize}
+        \item If $R_x \le f(B)$, then $f(B \cup \{x\}) = f(B)$ and $f(B \cup \{x\}) - f(B) = 0$. Since $R_x > f(A)$, the left-hand side is strictly positive, and the inequality holds.
+        \item If $R_x > f(B)$, then $f(B \cup \{x\}) = R_x$, giving $f(B \cup \{x\}) - f(B) = R_x - f(B)$. Because $A \subseteq B$ implies $f(A) \le f(B)$, we have $R_x - f(A) \;\;\ge\;\; R_x - f(B)$. Thus, the inequality holds in this subcase as well.
+    \end{itemize}
+\end{enumerate}
+
+Consequently, in all possible cases, the submodular inequality is satisfied. Therefore, the makespan function is submodular.
+
+\subsubsection{Energy Cost Function Submodularity}
+The energy cost function is defined recursively as $E_{cost}^{q} = E_{cost}^{(q-1)} + \Delta E_{cost}^{q}$, where $\Delta E_{cost}^{q} = \sum_{p \in \mathcal{P}} cost_e(a_p^{q})$ represents the incremental energy cost of the actions chosen by all players at stage $q$. Since $E_{cost}^{q}$ is cumulative by construction, our focus is on $\Delta E_{cost}^{q}$ when proving submodularity.  
+
+To simplify notation, let $\Delta E_{cost}(\mathcal{P}) = g(\mathcal{P})$ and omit the stage index $q$ without loss of generality. For any two sets $A \subseteq B$ and a new player $x \notin B$, we compute the marginal contributions:  
+\begin{itemize}
+    \item $g(A \cup \{x\}) - g(A) = \left(\sum_{p \in A} cost_e(a_p) + cost_e(a_x)\right) - \sum_{p \in A} cost_e(a_p) = cost_e(a_x)$,
+    \item $g(B \cup \{x\}) - g(B) = \left(\sum_{p \in B} cost_e(a_p) + cost_e(a_x)\right) - \sum_{p \in B} cost_e(a_p) = cost_e(a_x)$.
+\end{itemize}
+Thus, the marginal contribution of player $x$ to the energy cost is constant, independent of the set of other players. The submodular inequality is therefore satisfied trivially:
+\[
+\Delta E_{cost}(A \cup \{x\}) - \Delta E_{cost}(A) \;\;=\;\; \Delta E_{cost}(B \cup \{x\}) - \Delta E_{cost}(B).
+\]
+
+In conclusion, both the makespan and the energy cost functions are submodular. Since the global cost function $\Phi$ is a non-negative weighted sum of these two components, it follows directly that $\Phi$ itself is a submodular set function.
+
+\section{ToU pricing profiles}
+\label{app1}
+
+\begin{table}[h!]
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|lr|lcr|lcr|lcr|lcr|lcr|lcr|}
+\cline{3-20}
+\multicolumn{2}{c|}{} & \multicolumn{3}{c}{Period 1} & \multicolumn{3}{c}{Period 2} & \multicolumn{3}{c}{Period 3} & \multicolumn{3}{c}{Period 4} & \multicolumn{3}{c}{Period 5} & \multicolumn{3}{c|}{Period 6} \\
+ \hline
+Instance & Horizon & start & end & price & start & end & price & start & end & price & start & end & price & start & end & price & start & end & price \\
+  \hline
+EX11 & 216.0 & 0 & 26 & 0.14 & 27 & 71 & 0.22 & 72 & 98 & 0.14 & 99 & 125 & 0.22 & 126 & 143 & 0.14 & 144 & 215 & 0.06 \\
+EX21 & 242.5 & 0 & 29 & 0.14 & 30 & 80 & 0.22 & 81 & 110 & 0.14 & 111 & 140 & 0.22 & 141 & 160 & 0.14 & 161 & 241 & 0.06 \\
+EX31 & 258.5 & 0 & 31 & 0.14 & 32 & 85 & 0.22 & 86 & 117 & 0.14 & 118 & 149 & 0.22 & 150 & 171 & 0.14 & 172 & 257 & 0.06 \\
+EX41 & 261.5 & 0 & 32 & 0.14 & 33 & 86 & 0.22 & 87 & 119 & 0.14 & 120 & 152 & 0.22 & 153 & 174 & 0.14 & 175 & 261 & 0.06 \\
+EX51 & 189.5 & 0 & 23 & 0.14 & 24 & 62 & 0.22 & 63 & 86 & 0.14 & 87 & 110 & 0.22 & 111 & 126 & 0.14 & 127 & 189 & 0.06 \\
+EX61 & 272.0 & 0 & 33 & 0.14 & 34 & 90 & 0.22 & 91 & 124 & 0.14 & 125 & 158 & 0.22 & 159 & 181 & 0.14 & 182 & 272 & 0.06 \\
+EX71 & 284.0 & 0 & 35 & 0.14 & 36 & 94 & 0.22 & 95 & 130 & 0.14 & 131 & 166 & 0.22 & 167 & 190 & 0.14 & 191 & 285 & 0.06 \\
+EX81 & 303.0 & 0 & 37 & 0.14 & 38 & 100 & 0.22 & 101 & 138 & 0.14 & 139 & 176 & 0.22 & 177 & 201 & 0.14 & 202 & 302 & 0.06 \\
+EX91 & 263.5 & 0 & 32 & 0.14 & 33 & 87 & 0.22 & 88 & 120 & 0.14 & 121 & 153 & 0.22 & 154 & 175 & 0.14 & 176 & 263 & 0.06 \\
+EX101 & 333.5 & 0 & 41 & 0.14 & 42 & 110 & 0.22 & 111 & 152 & 0.14 & 153 & 194 & 0.22 & 195 & 222 & 0.14 & 223 & 333 & 0.06 \\
+EX12 & 160.0 & 0 & 19 & 0.14 & 20 & 52 & 0.22 & 53 & 72 & 0.14 & 73 & 92 & 0.22 & 93 & 105 & 0.14 & 106 & 158 & 0.06 \\
+EX22 & 178.5 & 0 & 21 & 0.14 & 22 & 58 & 0.22 & 59 & 80 & 0.14 & 81 & 102 & 0.22 & 103 & 117 & 0.14 & 118 & 177 & 0.06 \\
+EX32 & 190.5 & 0 & 23 & 0.14 & 24 & 63 & 0.22 & 64 & 87 & 0.14 & 88 & 111 & 0.22 & 112 & 127 & 0.14 & 128 & 191 & 0.06 \\
+EX42 & 177.5 & 0 & 21 & 0.14 & 22 & 58 & 0.22 & 59 & 80 & 0.14 & 81 & 102 & 0.22 & 103 & 117 & 0.14 & 118 & 176 & 0.06 \\
+EX52 & 133.5 & 0 & 16 & 0.14 & 17 & 44 & 0.22 & 45 & 61 & 0.14 & 62 & 78 & 0.22 & 79 & 89 & 0.14 & 90 & 134 & 0.06 \\
+EX62 & 200.0 & 0 & 24 & 0.14 & 25 & 66 & 0.22 & 67 & 91 & 0.14 & 92 & 116 & 0.22 & 117 & 133 & 0.14 & 134 & 200 & 0.06 \\
+EX72 & 204.0 & 0 & 25 & 0.14 & 26 & 68 & 0.22 & 69 & 94 & 0.14 & 95 & 120 & 0.22 & 121 & 137 & 0.14 & 138 & 205 & 0.06 \\
+EX82 & 223.0 & 0 & 27 & 0.14 & 28 & 73 & 0.22 & 74 & 101 & 0.14 & 102 & 129 & 0.22 & 130 & 148 & 0.14 & 149 & 222 & 0.06 \\
+EX92 & 195.5 & 0 & 23 & 0.14 & 24 & 64 & 0.22 & 65 & 88 & 0.14 & 89 & 112 & 0.22 & 113 & 128 & 0.14 & 129 & 193 & 0.06 \\
+EX102 & 245.5 & 0 & 30 & 0.14 & 31 & 81 & 0.22 & 82 & 112 & 0.14 & 113 & 143 & 0.22 & 144 & 163 & 0.14 & 164 & 245 & 0.06 \\
+EX13 & 154.0 & 0 & 18 & 0.14 & 19 & 50 & 0.22 & 51 & 69 & 0.14 & 70 & 88 & 0.22 & 89 & 101 & 0.14 & 102 & 152 & 0.06 \\
+EX23 & 170.5 & 0 & 20 & 0.14 & 21 & 56 & 0.22 & 57 & 77 & 0.14 & 78 & 98 & 0.22 & 99 & 112 & 0.14 & 113 & 169 & 0.06 \\
+EX33 & 180.5 & 0 & 22 & 0.14 & 23 & 60 & 0.22 & 61 & 83 & 0.14 & 84 & 106 & 0.22 & 107 & 121 & 0.14 & 122 & 181 & 0.06 \\
+EX43 & 185.5 & 0 & 22 & 0.14 & 23 & 61 & 0.22 & 62 & 84 & 0.14 & 85 & 107 & 0.22 & 108 & 122 & 0.14 & 123 & 184 & 0.06 \\
+EX53 & 127.5 & 0 & 15 & 0.14 & 16 & 42 & 0.22 & 43 & 58 & 0.14 & 59 & 74 & 0.22 & 75 & 85 & 0.14 & 86 & 128 & 0.06 \\
+EX63 & 192.0 & 0 & 23 & 0.14 & 24 & 63 & 0.22 & 64 & 87 & 0.14 & 88 & 111 & 0.22 & 112 & 127 & 0.14 & 128 & 191 & 0.06 \\
+EX73 & 190.0 & 0 & 23 & 0.14 & 24 & 63 & 0.22 & 64 & 87 & 0.14 & 88 & 111 & 0.22 & 112 & 127 & 0.14 & 128 & 190 & 0.06 \\
+EX83 & 223.0 & 0 & 27 & 0.14 & 28 & 73 & 0.22 & 74 & 101 & 0.14 & 102 & 129 & 0.22 & 130 & 148 & 0.14 & 149 & 222 & 0.06 \\
+EX93 & 195.5 & 0 & 23 & 0.14 & 24 & 64 & 0.22 & 65 & 88 & 0.14 & 89 & 112 & 0.22 & 113 & 128 & 0.14 & 129 & 193 & 0.06 \\
+EX103 & 247.5 & 0 & 30 & 0.14 & 31 & 82 & 0.22 & 83 & 113 & 0.14 & 114 & 144 & 0.22 & 145 & 165 & 0.14 & 166 & 248 & 0.06 \\
+EX14 & 218.0 & 0 & 26 & 0.14 & 27 & 71 & 0.22 & 72 & 98 & 0.14 & 99 & 125 & 0.22 & 126 & 143 & 0.14 & 144 & 216 & 0.06 \\
+EX24 & 260.5 & 0 & 32 & 0.14 & 33 & 86 & 0.22 & 87 & 119 & 0.14 & 120 & 152 & 0.22 & 153 & 174 & 0.14 & 175 & 261 & 0.06 \\
+EX34 & 270.5 & 0 & 33 & 0.14 & 34 & 89 & 0.22 & 90 & 123 & 0.14 & 124 & 157 & 0.22 & 158 & 180 & 0.14 & 181 & 270 & 0.06 \\
+EX44 & 263.5 & 0 & 32 & 0.14 & 33 & 87 & 0.22 & 88 & 120 & 0.14 & 121 & 153 & 0.22 & 154 & 175 & 0.14 & 176 & 263 & 0.06 \\
+EX54 & 191.5 & 0 & 23 & 0.14 & 24 & 63 & 0.22 & 64 & 87 & 0.14 & 88 & 111 & 0.22 & 112 & 127 & 0.14 & 128 & 191 & 0.06 \\
+EX64 & 300.0 & 0 & 37 & 0.14 & 38 & 100 & 0.22 & 101 & 138 & 0.14 & 139 & 176 & 0.22 & 177 & 201 & 0.14 & 202 & 301 & 0.06 \\
+EX74 & 318.0 & 0 & 39 & 0.14 & 40 & 105 & 0.22 & 106 & 145 & 0.14 & 146 & 185 & 0.22 & 186 & 212 & 0.14 & 213 & 318 & 0.06 \\
+EX84 & 343.0 & 0 & 42 & 0.14 & 43 & 113 & 0.22 & 114 & 156 & 0.14 & 157 & 199 & 0.22 & 200 & 228 & 0.14 & 229 & 342 & 0.06 \\
+EX94 & 289.5 & 0 & 35 & 0.14 & 36 & 95 & 0.22 & 96 & 131 & 0.14 & 132 & 167 & 0.22 & 168 & 191 & 0.14 & 192 & 288 & 0.06 \\
+EX104 & 367.5 & 0 & 45 & 0.14 & 46 & 122 & 0.22 & 123 & 168 & 0.14 & 169 & 214 & 0.22 & 215 & 245 & 0.14 & 246 & 368 & 0.06\\
+\hline
+\end{tabular}%
+}
+\caption{The ToU pricing profile for each test instance (price in €/kWh)}
+\label{tab:all_instance}
+\end{table}
+
+
+\section{Benchmark instances}
+\label{app2}
+
+\begin{table}[h!]
+%\resizebox{\textwidth}{!}{%
+\begin{subtable}[c]{0.5\textwidth}
+    \centering
+    \begin{tabular}{c| c c c c c}
+        & L/U & M1 & M2 & M3 & M4\\
+    \hline
+        L/U & 0 & 6 & 8 & 8 & 6\\
+        M1 & 6 & 0 & 6 & 8 & 10\\
+        M2 & 8 & 6 & 0 & 6 & 8\\
+        M3 & 8 & 8 & 6 & 0 & 6\\
+        M4 & 6 & 10 & 8 & 6 & 0\\
+    \hline
+    \end{tabular}
+    \label{tab:l1_tra_times}
+    \caption{Layout 1}
+\end{subtable}
+\hfill
+\begin{subtable}[c]{0.45\textwidth}
+    \centering
+    \begin{tabular}{c| c c c c c}
+        & L/U & M1 & M2 & M3 & M4\\
+    \hline
+        L/U & 0 & 4 & 6 & 6 & 4\\
+        M1 & 4 & 0 & 2 & 4 & 2\\
+        M2 & 6 & 2 & 0 & 2 & 4\\
+        M3 & 6 & 4 & 2 & 0 & 2\\
+        M4 & 4 & 2 & 4 & 2 & 0\\
+    \hline
+    \end{tabular}
+    \caption{Layout 2}
+    \label{tab:l2_tra_times}
+\end{subtable}
+\hfill
+\begin{subtable}[c]{0.5\textwidth}
+    \centering
+    \begin{tabular}{c| c c c c c}
+        & L/U & M1 & M2 & M3 & M4\\
+    \hline
+        L/U & 0 & 2 & 4 & 4 & 2\\
+        M1 & 2 & 0 & 2 & 6 & 4\\
+        M2 & 4 & 2 & 0 & 6 & 6\\
+        M3 & 4 & 6 & 6 & 0 & 2\\
+        M4 & 2 & 4 & 6 & 2 & 0\\
+    \hline
+    \end{tabular}
+     \label{tab:l3_tra_times}
+    \caption{Layout 3}
+\end{subtable}
+\hfill
+\begin{subtable}[c]{0.45\textwidth}
+    \centering
+    \begin{tabular}{c| c c c c c}
+        & L/U & M1 & M2 & M3 & M4\\
+    \hline
+        L/U & 0 & 4 & 8 & 10 & 14\\
+        M1 & 4 & 0 & 4 & 6 & 10\\
+        M2 & 8 & 4 & 0 & 6 & 6\\
+        M3 & 10 & 6 & 6 & 0 & 6\\
+        M4 & 14 & 10 & 6 & 6 & 0\\
+    \hline
+    \end{tabular}
+     \label{tab:l4_tra_times}
+    \caption{Layout 4}
+\end{subtable}
+%}
+\caption{Travel Times (from~\cite{SANOGO2025103060})}
+\label{tab:travel_times}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\scriptsize % or \footnotesize for better readability
+\setlength{\tabcolsep}{4pt} % reduce column spacing
+\renewcommand{\arraystretch}{1.1} % line spacing
+\begin{tabular}{@{}p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth}@{}}
+\toprule
+\textbf{Job set 1} & \textbf{Job set 2} & \textbf{Job set 3} \\
+Job 1: M1(8); M2(16); M4(12) & Job 1: M1(10); M4(18) & Job 1: M1(16); M3(15) \\
+Job 2: M1(20); M3(10); M2(18) & Job 2: M2(10); M4(18) & Job 2: M2(18); M4(15) \\
+Job 3: M3(12); M4(8); M1(15) & Job 3: M1(10); M3(20) & Job 3: M1(20); M2(10) \\
+Job 4: M4(14); M2(18) & Job 4: M2(10); M3(15); M4(12) & Job 4: M3(15); M4(10) \\
+Job 5: M3(10); M1(15) & Job 5: M1(10); M2(15); M4(12) & Job 5: M1(8); M2(10); M3(15); M4(17) \\
+-- & Job 6: M1(10); M2(15); M3(12) & Job 6: M2(10); M3(15); M4(8); M1(15) \\
+\midrule
+\textbf{Job set 4} & \textbf{Job set 5} & \textbf{Job set 6} \\
+Job 1: M4(11); M1(10); M2(7) & Job 1: M1(6); M2(12); M4(9) & Job 1: M1(9); M2(11); M4(7) \\
+Job 2: M3(12); M2(10); M4(8) & Job 2: M1(18); M3(6); M2(15) & Job 2: M1(19); M2(20); M4(13) \\
+Job 3: M2(7); M3(10); M1(9); M3(8) & Job 3: M3(9); M4(3); M1(12) & Job 3: M2(14); M3(20); M4(9) \\
+Job 4: M2(7); M4(8); M1(12); M2(6) & Job 4: M4(6); M2(15) & Job 4: M2(14); M3(20); M4(9) \\
+Job 5: M1(9); M2(7); M4(8); M2(10); M3(8) & Job 5: M3(3); M1(9) & Job 5: M1(11); M3(16); M4(8) \\
+-- & -- & Job 6: M1(10); M3(12); M4(10) \\
+\midrule
+\textbf{Job set 7} & \textbf{Job set 8} & \textbf{Job set 9} \\
+Job 1: M1(6); M4(6) & Job 1: M2(12); M3(21); M4(11) & Job 1: M3(9); M1(12); M2(9); M4(6) \\
+Job 2: M2(11); M4(9) & Job 2: M2(12); M3(21); M4(11) & Job 2: M3(16); M2(11); M4(9) \\
+Job 3: M2(9); M4(7) & Job 3: M2(12); M3(21); M4(11) & Job 3: M1(21); M2(18); M4(7) \\
+Job 4: M3(16); M4(7) & Job 4: M2(12); M3(21); M4(11) & Job 4: M2(20); M3(22); M4(11) \\
+Job 5: M1(9); M3(18) & Job 5: M1(10); M2(14); M3(18); M4(9) & Job 5: M3(14); M1(16); M2(13); M4(9) \\
+Job 6: M2(13); M3(19); M4(6) & Job 6: M1(10); M2(14); M3(18); M4(9) & -- \\
+Job 7: M1(10); M2(9); M3(13) & -- & -- \\
+Job 8: M1(11); M2(9); M4(8) & -- & -- \\
+\midrule
+\multicolumn{3}{@{}l}{\textbf{Job set 10}} \\
+\multicolumn{3}{@{}l}{
+\begin{tabular}{@{}l@{}}
+Job 1: M1(11); M3(19); M2(16); M4(13) \\
+Job 2: M2(21); M3(16); M4(14) \\
+Job 3: M3(8); M2(10); M1(14); M4(9) \\
+Job 4: M2(13); M3(20); M4(10) \\
+Job 5: M1(9); M3(16); M4(18) \\
+Job 6: M2(19); M1(21); M3(11); M4(15)
+\end{tabular}
+} \\
+\bottomrule
+\end{tabular}
+\caption{Job Assignments and Processing Times (from~\cite{bilge1995})}
+\label{tab:job_sets}
+\end{table}
+
+
+
+\end{document}
+
+\endinput
+%%
+%% End of file `elsarticle-template-num-names.tex'.

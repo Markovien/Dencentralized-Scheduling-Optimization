@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+results/**/*.parquet
+results/raw/
+paper_A/*.aux
+paper_A/*.log
+paper_A/*.out
+paper_A/*.bbl
+paper_A/*.blg
+paper_A/*.fdb_latexmk
+paper_A/*.fls
+paper_A/*.synctex.gz

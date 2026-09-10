@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jsspt-tou"
+version = "0.1.0"
+description = "Decentralised game-theoretic scheduling of machines and battery-constrained AIVs under time-of-use tariffs"
+requires-python = ">=3.11"
+authors = [
+  {name = "Kader Sanogo"},
+  {name = "Malek Masmoudi"},
+  {name = "Abdelkader Mekhalef Benhafssa"},
+  {name = "M'hammed Sahnoun"},
+]
+dependencies = [
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "pandas>=2.1",
+  "pyarrow>=14.0",
+  "ortools>=9.8",
+  "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "mypy>=1.8", "hypothesis>=6.92"]
+rl  = ["torch>=2.2", "gymnasium>=0.29"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
+markers = ["slow: CP-SAT solves; excluded from the fast suite with -m 'not slow'"]
