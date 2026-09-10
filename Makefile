@@ -39,8 +39,12 @@ claims:         ## regenerate the evidence map paper_A/CLAIMS.md
 check: claims   ## claim tracing, citations and structure
 	$(PY) experiments/check_paper.py
 
-paper:
-	cd paper_A && latexmk -pdf main.tex
+paper:          ## compile paper_A/main.pdf (needs texlive-latex-extra, -science, -bibtex-extra)
+	cd paper_A && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+	@cd paper_A && if pdftotext main.pdf - | grep -o '??[A-Za-z0-9._]*??' | sort -u | grep .; then \
+	    echo "FAIL: the keys above resolved to nothing in the PDF"; exit 1; \
+	  fi
+	@echo "paper_A/main.pdf: $$(cd paper_A && pdfinfo main.pdf | awk '/^Pages/{print $$2}') pages, no unresolved keys"
 
 all: test bench experiments exact n5 numbers figures claims check
 

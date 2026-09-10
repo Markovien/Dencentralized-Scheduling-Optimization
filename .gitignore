@@ -13,3 +13,8 @@ paper_A/*.blg
 paper_A/*.fdb_latexmk
 paper_A/*.fls
 paper_A/*.synctex.gz
+paper_A/*.pdf
+!paper_A/figures/*.pdf
+paper_A/*.xdv
+paper_A/*.toc
+paper_A/*.spl
