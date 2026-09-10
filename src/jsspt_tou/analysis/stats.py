@@ -132,7 +132,9 @@ def pairwise_wilcoxon_holm(
                 p = float(stats.wilcoxon(xa, xb, zero_method="zsplit").pvalue)
             except ValueError:  # pragma: no cover - degenerate input
                 p = 1.0
-        raw.append((a, b, p, vargha_delaney_a12(xa, xb), float(np.median(xa - xb))))
+        raw.append(
+            (a, b, p, vargha_delaney_a12(xa.tolist(), xb.tolist()), float(np.median(xa - xb)))
+        )
 
     order = sorted(range(len(raw)), key=lambda i: raw[i][2])
     m = len(raw)

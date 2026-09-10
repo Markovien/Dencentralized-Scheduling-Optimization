@@ -40,7 +40,7 @@ from typing import Any
 from ortools.sat.python import cp_model
 
 from jsspt_tou.domain.anchors import Anchors, compute_anchors
-from jsspt_tou.domain.instance import LU, Instance
+from jsspt_tou.domain.instance import Instance
 from jsspt_tou.domain.objective import Outcome
 
 MICRO: int = 1_000_000
@@ -116,22 +116,22 @@ def solve_exact(
     for i, ops in enumerate(inst.jobs):
         for k, op in enumerate(ops):
             dur = int(op.duration)
-            s = model.NewIntVar(0, horizon, f"S_{i}_{k}")
-            e = model.NewIntVar(0, horizon, f"C_{i}_{k}")
-            iv = model.NewIntervalVar(s, dur, e, f"I_{i}_{k}")
+            s = model.new_int_var(0, horizon, f"S_{i}_{k}")
+            e = model.new_int_var(0, horizon, f"C_{i}_{k}")
+            iv = model.new_interval_var(s, dur, e, f"I_{i}_{k}")
             op_start[(i, k)] = s
             op_end[(i, k)] = e
             machine_intervals[op.machine].append(iv)
     for m in range(1, inst.n_machines + 1):
-        model.AddNoOverlap(machine_intervals[m])
+        model.add_no_overlap(machine_intervals[m])
 
     # ---- transport tasks (as in the original) ----------------------------------------------
     tasks = list(inst.transports)
     n_t = len(tasks)
-    t_start = [model.NewIntVar(0, horizon, f"TS_{t}") for t in range(n_t)]
-    t_end = [model.NewIntVar(0, horizon, f"TC_{t}") for t in range(n_t)]
+    t_start = [model.new_int_var(0, horizon, f"TS_{t}") for t in range(n_t)]
+    t_end = [model.new_int_var(0, horizon, f"TC_{t}") for t in range(n_t)]
     for t, task in enumerate(tasks):
-        model.Add(t_end[t] == t_start[t] + int(task.duration))
+        model.add(t_end[t] == t_start[t] + int(task.duration))
 
     index_of = {(task.job, task.index): t for t, task in enumerate(tasks)}
 
@@ -139,11 +139,11 @@ def solve_exact(
     for i, ops in enumerate(inst.jobs):
         for k in range(len(ops)):
             t = index_of[(i, k)]
-            model.Add(op_start[(i, k)] >= t_end[t])
+            model.add(op_start[(i, k)] >= t_end[t])
             if k > 0:
-                model.Add(t_start[t] >= op_end[(i, k - 1)])
+                model.add(t_start[t] >= op_end[(i, k - 1)])
         ret = index_of[(i, len(ops))]
-        model.Add(t_start[ret] >= op_end[(i, len(ops) - 1)])
+        model.add(t_start[ret] >= op_end[(i, len(ops) - 1)])
 
     # ---- charging slots: optional intervals, one Cumulative charger ------------------------
     n_charge = (
@@ -161,25 +161,25 @@ def solve_exact(
     for r in range(inst.n_robots):
         starts, ends, used = [], [], []
         for c in range(n_charge):
-            lit = model.NewBoolVar(f"chuse_{r}_{c}")
-            s = model.NewIntVar(0, horizon, f"chS_{r}_{c}")
-            e = model.NewIntVar(0, horizon, f"chE_{r}_{c}")
-            model.Add(e == s + block)
-            iv = model.NewOptionalIntervalVar(s, block, e, lit, f"chI_{r}_{c}")
+            lit = model.new_bool_var(f"chuse_{r}_{c}")
+            s = model.new_int_var(0, horizon, f"chS_{r}_{c}")
+            e = model.new_int_var(0, horizon, f"chE_{r}_{c}")
+            model.add(e == s + block)
+            iv = model.new_optional_interval_var(s, block, e, lit, f"chI_{r}_{c}")
             charge_intervals.append(iv)
             starts.append(s)
             ends.append(e)
             used.append(lit)
             if c > 0:
                 # symmetry break: slot c only after slot c-1, and in time order
-                model.AddImplication(lit, used[c - 1])
-                model.Add(s >= ends[c - 1]).OnlyEnforceIf(lit)
+                model.add_implication(lit, used[c - 1])
+                model.add(s >= ends[c - 1]).only_enforce_if(lit)
         ch_start.append(starts)
         ch_end.append(ends)
         ch_used.append(used)
     if charge_intervals:
         # The charger constraint absent from every model in the draft (F7 / A9).
-        model.AddCumulative(
+        model.add_cumulative(
             charge_intervals,
             [1] * len(charge_intervals),
             inst.n_chargers,
@@ -192,28 +192,28 @@ def solve_exact(
     soc: list[list[Any]] = []
     for r in range(inst.n_robots):
         arcs: list[tuple[int, int, Any]] = []
-        node_visit = [model.NewBoolVar(f"vis_{r}_{n}") for n in range(n_nodes)]
+        node_visit = [model.new_bool_var(f"vis_{r}_{n}") for n in range(n_nodes)]
         node_soc = [
-            model.NewIntVar(int(bat.floor_mah), int(bat.ceiling_mah), f"soc_{r}_{n}")
+            model.new_int_var(int(bat.floor_mah), int(bat.ceiling_mah), f"soc_{r}_{n}")
             for n in range(n_nodes)
         ]
-        model.Add(node_soc[0] == int(bat.start_mah))
+        model.add(node_soc[0] == int(bat.start_mah))
         # A robot that serves nothing takes the empty circuit: AddCircuit accepts it only
         # when *every* node, the depot included, carries a true self-loop literal.
-        arcs.append((0, 0, node_visit[0].Not()))
+        arcs.append((0, 0, node_visit[0].negated()))
         for n in range(1, n_nodes):
-            model.AddImplication(node_visit[n], node_visit[0])
-            arcs.append((n, n, node_visit[n].Not()))  # self-loop == not visited
+            model.add_implication(node_visit[n], node_visit[0])
+            arcs.append((n, n, node_visit[n].negated()))  # self-loop == not visited
             if n > n_t:  # charge node
-                model.Add(node_visit[n] == ch_used[r][n - n_t - 1])
+                model.add(node_visit[n] == ch_used[r][n - n_t - 1])
         for a in range(n_nodes):
             for b in range(n_nodes):
                 if a == b:
                     continue
-                lit = model.NewBoolVar(f"arc_{r}_{a}_{b}")
+                lit = model.new_bool_var(f"arc_{r}_{a}_{b}")
                 arcs.append((a, b, lit))
-                model.AddImplication(lit, node_visit[a])
-                model.AddImplication(lit, node_visit[b])
+                model.add_implication(lit, node_visit[a])
+                model.add_implication(lit, node_visit[b])
                 _link_arc(
                     model,
                     inst,
@@ -231,21 +231,21 @@ def solve_exact(
                     horizon,
                     enforce_battery,
                 )
-        model.AddCircuit(arcs)
+        model.add_circuit(arcs)
         visit.append(node_visit)
         soc.append(node_soc)
 
     # every transport served by exactly one robot (the original's ExactlyOne)
     for t in range(n_t):
-        model.AddExactlyOne([visit[r][1 + t] for r in range(inst.n_robots)])
+        model.add_exactly_one([visit[r][1 + t] for r in range(inst.n_robots)])
 
     # ---- makespan: last return to L/U (Bilge--Ulusoy convention) -----------------------------
-    c_max = model.NewIntVar(0, horizon, "Cmax")
-    model.AddMaxEquality(
+    c_max = model.new_int_var(0, horizon, "Cmax")
+    model.add_max_equality(
         c_max, [t_end[index_of[(i, len(ops))]] for i, ops in enumerate(inst.jobs)]
     )
     if enforce_deadline:
-        model.Add(c_max <= int(inst.deadline))  # A30: the deadline, finally a constraint
+        model.add(c_max <= int(inst.deadline))  # A30: the deadline, finally a constraint
 
     # ---- ToU energy cost: processing + charging ---------------------------------------------
     periods = _period_table(inst, horizon, flat_tariff)
@@ -275,8 +275,8 @@ def solve_exact(
                 horizon,
                 active=ch_used[r][c],
             )
-    e_cost = model.NewIntVar(0, 10 * MICRO * 1000, "Ecost")
-    model.Add(e_cost == sum(cost_terms) if cost_terms else e_cost == 0)
+    e_cost = model.new_int_var(0, 10 * MICRO * 1000, "Ecost")
+    model.add(e_cost == sum(cost_terms) if cost_terms else e_cost == 0)
 
     # ---- objective: the SAME normalised Phi the simulator scores ----------------------------
     span_c = max(anchors.cmax_ub - anchors.cmax_lb, 1e-9)
@@ -294,21 +294,21 @@ def solve_exact(
     w_c = int(round(scale * w_c_f))
     w_e = int(round(scale * w_e_f))
     offset = omega * anchors.cmax_lb / span_c + (1.0 - omega) * anchors.ecost_lb / span_e
-    model.Minimize(w_c * c_max + w_e * e_cost)
+    model.minimize(w_c * c_max + w_e * e_cost)
 
     if hint:
         for (i, k), value in hint.get("ops", {}).items():
             if (i, k) in op_start:
-                model.AddHint(op_start[(i, k)], int(value))
+                model.add_hint(op_start[(i, k)], int(value))
         for key, value in hint.get("transports", {}).items():
             if key in index_of:
-                model.AddHint(t_start[index_of[key]], int(value))
+                model.add_hint(t_start[index_of[key]], int(value))
 
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = float(time_limit_s)
     solver.parameters.num_search_workers = int(num_workers)
-    status = solver.Solve(model)
-    status_name = solver.StatusName(status)
+    status = solver.solve(model)
+    status_name = solver.status_name(status)
 
     if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
         return ExactResult(
@@ -316,22 +316,22 @@ def solve_exact(
             objective=None,
             best_bound=None,
             outcome=None,
-            wall_clock=solver.WallTime(),
+            wall_clock=solver.wall_time,
             truncated=status_name != "INFEASIBLE",
             n_variables=0,
             n_constraints=0,
         )
 
-    cmax_val = float(solver.Value(c_max))
-    ecost_val = solver.Value(e_cost) / MICRO
+    cmax_val = float(solver.value(c_max))
+    ecost_val = solver.value(e_cost) / MICRO
     kwh = inst.machine_power_kw * inst.total_processing / 60.0 + sum(
         bat.charger_power_kw * block / 60.0
         for r in range(inst.n_robots)
         for c in range(n_charge)
-        if solver.Value(ch_used[r][c])
+        if solver.value(ch_used[r][c])
     )
     blocks = sum(
-        int(solver.Value(ch_used[r][c]))
+        int(solver.value(ch_used[r][c]))
         for r in range(inst.n_robots)
         for c in range(n_charge)
     )
@@ -349,16 +349,18 @@ def solve_exact(
             omega * anchors.norm_cmax(cmax_val)
             + (1.0 - omega) * anchors.norm_ecost(ecost_val)
         ),
-        best_bound=solver.BestObjectiveBound() / scale - offset,
+        best_bound=solver.best_objective_bound / scale - offset,
         outcome=outcome,
-        wall_clock=solver.WallTime(),
+        wall_clock=solver.wall_time,
         truncated=status_name != "OPTIMAL",
-        n_variables=len(model.Proto().variables),
-        n_constraints=len(model.Proto().constraints),
+        n_variables=len(model.proto.variables),
+        n_constraints=len(model.proto.constraints),
     )
 
 
-def hint_from_schedule(inst: Instance, log: list[tuple[str, int, int, float, float]]):
+def hint_from_schedule(
+    inst: Instance, log: list[tuple[str, int, int, float, float]]
+) -> dict[str, dict[Any, float]]:
     """Turn a simulator event log into a CP-SAT warm start.
 
     Operations and transport legs of a job appear in the log in execution order, which is
@@ -448,39 +450,39 @@ def _link_arc(
     end_a = _node_end(a, n_t, t_end, ch_end, robot)
     start_b = _node_start(b, n_t, t_start, ch_start, robot)
     if end_a is not None:
-        model.Add(start_b >= end_a + empty).OnlyEnforceIf(lit)
+        model.add(start_b >= end_a + empty).only_enforce_if(lit)
     else:  # leaving the depot at time zero
-        model.Add(start_b >= empty).OnlyEnforceIf(lit)
+        model.add(start_b >= empty).only_enforce_if(lit)
 
     if not enforce_battery:
         return
 
     # SoC recursion: empty travel, then idle waiting, then the node's own activity.
-    wait = model.NewIntVar(0, horizon, f"wait_{robot}_{a}_{b}")
+    wait = model.new_int_var(0, horizon, f"wait_{robot}_{a}_{b}")
     if end_a is not None:
-        model.Add(wait == start_b - end_a - empty).OnlyEnforceIf(lit)
+        model.add(wait == start_b - end_a - empty).only_enforce_if(lit)
     else:
-        model.Add(wait == start_b - empty).OnlyEnforceIf(lit)
+        model.add(wait == start_b - empty).only_enforce_if(lit)
 
     drain_transit = int(bat.empty_mah_min) * empty
     if b <= n_t:  # transport node: loaded travel, no gain
         loaded = int(bat.loaded_mah_min * tasks[b - 1].duration)
-        model.Add(
+        model.add(
             node_soc[b]
             == node_soc[a] - drain_transit - int(bat.idle_mah_min) * wait - loaded
-        ).OnlyEnforceIf(lit)
+        ).only_enforce_if(lit)
     else:  # charging node: idle-drain to the charger, then one block of gain, capped
-        raw = model.NewIntVar(
+        raw = model.new_int_var(
             -10 * int(bat.capacity_mah), int(bat.capacity_mah), f"raw_{robot}_{a}_{b}"
         )
-        model.Add(
+        model.add(
             raw
             == node_soc[a]
             - drain_transit
             - int(bat.idle_mah_min) * wait
             + int(bat.block_mah)
-        ).OnlyEnforceIf(lit)
-        model.AddMinEquality(node_soc[b], [raw, int(bat.ceiling_mah)]).OnlyEnforceIf(lit)
+        ).only_enforce_if(lit)
+        model.add_min_equality(node_soc[b], [raw, int(bat.ceiling_mah)]).only_enforce_if(lit)
 
 
 def _drop_location(inst: Instance, node: int, n_t: int, tasks: list[Any]) -> int:
@@ -559,16 +561,16 @@ def _tou_cost_terms(
         # Domains must admit the *unclipped* values: max(start, T_{h-1}) can run all the
         # way to the horizon and min(end, T_h) all the way down to zero.  Tightening them
         # to the period bounds silently makes the whole model infeasible.
-        lo = model.NewIntVar(lo_b, horizon, f"lo_{tag}_{h}")
-        hi = model.NewIntVar(0, hi_b, f"hi_{tag}_{h}")
-        model.AddMaxEquality(lo, [start, lo_b])
-        model.AddMinEquality(hi, [end, hi_b])
-        diff = model.NewIntVar(-horizon, duration, f"df_{tag}_{h}")
-        model.Add(diff == hi - lo)
-        ov = model.NewIntVar(0, duration, f"ov_{tag}_{h}")
-        model.AddMaxEquality(ov, [diff, 0])
+        lo = model.new_int_var(lo_b, horizon, f"lo_{tag}_{h}")
+        hi = model.new_int_var(0, hi_b, f"hi_{tag}_{h}")
+        model.add_max_equality(lo, [start, lo_b])
+        model.add_min_equality(hi, [end, hi_b])
+        diff = model.new_int_var(-horizon, duration, f"df_{tag}_{h}")
+        model.add(diff == hi - lo)
+        ov = model.new_int_var(0, duration, f"ov_{tag}_{h}")
+        model.add_max_equality(ov, [diff, 0])
         if active is not None:
-            model.Add(ov == 0).OnlyEnforceIf(active.Not())
+            model.add(ov == 0).only_enforce_if(active.negated())
         coeff = int(round(price * power_kw / 60.0 * MICRO))
         if coeff:
             terms.append(coeff * ov)

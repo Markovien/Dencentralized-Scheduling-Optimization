@@ -200,13 +200,13 @@ def nucleolus(
                 a_ub[row, index[p]] = -1.0
             a_ub[row, -1] = 1.0
             b_ub[row] = -v(subset)
-        rows_eq = [np.concatenate([np.ones(n), [0.0]])]
-        vals_eq = [v(grand)]
+        rows_eq: list[np.ndarray] = [np.concatenate([np.ones(n), np.zeros(1)])]
+        vals_eq: list[float] = [v(grand)]
         for subset, level in fixed:
-            row = np.zeros(n + 1)
+            eq_row = np.zeros(n + 1)
             for p in subset:
-                row[index[p]] = 1.0
-            rows_eq.append(row)
+                eq_row[index[p]] = 1.0
+            rows_eq.append(eq_row)
             vals_eq.append(v(subset) + level)
         res = linprog(
             obj,

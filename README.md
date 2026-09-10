@@ -77,7 +77,7 @@ deadline and no battery, `EX-CP` must reproduce the original's makespan *exactly
 
 ## Claim tracing
 
-Every numerical value in the manuscript is written `\jnum{key}` and resolves against
+Every numerical value in the manuscript is written as a `jnum` macro keyed by name, and resolves against
 `results/numbers.json`, which is produced by recorded runs. A numeral typed into a results
 sentence is a defect; `experiments/check_paper.py` looks for them.
 

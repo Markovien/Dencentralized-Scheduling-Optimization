@@ -106,7 +106,7 @@ def appro_shapley(
     samples: dict[Player, list[float]] = {p: [] for p in players}
     order = list(players)
     for _ in range(permutations):
-        perms = [list(rng.permutation(order))]
+        perms = [[order[i] for i in rng.permutation(len(order))]]
         if antithetic:
             perms.append(list(reversed(perms[0])))
         for perm in perms:

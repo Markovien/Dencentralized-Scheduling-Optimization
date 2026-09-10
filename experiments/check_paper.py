@@ -57,6 +57,9 @@ def main(argv: list[str] | None = None) -> int:
     body = re.sub(r"\\jnum\{[^}]+\}", "JNUM", body)
     body = re.sub(r"\\(?:label|ref|eqref|cite[tp]?)\*?\{[^}]*\}", "", body)
     body = re.sub(r"\\begin\{tabular\}.*?\\end\{tabular\}", "", body, flags=re.S)
+    # Inline math carries parameter values ($\omega=0.5$, $n=6$, $\lambda=2$), which are
+    # *settings*, not measurements: they belong in the text, not in the registry.
+    body = re.sub(r"\$[^$]*\$", "MATH", body)
     suspicious = []
     for line in body.splitlines():
         stripped = line.strip()

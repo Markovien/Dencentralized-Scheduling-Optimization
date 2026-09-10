@@ -29,6 +29,7 @@ DelayRule = Literal["asap", "tou"]
 MACHINE_RULES: Final[tuple[MachineRule, ...]] = ("SPT", "LPT", "FIFO", "MWKR", "LWKR")
 VEHICLE_RULES: Final[tuple[VehicleRule, ...]] = ("NT", "EFT", "FIFO", "LWKR")
 CHARGE_RULES: Final[tuple[ChargeRule, ...]] = ("reactive", "threshold", "tou")
+DELAY_RULES: Final[tuple[DelayRule, ...]] = ("asap", "tou")
 
 
 @dataclass(frozen=True, slots=True)
@@ -229,13 +230,13 @@ def rule_grid() -> list[DispatchingPolicy]:
     for mr in MACHINE_RULES:
         for vr in VEHICLE_RULES:
             for cr in CHARGE_RULES:
-                for dr in ("asap", "tou"):
+                for dr in DELAY_RULES:
                     out.append(
                         DispatchingPolicy(
                             machine_rule=mr,
                             vehicle_rule=vr,
                             charge_rule=cr,
-                            delay_rule=dr,  # type: ignore[arg-type]
+                            delay_rule=dr,
                         )
                     )
     return out

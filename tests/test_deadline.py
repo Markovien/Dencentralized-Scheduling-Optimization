@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import numpy as np
-import pytest
 
 from jsspt_tou.baselines.dispatching import rule_grid
 from jsspt_tou.benchmark.bilge_ulusoy import all_instances, build_instance

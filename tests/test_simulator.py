@@ -5,7 +5,6 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from jsspt_tou.baselines.dispatching import REFERENCE_POLICY, rule_grid
 from jsspt_tou.benchmark.bilge_ulusoy import all_instances, build_instance
 from jsspt_tou.game.best_response import BestResponsePolicy
 from jsspt_tou.simulator.engine import Engine

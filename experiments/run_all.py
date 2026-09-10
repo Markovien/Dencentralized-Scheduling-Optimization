@@ -429,9 +429,19 @@ def populate_registry(
     reg.add("e3.saving.std", float(coop["saving_pct"].std(ddof=1)), unit="%", precision=1, source="E3")
     reg.add("e3.saving.max", float(coop["saving_pct"].max()), unit="%", precision=1, source="E3")
     reg.add("e3.eps.mean", float(coop["epsilon"].mean()), precision=4, source="E3")
-    reg.add("e3.eps.ratio.mean", float(coop["epsilon_ratio"].mean()), precision=3, source="E3")
-    reg.add("e3.eps.ratio.median", float(coop["epsilon_ratio"].median()), precision=3, source="E3")
-    reg.add("e3.eps.ratio.worst", float(coop["epsilon_ratio"].min()), precision=3, source="E3")
+    # The ratio eps*/v(N) is only interpretable where v(N) > 0; on instances where the
+    # single-sweep surrogate makes coordination *lose* against pi_0 the ratio changes sign
+    # for a reason that has nothing to do with stability.  Report the ratio on the
+    # positive-savings subset, and report the size of the excluded subset separately.
+    positive = coop[coop["v_grand"] > 1e-9]
+    reg.add("e3.eps.ratio.mean", float(positive["epsilon_ratio"].mean()), precision=3, source="E3")
+    reg.add("e3.eps.ratio.median", float(positive["epsilon_ratio"].median()), precision=3, source="E3")
+    reg.add("e3.eps.ratio.worst", float(positive["epsilon_ratio"].min()), precision=3, source="E3")
+    reg.add("e3.eps.ratio.n", int(len(positive)), precision=0, source="E3")
+    reg.add("e3.negative.saving.count", int((coop["v_grand"] <= 1e-9).sum()), precision=0, source="E3")
+    reg.add("e3.negative.saving.rate", 100.0 * float((coop["v_grand"] <= 1e-9).mean()),
+            unit="%", precision=1, source="E3")
+    reg.add("e3.saving.min", float(coop["saving_pct"].min()), unit="%", precision=1, source="E3")
     reg.add("e3.core.nonempty.rate", 100.0 * float(coop["core_nonempty"].mean()), unit="%", precision=1, source="E3")
     reg.add("e3.core.empty.rate", 100.0 * float(1 - coop["core_nonempty"].mean()), unit="%", precision=1, source="E3")
     reg.add("e3.shapley.incore.rate", 100.0 * float(coop["shapley_in_core"].mean()), unit="%", precision=1, source="E3")
@@ -441,6 +451,7 @@ def populate_registry(
     reg.add("e3.mono.violation.mean", 100.0 * float(coop["mono_violation_rate"].mean()), unit="%", precision=2, source="E3")
     reg.add("e3.infeasible.coalition.rate", 100.0 * float(coop["infeasible_coalition_rate"].mean()), unit="%", precision=1, source="E3")
     reg.add("e3.gini.shapley.mean", float(coop["gini_shapley"].mean()), precision=3, source="E3")
+    reg.add("e3.core.empty.count", int((~coop["core_nonempty"]).sum()), precision=0, source="E3")
     reg.add("e3.calls.total", int(coop["c_calls"].sum()), precision=0, source="E3")
     reg.add("e3.calls.per.instance", float(coop["c_calls"].mean()), precision=0, source="E3")
     reg.add("e3.seconds.total", float(coop["c_seconds"].sum()), unit="s", precision=1, source="E3")
@@ -465,6 +476,10 @@ def populate_registry(
     reg.add("e4.value.ratio.min", 100.0 * float(coop["cs_value_ratio"].min()), unit="%", precision=1, source="E4")
     reg.add("e4.partition.beats.grand.rate",
             100.0 * float((coop["cs_value_ratio"] > 1.0 + 1e-9).mean()), unit="%", precision=1, source="E4")
+    reg.add("e4.partition.beats.grand.count",
+            int((coop["cs_value_ratio"] > 1.0 + 1e-9).sum()), precision=0, source="E4")
+    reg.add("e4.value.ratio.median", 100.0 * float(coop["cs_value_ratio"].median()),
+            unit="%", precision=1, source="E4")
 
     # --- E5 -------------------------------------------------------------------------------
     if not barg.empty:

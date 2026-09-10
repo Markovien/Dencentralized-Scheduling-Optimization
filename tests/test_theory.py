@@ -34,7 +34,7 @@ from jsspt_tou.cooperative.core_lp import is_in_core, least_core
 from jsspt_tou.cooperative.shapley import appro_shapley, exact_shapley
 from jsspt_tou.game.best_response import BestResponsePolicy, potential
 from jsspt_tou.simulator.engine import Engine
-from jsspt_tou.simulator.state import IDLE, Action, Player
+from jsspt_tou.simulator.state import Player
 
 
 def _states(engine: Engine, n: int = 12) -> list:

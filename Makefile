@@ -1,29 +1,46 @@
 PY ?= python3
+export PYTHONPATH := src
 
-.PHONY: env test typecheck bench experiments figures paper all clean
+.PHONY: env test test-all typecheck bench experiments exact n5 numbers figures check paper all clean
 
 env:            ## install runtime + dev dependencies
 	$(PY) -m pip install -e ".[dev]"
 
-test:           ## full test suite (must be green before any delivery)
+test:           ## fast suite (skips the CP-SAT solves)
+	$(PY) -m pytest -q tests -m "not slow"
+
+test-all:       ## everything, including the flat-tariff provenance regression
 	$(PY) -m pytest -q tests
 
 typecheck:
 	$(PY) -m mypy --strict src
 
-bench:          ## (re)generate the BU40 benchmark files
+bench:          ## (re)generate the BU40 benchmark files and report feasibility margins
 	$(PY) -m jsspt_tou.benchmark.bilge_ulusoy --out results/instances
 
-experiments:    ## run every experiment block into results/
-	$(PY) experiments/run_all.py
+experiments:    ## E1, E3, E4, E5, E11, E13 over the full benchmark
+	$(PY) experiments/run_all.py --out results
 
-figures:        ## rebuild figures and LaTeX tables from results/
+exact:          ## E2: where the exact model stops closing
+	$(PY) experiments/run_exact.py --out results
+
+n5:             ## the congestion counterexample and its control
+	$(PY) experiments/run_n5.py --out results
+
+numbers:        ## merge every registry shard -> paper_A/numbers.tex
+	$(PY) experiments/make_numbers.py
+
+figures:        ## rebuild figures from results/
 	$(PY) experiments/make_figures.py
+
+check:          ## claim tracing, citations and structure
+	$(PY) experiments/check_paper.py
 
 paper:
 	cd paper_A && latexmk -pdf main.tex
 
-all: test bench experiments figures
+all: test bench experiments exact n5 numbers figures check
 
 clean:
-	rm -rf results/*.parquet results/figures results/tables .pytest_cache
+	rm -rf results/*.parquet results/numbers*.json paper_A/figures/*.pdf \
+	       paper_A/numbers.tex .pytest_cache .mypy_cache

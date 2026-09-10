@@ -26,7 +26,7 @@ profitably merge and no coalition can profitably split.
 from __future__ import annotations
 
 import itertools
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Callable, Sequence
 
 from jsspt_tou.cooperative.shapley import exact_shapley
