@@ -26,7 +26,7 @@ Every stochastic component takes an explicit generator; no global seed is read.
 
 ## What failed, and what was done about it
 
-### The exact reference does not close the full model (blocks E6)
+### The exact reference closes only part of the full model (blocks E6)
 
 `EX-CP` reproduces the vendored solver's makespan **exactly** under a flat tariff with no
 deadline and no battery, in about 2 s on EX11 -- the provenance regression passes. Adding the
@@ -45,7 +45,26 @@ theorem inventory is not delivered. The failure is reported as experiment E2 -- 
 scalability wall -- because that is what it is evidence of, and as limitation (i) in the
 manuscript.
 
-### Three defects found by the tests, not by inspection
+### Two cross-model defects, found by an invariant
+
+Neither model looked wrong from the inside. Both surfaced from one question that spans them:
+*when `EX-CP` proves optimality, its value must be at most that of any schedule the simulator
+produces.* On EX12 it was not.
+
+* The simulator charged idle battery drain only while a vehicle waited at a pickup, not for
+  the gap between becoming free and departing. Its feasible set was therefore strictly larger
+  than the exact model's. The exact model is the physically faithful one, so the simulator was
+  fixed.
+* `EX-CP` forced every optional charging slot to be used. An unused slot keeps real start and
+  end variables, so zeroing its overlap with *every* tariff period is unsatisfiable for an
+  interval of positive length against a profile that tiles the horizon; activating the slot
+  was the solver's only escape. The cost is now gated by the slot literal instead.
+
+Both fixes change measured values, so every experiment block was re-run from scratch. The
+invariant is now a test
+(`test_objective_consistency.py::test_proven_optimum_is_never_worse_than_a_feasible_heuristic`).
+
+### Three further defects found by the tests, not by inspection
 
 * `potential()` evaluated the stage objective with the *stage* evaluator while `utility()`
   used the *rollout* evaluator. Both are individually valid; mixing them breaks the

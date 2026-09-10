@@ -101,7 +101,6 @@ class Registry:
                 text = str(entry.value)
             else:
                 text = f"{entry.value:.{entry.precision}f}"
-            safe = key.replace("_", "@")
             lines.append(rf"\expandafter\def\csname jnum@{key}\endcsname{{{text}}}")
         path.write_text("\n".join(lines) + "\n")
         return path

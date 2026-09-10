@@ -124,6 +124,24 @@ def main(argv: list[str] | None = None) -> int:
     closed_ms = frame[(frame["config"] == "makespan") & frame["closed"]]
     if not closed_ms.empty:
         reg.add("e2.makespan.seconds.max", float(closed_ms["seconds"].max()), unit="s", precision=2, source="E2")
+
+    # Where the full model *closes*, the proven optimum is a genuine optimality reference
+    # and M1a's distance from it is measurable.  This is the only place in the paper where
+    # a gap to optimality is reported, and it is reported only on the closed subset.
+    closed_full = frame[(frame["config"] == "full") & frame["closed"]].copy()
+    reg.add("e2.full.closed.count", int(len(closed_full)), precision=0, source="E2")
+    if not closed_full.empty:
+        closed_full["gap"] = (
+            100.0 * (closed_full["m1_phi"] - closed_full["objective"]) / closed_full["objective"]
+        )
+        reg.add("e2.m1a.gap.mean", float(closed_full["gap"].mean()), unit="%", precision=1, source="E2")
+        reg.add("e2.m1a.gap.max", float(closed_full["gap"].max()), unit="%", precision=1, source="E2")
+        reg.add("e2.m1a.gap.min", float(closed_full["gap"].min()), unit="%", precision=1, source="E2")
+        reg.add(
+            "e2.instances.list",
+            ", ".join(sorted(closed_full["instance"])),
+            source="E2",
+        )
     reg.write()
     print(json.dumps({k: v.value for k, v in reg.entries.items()}, indent=2, default=str))
     return 0

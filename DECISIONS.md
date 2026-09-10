@@ -237,3 +237,34 @@ mechanism (a saturating shared resource makes the cost supermodular); the benchm
 establishes that the mechanism is active there too, with the bottleneck machine and the
 two-vehicle fleet as the saturating resources rather than the charger. The paper states the
 general form, which is stronger than the charger-specific one and is what the data support.
+
+---
+
+## D17 — Two cross-model consistency defects, found by an invariant rather than by review
+
+Neither model looked wrong from the inside. Both were found by asking a question that spans
+them: **when `EX-CP` proves optimality, its value must be at most that of any schedule the
+simulator produces.** On EX12 it was not, and that is impossible if the two agree about the
+objective and the feasible set.
+
+**(a) The simulator under-counted idle battery drain.** It charged the idle rate only while a
+vehicle *waited at a pickup*, not for the gap between becoming free at its previous drop-off
+and departing for the next task. `EX-CP`, whose circuit arcs give adjacency, charged the whole
+gap. The simulator's feasible set was therefore strictly larger than the exact model's.
+Physically the exact model is right — an idle vehicle draws its idle current wherever it is
+standing — so the simulator was fixed, not the model. Both `_preview_transport` and
+`_preview_charge` now bill the pre-departure idle interval, and `B_needed` accounts for it.
+
+**(b) `EX-CP` forced every charging slot to be used.** An unused optional slot still has real
+start and end variables, so its per-period overlaps are still real quantities. The cost
+construction zeroed those overlaps when the slot was inactive — but an interval of positive
+length always overlaps *some* period of a profile that tiles the horizon, so requiring zero
+overlap in *every* period is unsatisfiable. The solver's only escape was to activate the
+slot. The cost is now gated by the slot literal (`cost == sum(overlaps)` if active, `cost == 0`
+if not), leaving the overlaps free.
+
+**Consequence for the results.** Both fixes change measured values, so every experiment was
+re-run. The invariant is now a test
+(`test_objective_consistency.py::test_proven_optimum_is_never_worse_than_a_feasible_heuristic`),
+which is the form the roadmap's proof-hygiene rule takes for a cross-model property: a check
+that fails if the two models drift apart, rather than a claim that they do not.

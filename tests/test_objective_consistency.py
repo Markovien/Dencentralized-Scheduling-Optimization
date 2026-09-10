@@ -60,3 +60,35 @@ def test_exact_model_scores_its_own_schedule_with_the_shared_objective() -> None
         + 0.5 * engine.anchors.norm_ecost(result.outcome.e_cost)
     )
     assert result.objective == pytest.approx(recomputed, abs=1e-9)
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize("job_set,layout", [(1, 2), (5, 3)])
+def test_proven_optimum_is_never_worse_than_a_feasible_heuristic(
+    job_set: int, layout: int
+) -> None:
+    """The invariant that catches cross-model drift.
+
+    ``EX-CP`` and the simulator must optimise the same objective over the same feasible
+    set.  Whenever ``EX-CP`` *proves* optimality, its value must therefore be at most the
+    value of any schedule the simulator produces -- ``M1a``'s included.  Two real defects
+    were found only by this comparison, and neither was visible from inside either model:
+    the simulator charged idle battery drain only while waiting at a pickup rather than for
+    the whole idle gap, and ``EX-CP`` forced every optional charging slot to be used.
+    A ``FEASIBLE`` (not closed) run is exempt -- an incumbent is under no obligation to
+    beat a heuristic.
+    """
+    import numpy as np
+
+    from jsspt_tou.game.best_response import BestResponsePolicy
+
+    inst = build_instance(job_set, layout)
+    engine = Engine(inst, omega=0.5)
+    heuristic = engine.run(BestResponsePolicy(i_max=6), np.random.default_rng(0))
+    exact = solve_exact(inst, omega=0.5, time_limit_s=90.0, anchors=engine.anchors)
+    if exact.status != "OPTIMAL" or exact.objective is None:
+        pytest.skip("EX-CP did not close this instance inside the test budget")
+    assert exact.objective <= engine.phi(heuristic) + 1e-9, (
+        f"{inst.instance_id}: proven optimum {exact.objective:.4f} exceeds the heuristic "
+        f"{engine.phi(heuristic):.4f} -- the two models disagree about the feasible set"
+    )

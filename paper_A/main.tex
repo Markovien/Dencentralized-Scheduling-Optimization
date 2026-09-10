@@ -81,8 +81,8 @@ suggests: a scarce shared resource that saturates makes the coalition cost super
 we exhibit a two-vehicle instance whose core is provably empty. Stability is therefore
 certified per instance through the least-core radius, which we compute exactly for all
 \jnum{bench.instances} benchmark instances; the core is empty on
-\jnum{e3.core.empty.rate}\,\% of them, with a mean radius of
-\jnum{e3.eps.ratio.mean} of total savings. Decentralised merge--split coalition formation
+\jnum{e3.core.empty.rate}\,\% of them, and even the most stable allocation leaves some
+coalition short by a mean of \jnum{e3.eps.ratio.abs.mean} of the total savings. Decentralised merge--split coalition formation
 recovers \jnum{e4.value.ratio.mean}\,\% of the grand-coalition savings using coalitions of
 at most \jnum{e4.maxblock.max} agents (mean \jnum{e4.maxblock.mean}) and
 \jnum{e4.messages.mean} bilateral messages, and
@@ -131,11 +131,11 @@ Problem with Transportation (JSSPT) extended along two coupled axes --- an econo
 completion deadline.
 
 Centralised optimisation of the combined problem does not scale. Section~\ref{sec:results}
-reports that an exact constraint-programming model closes the pure-makespan variant of a
-four-machine benchmark instance in under two seconds but cannot close the ToU-and-battery
-variant of the same instance in \jnum{e2.budget.seconds} seconds, because pricing energy
-against the tariff destroys the makespan-optimal plateau on which the classical model
-relies. That is the concrete form of the scalability argument usually made in the abstract,
+reports that an exact constraint-programming model closes the pure-makespan variant of every
+four-machine benchmark instance tried, but closes the ToU-and-battery variant of only
+\jnum{e2.full.closed} of \jnum{e2.instances} within \jnum{e2.budget.seconds} seconds each,
+because pricing energy against the tariff destroys the makespan-optimal plateau on which the
+classical model relies and the state-of-charge recursion couples the vehicle routes. That is the concrete form of the scalability argument usually made in the abstract,
 and it is what motivates decentralisation here.
 
 Decentralised scheduling, however, buys tractability with a question: if machines and
@@ -467,6 +467,18 @@ rather than of the joint action profile, and the exact-potential property of
 Theorem~\ref{thm:t1} would fail with it. This is asserted in the released test suite.
 \end{assumption}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/f2_gantt.pdf}
+\caption{An equilibrium schedule against the tariff profile (instance EX11,
+$\omega=0.5$). Band shading increases with price; the dashed line is the deadline $H$.
+The figure shows the two levers of the problem at once: machines choose \emph{when} to
+draw power within the tariff bands, and vehicles choose when to interrupt transport to
+recharge. It also shows why the deadline is admissible but slack at the published
+$\lambda=2$ (Section~\ref{sec:res-lambda}).}
+\label{fig:gantt}
+\end{figure}
+
 Deadline violations are charged a finite penalty $M\max(0,\widehat{C}_{\max}-1)$, zero on
 feasible outcomes. Finiteness is what keeps every cooperative solution concept defined
 (Section~\ref{sec:m2}); $M=10$ by default and the sensitivity to it is ablated.
@@ -734,11 +746,13 @@ a single coordinating vehicle shifts its session into the cheap window and saves
 \emph{both} coordinate, only one of them can still have the window, so the second gains
 nothing.
 
-For the induced savings game,
-$v(\{V_1\})=v(\{V_2\})=v(\{V_1,V_2\})=\jnum{n5.v}$, so a core allocation would require
-$x_1+x_2=\jnum{n5.v}$ with $x_1\ge\jnum{n5.v}$ and $x_2\ge\jnum{n5.v}$ --- impossible for a
-positive value. The core is empty and the least-core radius is $\jnum{n5.epsilon}$. The
-Shapley value $(\jnum{n5.v.half},\jnum{n5.v.half})$ is not in it.
+For the induced savings game the two machines are null players --- machine power is zero,
+so no coalition's value changes when a machine joins --- and every core allocation therefore
+pays them nothing. Efficiency then reduces to $x_{V_1}+x_{V_2}=v(N)=\jnum{n5.v}$, while
+$v(\{V_1\})=v(\{V_2\})=v(\{V_1,V_2\})=\jnum{n5.v}$ requires $x_{V_1}\ge\jnum{n5.v}$ and
+$x_{V_2}\ge\jnum{n5.v}$ separately --- impossible for a positive value. The core is empty and
+the least-core radius is $\jnum{n5.epsilon}$. The Shapley value
+$(\jnum{n5.v.half},\jnum{n5.v.half})$ over the two vehicles is not in it.
 \end{proof}
 
 The construction isolates the mechanism; the mechanism itself is general. \emph{Any} scarce
@@ -1064,6 +1078,36 @@ $M2$ (grand)         & \jnum{e1.m2grand.phi.mean}  & \jnum{e1.m2grand.phi.std}  
 \end{tabular}
 \end{table}
 
+\begin{figure}[t]
+\centering
+\begin{subfigure}{\textwidth}
+\centering
+\includegraphics[width=0.92\textwidth]{figures/f9_cd.pdf}
+\caption{Critical-difference diagram. Methods joined by the bar are not separated at
+$\alpha=0.05$.}
+\label{fig:cd}
+\end{subfigure}\\[1.2em]
+\begin{subfigure}{\textwidth}
+\centering
+\includegraphics[width=0.72\textwidth]{figures/f10_runtime.pdf}
+\caption{Wall-clock per episode, log scale. The mechanisms cost two to three orders of
+magnitude more than a dispatching rule and remain sub-second.}
+\label{fig:runtime}
+\end{subfigure}
+\caption{Method comparison at $\omega=0.5$: statistical separation and cost.}
+\label{fig:e1}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/f3_potential.pdf}
+\caption{The exact potential $W$ accumulated over the decision events of an episode. Each
+event's committed profile is a stage equilibrium (Theorem~\ref{thm:t1}); the trace is the
+sequence of stage games, not a single monotone descent, which is the distinction
+Section~\ref{sec:t2} makes.}
+\label{fig:potential}
+\end{figure}
+
 \subsection{The cooperative game}
 \label{sec:res-coop}
 
@@ -1088,8 +1132,8 @@ $\varepsilon^\star<0$ on \jnum{e3.core.empty.count} of \jnum{bench.instances} in
 \jnum{e3.core.nonempty.rate}\,\% of them, and the Shapley value is core-stable on
 \jnum{e3.shapley.incore.rate}\,\%. The mean least-core radius is
 $\varepsilon^\star/v(N)=\jnum{e3.eps.ratio.mean}$ (median \jnum{e3.eps.ratio.median}, worst
-\jnum{e3.eps.ratio.worst}), i.e.\ the most stable allocation still leaves some coalition
-short by roughly half of what it could secure alone. The submodularity sampling test agrees:
+\jnum{e3.eps.ratio.worst}): the most stable allocation still leaves some coalition short by
+\jnum{e3.eps.ratio.abs.mean} of what it could secure by seceding. The submodularity sampling test agrees:
 the diminishing-returns inequality is violated on \jnum{e3.submod.violation.mean}\,\% of
 sampled triples on average (range \jnum{e3.submod.violation.min}--%
 \jnum{e3.submod.violation.max}\,\%).
@@ -1099,6 +1143,16 @@ reports a Shapley allocation as ``stable'' because the game ``should be'' convex
 something false. And the least-core radius is not a fallback but the correct headline: it is
 computable on every instance, it is signed correctly, and it quantifies exactly how much
 instability an allocation carries.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.68\textwidth]{figures/f5_savings.pdf}
+\caption{Savings by coalition size on EX11, with the least-core shortfall shaded. If the
+game were convex the boxes would rise steadily to $v(N)$ and the shaded band would be
+absent; instead the marginal value of an extra member flattens, and the most stable
+allocation still leaves some coalition short.}
+\label{fig:savings}
+\end{figure}
 
 \paragraph{Which resource saturates.} The constructed instance of
 Proposition~\ref{prop:n5} makes the charger the culprit, and there the causal control is
@@ -1158,6 +1212,16 @@ $\omega^{\mathrm{NBS}}=\jnum{e5.omega.nbs.mean}\pm\jnum{e5.omega.nbs.std}$ (medi
 \jnum{e5.omega.nbs.median}); Kalai--Smorodinsky selects \jnum{e5.omega.ks.mean}, and the two
 agree on the operating point on \jnum{e5.nbs.ks.agree.rate}\,\% of instances. Fronts contain
 \jnum{e5.front.size.mean} distinct non-dominated points on average.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.66\textwidth]{figures/f7_front.pdf}
+\caption{Bargaining over the equilibrium front (EX11). The disagreement point is the
+nadir of the front --- what each bloc suffers when the other dictates. Both solutions
+select the same operating point here, and the weight they induce is well below the
+$\omega=0.5$ a shop would otherwise assume.}
+\label{fig:front}
+\end{figure}
 
 The number is the result. A shop that splits the difference between throughput and energy
 would set $\omega=0.5$; bargaining between the two blocs, with the non-cooperative extremes
@@ -1255,7 +1319,8 @@ The core is empty on \jnum{e3.core.empty.rate}\,\% of instances, so \emph{no} al
 the joint savings is immune to renegotiation, the Shapley value included. Internal transfer
 pricing between a production and a logistics cost centre should therefore be set from the
 least core --- the allocation minimising the worst coalition's grievance --- and the residual
-grievance \jnum{e3.eps.ratio.mean} of total savings should be disclosed to both parties
+grievance --- \jnum{e3.eps.ratio.abs.mean} of total savings on average --- should be
+disclosed to both parties
 rather than papered over. The practical form of this is a periodic review clause, not a fixed
 split.
 

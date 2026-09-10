@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "jsspt-tou: decentralised game-theoretic scheduling of machines and battery-constrained AIVs under time-of-use tariffs"
+message: "If you use this software or benchmark, please cite the accompanying paper."
+type: software
+authors:
+  - family-names: Sanogo
+    given-names: Kader
+    affiliation: "Research Institute of Science and Engineering (RISE), University of Sharjah"
+  - family-names: Masmoudi
+    given-names: Malek
+    affiliation: "Research Institute of Science and Engineering (RISE), University of Sharjah"
+  - family-names: Mekhalef Benhafssa
+    given-names: Abdelkader
+    affiliation: "CESI LINEACT, EA 7527"
+  - family-names: Sahnoun
+    given-names: M'hammed
+    affiliation: "CESI LINEACT, EA 7527"
+license: MIT
+repository-code: "https://github.com/Markovien/Dencentralized-Scheduling-Optimization"
+keywords:
+  - job shop scheduling with transportation
+  - cooperative game theory
+  - least core
+  - time-of-use tariffs
+  - autonomous intelligent vehicles
+  - decentralised optimisation

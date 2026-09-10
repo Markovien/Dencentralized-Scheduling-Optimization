@@ -438,6 +438,11 @@ def populate_registry(
     reg.add("e3.eps.ratio.median", float(positive["epsilon_ratio"].median()), precision=3, source="E3")
     reg.add("e3.eps.ratio.worst", float(positive["epsilon_ratio"].min()), precision=3, source="E3")
     reg.add("e3.eps.ratio.n", int(len(positive)), precision=0, source="E3")
+    # Magnitude, for prose that reads naturally ("short by X of total savings").
+    reg.add("e3.eps.ratio.abs.mean", float(positive["epsilon_ratio"].abs().mean()),
+            precision=3, source="E3")
+    reg.add("e3.eps.ratio.abs.median", float(positive["epsilon_ratio"].abs().median()),
+            precision=3, source="E3")
     reg.add("e3.negative.saving.count", int((coop["v_grand"] <= 1e-9).sum()), precision=0, source="E3")
     reg.add("e3.negative.saving.rate", 100.0 * float((coop["v_grand"] <= 1e-9).mean()),
             unit="%", precision=1, source="E3")
