@@ -1,0 +1,128 @@
+{
+  "n5.c.empty": {
+    "value": 0.7317073170731707,
+    "unit": "",
+    "precision": 4,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.c.pair": {
+    "value": 0.2682926829268293,
+    "unit": "",
+    "precision": 4,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.c.single": {
+    "value": 0.2682926829268293,
+    "unit": "",
+    "precision": 4,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.core.nonempty": {
+    "value": "False",
+    "unit": "",
+    "precision": 2,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.delta.big": {
+    "value": 0.0,
+    "unit": "",
+    "precision": 4,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.delta.small": {
+    "value": -0.46341463414634143,
+    "unit": "",
+    "precision": 4,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.epsilon": {
+    "value": -0.23170731707317072,
+    "unit": "",
+    "precision": 4,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.epsilon.improvement": {
+    "value": 40.350877192982466,
+    "unit": "%",
+    "precision": 1,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.epsilon.relaxed": {
+    "value": -0.1382113821138211,
+    "unit": "",
+    "precision": 4,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.gain.congested": {
+    "value": 0.0,
+    "unit": "",
+    "precision": 4,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.gain.relaxed": {
+    "value": 0.19512195121951223,
+    "unit": "",
+    "precision": 4,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.shapley.incore": {
+    "value": "False",
+    "unit": "",
+    "precision": 2,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.v": {
+    "value": 0.46341463414634143,
+    "unit": "",
+    "precision": 4,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.v.half": {
+    "value": 0.23170731707317072,
+    "unit": "",
+    "precision": 4,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "n5.worst.excess": {
+    "value": -0.23170731707317074,
+    "unit": "",
+    "precision": 4,
+    "source": "N5",
+    "git_sha": "b297094"
+  },
+  "units.floor.binding.count": {
+    "value": 34,
+    "unit": "",
+    "precision": 0,
+    "source": "units",
+    "git_sha": "b297094"
+  },
+  "units.floor.binding.rate": {
+    "value": 85.0,
+    "unit": "%",
+    "precision": 1,
+    "source": "units",
+    "git_sha": "b297094"
+  },
+  "units.minutes.to.empty": {
+    "value": 142.85714285714286,
+    "unit": "min",
+    "precision": 0,
+    "source": "units",
+    "git_sha": "b297094"
+  }
+}

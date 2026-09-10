@@ -1248,12 +1248,18 @@ them, at a mean margin of \jnum{e11.lambda20.margin.mean}. Tightening to $\lambd
 it binding on \jnum{e11.lambda15.binding}\,\% while keeping
 \jnum{e11.lambda15.admissible}\,\% admissible; at $\lambda=1.25$ the deadline binds
 everywhere (\jnum{e11.lambda125.binding}\,\%) at the cost of
-$100-\jnum{e11.lambda125.admissible}$\,\% of instances becoming inadmissible.
+\jnum{e11.lambda125.inadmissible}\,\% of instances becoming inadmissible, and at
+$\lambda=1.0$ that cost rises to \jnum{e11.lambda10.inadmissible}\,\%.
 
 So $\lambda$ is a feasibility parameter, not a presentational one, and at its published value
-the deadline is present but slack. We report the results at $\lambda=2$ for comparability
-with the published profiles and note that the deadline's role here is to bound the deferral
-lever rather than to be the active constraint.
+the deadline is present but slack. The sweep also identifies where it should sit:
+$\lambda=1.5$ is the only setting tried at which the deadline binds on a majority of
+instances while every instance remains admissible. Below it, admissibility is bought back
+only by excluding instances --- which for a benchmark whose whole purpose is comparability
+with published results is the wrong trade. We therefore report at $\lambda=2$ for
+comparability, recommend $\lambda=1.5$ for future work on this family, and note that the
+deadline's role in these results is to bound the deferral lever rather than to be the
+active constraint.
 
 \textbf{The deadline penalty $M$.} Varying $M$ over $\{2,5,10,50\}$ moves the Gini
 coefficient of the Shapley allocation by \jnum{e11.penalty.gini.spread.max} and the

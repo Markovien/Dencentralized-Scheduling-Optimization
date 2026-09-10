@@ -505,6 +505,8 @@ def populate_registry(
         reg.add(f"e11.lambda{tag}.admissible", 100.0 * float(sub["admissible"].mean()), unit="%", precision=1, source="E11")
         reg.add(f"e11.lambda{tag}.binding", 100.0 * float(sub["binding"].mean()), unit="%", precision=1, source="E11")
         reg.add(f"e11.lambda{tag}.margin.mean", float(sub["margin"].mean()), precision=2, source="E11")
+        reg.add(f"e11.lambda{tag}.inadmissible",
+                100.0 * float((~sub["admissible"]).mean()), unit="%", precision=1, source="E11")
     pen = abl["penalty"]
     spread = pen.groupby("instance")["gini"].agg(lambda s: s.max() - s.min())
     reg.add("e11.penalty.gini.spread.max", float(spread.max()), precision=4, source="E11")
